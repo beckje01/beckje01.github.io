@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: C# | Jeff Beck]]></title>
+  <link href="http://beckje01.github.io/blog/categories/c-number/atom.xml" rel="self"/>
+  <link href="http://beckje01.github.io/"/>
+  <updated>2014-07-01T18:58:28-05:00</updated>
+  <id>http://beckje01.github.io/</id>
+  <author>
+    <name><![CDATA[Jeff Beck]]></name>
+    <email><![CDATA[beckje01@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Silverlight Move Cursor to End of TextBox
+]]></title>
+    <link href="http://beckje01.github.io/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
+    <updated>2009-04-04T15:46:03-05:00</updated>
+    <id>http://beckje01.github.io/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
+    <content type="html"><![CDATA[<p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
+
+<p>``` c#</p>
+
+<pre><code>txtSearch.Focus();
+txtSearch.Text = "sometext ";
+</code></pre>
+
+<p>```</p>
+
+<p>But then there is a problem the cursor is at the start of the text box so if a user starts typing they end up adding to the start when I want them to just add on to the end. So after some hunting I found the SelectionStart property of the TextBox, while this may be obvious to people who work in Silverlight and C# all the time it didn’t jump right out at me so I thought it was worth talking about. So by using SelectionStart and I can move the cursor to the end and users can just append to my started search text.</p>
+
+<p>``` c#</p>
+
+<pre><code>txtSearch.Focus();
+txtSearch.Text = "sometext ";
+txtSearch.SelectionStart = txtSearch.Text.Length;
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

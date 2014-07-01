@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Jeff Beck]]></title>
+  <link href="http://beckje01.github.io/atom.xml" rel="self"/>
+  <link href="http://beckje01.github.io/"/>
+  <updated>2014-07-01T18:58:28-05:00</updated>
+  <id>http://beckje01.github.io/</id>
+  <author>
+    <name><![CDATA[Jeff Beck]]></name>
+    <email><![CDATA[beckje01@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
+    <link href="http://beckje01.github.io/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
+    <updated>2013-10-23T04:02:02-05:00</updated>
+    <id>http://beckje01.github.io/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
+    <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
+</span><span class='line'>| Application cleaned.
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
+</span><span class='line'>| Environment <span class="nb">set </span>to test.....
+</span><span class='line'>| Warning No config found <span class="k">for </span>the application.
+</span><span class='line'>| Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Start using package in between and the problem will go away.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
+</span><span class='line'>| Application cleaned.
+</span><span class='line'><span class="nv">$ </span>grails package
+</span><span class='line'>| Compiling 10 <span class="nb">source </span>files
+</span><span class='line'>| Compiling 12 <span class="nb">source </span>files.....
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
+</span><span class='line'>| Environment <span class="nb">set </span>to test.....
+</span><span class='line'>| Server running. Browse to http://localhost:8080/api
+</span><span class='line'>| Running 6 cucumber tests...
+</span><span class='line'>| Completed 6 cucumber tests, 0 failed in 0m 3s
+</span><span class='line'>| Server stopped
+</span><span class='line'>| Tests PASSED
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
+    <link href="http://beckje01.github.io/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
+    <updated>2013-08-19T18:10:12-05:00</updated>
+    <id>http://beckje01.github.io/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
+    <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;org.springframework:spring-jms:3.2.4.RELEASE&#39;</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
+]]></title>
+    <link href="http://beckje01.github.io/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
+    <updated>2013-02-04T08:27:27-06:00</updated>
+    <id>http://beckje01.github.io/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
+    <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
+
+<p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
+
+<p><strong>My <em>resources.groovy</em></strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">beans</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>       <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;grailsApplication&#39;</span><span class="o">)</span>
+</span><span class='line'>       <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;myService&#39;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
+</span><span class='line'>       <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
+</span><span class='line'>       <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
+</span><span class='line'>       <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
+</span><span class='line'>       <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
+</span><span class='line'>       <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
+</span><span class='line'>       <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
+</span><span class='line'>       <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
+</span><span class='line'>       <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
+</span><span class='line'>       <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
+</span><span class='line'>       <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
+</span><span class='line'>       <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
+</span><span class='line'>   <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">myService</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
+    <link href="http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
+    <updated>2013-02-03T11:09:23-06:00</updated>
+    <id>http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
+    <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
+
+<p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
+
+<p>In my case the first error was only different by http vs https. The fix for that was simply to apply the scheme attribute to that connector in tomcat. At which point everything was matching except that the port was now being added as 80 in my endpoint and that wasn’t in the intended endpoint. The fix for this was just to add the proxyPort to the connector as well.</p>
+
+<p>So to fully support the OpenSAML on tomcat with SSL offloading I configured the connector as seen below. Take note of the scheme and proxyPort being set.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&quot;8080&quot;</span> <span class="na">protocol=</span><span class="s">&quot;HTTP/1.1&quot;</span>
+</span><span class='line'>               <span class="na">enableLookups=</span><span class="s">&quot;false&quot;</span>
+</span><span class='line'>               <span class="na">maxThreads=</span><span class="s">&quot;250&quot;</span>
+</span><span class='line'>               <span class="na">connectionTimeout=</span><span class="s">&quot;20000&quot;</span>
+</span><span class='line'>               <span class="na">scheme=</span><span class="s">&quot;https&quot;</span>
+</span><span class='line'>               <span class="na">proxyPort=</span><span class="s">&quot;443&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>3377265 2013-02-01 11:31:30,997 ERROR [http-8080-9] decoding.BaseSAMLMessageDecoder.checkEndpointURI (BaseSAMLMessageDecoder.java:215) - SAML message intended destination endpoint &#39;https://example.com/app/saml/SSO/alias/https://example.com&#39; did not match the recipient endpoint &#39;https://example.com:80/app/saml/SSO/alias/https://example.com&#39;
+</span><span class='line'>Feb 1, 2013 11:31:30 AM org.apache.catalina.core.StandardWrapperValve invoke
+</span><span class='line'>SEVERE: Servlet.service() for servlet default threw exception
+</span><span class='line'>org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+</span><span class='line'>        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:93)
+</span><span class='line'>        at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</span><span class='line'>        at org.springframework.security.saml.metadata.MetadataDisplayFilter.doFilter(MetadataDisplayFilter.java:83)
+</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</span><span class='line'>        at org.springframework.security.saml.SAMLEntryPoint.doFilter(SAMLEntryPoint.java:102)
+</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</span><span class='line'>        at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</span><span class='line'>        at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:168)
+</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</span><span class='line'>        at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:69)
+</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</span><span class='line'>        at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:65)
+</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</span><span class='line'>        at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</span><span class='line'>        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+</span><span class='line'>        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+</span><span class='line'>        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+</span><span class='line'>        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+</span><span class='line'>        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+</span><span class='line'>        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+</span><span class='line'>        at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:864)
+</span><span class='line'>        at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:579)
+</span><span class='line'>        at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1665)
+</span><span class='line'>        at java.lang.Thread.run(Thread.java:662)
+</span><span class='line'>Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+</span><span class='line'>        at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+</span><span class='line'>        at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+</span><span class='line'>        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:105)
+</span><span class='line'>        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:172)
+</span><span class='line'>        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:77)
+</span><span class='line'>        ... 37 more
+</span><span class='line'>Servlet.service() for servlet default threw exception
+</span><span class='line'>org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+</span><span class='line'>        at java.lang.Thread.run(Thread.java:662)
+</span><span class='line'>        Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+</span><span class='line'>                at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+</span><span class='line'>                at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+</span><span class='line'>        ... 1 more
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Display the Current Spring Security Filter Chain
+]]></title>
+    <link href="http://beckje01.github.io/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
+    <updated>2013-01-15T04:52:37-06:00</updated>
+    <id>http://beckje01.github.io/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
+    <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">filterChain</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;springSecurityFilterChain&#39;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also if you want to poke around the other beans available this is a great post to check out: <a href="http://www.redtoad.ca/ataylor/2012/05/spring-beans-from-the-grails-console/">Spring Beans from the Grails Console</a> .</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
+    <link href="http://beckje01.github.io/blog/2012/12/28/cassandra-not-available-after-starting/"/>
+    <updated>2012-12-28T04:25:45-06:00</updated>
+    <id>http://beckje01.github.io/blog/2012/12/28/cassandra-not-available-after-starting</id>
+    <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
+
+<p>I was able to quickly fix the error by removing my data directory and starting fresh as this is just my development environment that works great for me. You can find your data directory in the cassandra.yaml file ($DSE_HOME/resources/cassandra/conf/cassandra.yaml), look for the <em>data_file_directories</em> entry. Mine was set to <em>/var/lib/cassandra/data</em> so I just ran the following and started cassandra fresh and everything is back to working order.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rm -r /var/lib/cassandra/data
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>INFO <span class="o">[</span>JOB-TRACKER-INIT<span class="o">]</span> 2012-12-28 10:32:32,515 JobTracker.java <span class="o">(</span>line 2427<span class="o">)</span> problem cleaning system directory: cfs:/tmp/hadoop-jeffbeck/mapred/system
+</span><span class='line'>java.io.IOException: UnavailableException<span class="o">()</span>
+</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1137<span class="o">)</span>
+</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystem.listStatus<span class="o">(</span>CassandraFileSystem.java:192<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2392<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2195<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2189<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:303<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:294<span class="o">)</span>
+</span><span class='line'>  at org.apache.hadoop.mapred.HadoopTrackerPlugin<span class="nv">$1</span>.run<span class="o">(</span>HadoopTrackerPlugin.java:230<span class="o">)</span>
+</span><span class='line'>  at java.lang.Thread.run<span class="o">(</span>Thread.java:680<span class="o">)</span>
+</span><span class='line'>Caused by: UnavailableException<span class="o">()</span>
+</span><span class='line'>  at org.apache.cassandra.service.ReadCallback.assureSufficientLiveNodes<span class="o">(</span>ReadCallback.java:212<span class="o">)</span>
+</span><span class='line'>  at org.apache.cassandra.service.StorageProxy.scan<span class="o">(</span>StorageProxy.java:1083<span class="o">)</span>
+</span><span class='line'>  at org.apache.cassandra.thrift.CassandraServer.get_indexed_slices<span class="o">(</span>CassandraServer.java:746<span class="o">)</span>
+</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1120<span class="o">)</span>
+</span><span class='line'>  ... 8 more
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Release Plugin External Maven Config
+]]></title>
+    <link href="http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
+    <updated>2012-10-21T09:00:18-05:00</updated>
+    <id>http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
+    <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
+
+<p>Add this to BuildConfig.groovy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">mavenConfigFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s2">&quot;${basedir}/grails-app/conf/mavenInfo.groovy&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">mavenConfigFile</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">slurpedMavenInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConfigSlurper</span><span class="o">().</span><span class="na">parse</span><span class="o">(</span><span class="n">mavenConfigFile</span><span class="o">.</span><span class="na">toURL</span><span class="o">())</span>
+</span><span class='line'>  <span class="n">slurpedMavenInfo</span><span class="o">.</span><span class="na">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">each</span> <span class="o">{</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span> <span class="o">-&gt;</span>
+</span><span class='line'>      <span class="n">println</span> <span class="s2">&quot;Adding maven info for repo $k&quot;</span>
+</span><span class='line'>      <span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="s2">&quot;$k&quot;</span> <span class="o">=</span> <span class="n">v</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="s2">&quot;No mavenInfo file found.&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you can create a file called mavenInfo.groovy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">url</span> <span class="o">=</span> <span class="s1">&#39;http://internal.com:8080/nexus/content/repositories/internal-snapshots/&#39;</span>
+</span><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">username</span> <span class="o">=</span> <span class="s1">&#39;fakeUser&#39;</span>
+</span><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="s1">&#39;fakePass123&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Grab the <a href="http://bit.ly/QAyVhR">gist</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
+    <link href="http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
+    <updated>2012-04-03T04:56:37-05:00</updated>
+    <id>http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url</id>
+    <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
+
+<p>Reference: <a href="http://www.webmasterworld.com/apache/3279075.htm">http://www.webmasterworld.com/apache/3279075.htm</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
+]]></title>
+    <link href="http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
+    <updated>2011-10-27T09:32:23-05:00</updated>
+    <id>http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
+    <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">examples</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.example&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">examples</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">elm</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="nx">elm</span><span class="p">).</span><span class="nx">unload</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I used <a href="http://documentcloud.github.com/underscore/">Userscore.js</a> to give me a quick foreach style loop and called the unload event on every element that has the class .example which is the default class that jQuery Form Example plugin uses.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
+    <link href="http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
+    <updated>2011-05-08T07:52:26-05:00</updated>
+    <id>http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun</id>
+    <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
+
+<p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
+
+<p>To make this work I made a quick JavaScript utility that I can use to output the correct format in UTC time as we wanted. You can see the code below.</p>
+
+<!-- more -->
+
+
+<p>Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.</p>
+
+<div><script src='https://gist.github.com/961617.js'></script>
+<noscript><pre><code>/* 
+ * dateUtils.js
+ * 
+ * A simple set of utilites for dealing with dates
+ * 
+ */
+
+
+function toISOFormat(date)
+{
+    var out = &quot;&quot;;
+    out += date.getUTCFullYear() + &quot;-&quot; + padDigit(date.getUTCMonth()+1) + &quot;-&quot; + padDigit(date.getUTCDate()) +&quot;T&quot;+padDigit(date.getUTCHours())+&quot;:&quot;+padDigit(date.getUTCMinutes())+&quot;:&quot;+padDigit(date.getUTCSeconds())+&quot;.&quot;+padMili(date.getUTCMilliseconds())+&quot;Z&quot;;
+    
+    
+    return out;
+}
+
+
+function padDigit(number) 
+{
+    return (number &lt; 10 ? &#39;0&#39; : &#39;&#39;) + number
+}
+
+function padMili(number)
+{
+    if(number&lt;10)
+    {
+        return &quot;00&quot;+number;
+    }
+    else if(number &gt;=10 &amp;&amp; number&lt;100)
+    {
+        return &quot;0&quot;+number;
+    }
+    else
+    {
+        return number;
+    }
+}</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
+    <link href="http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios/"/>
+    <updated>2011-02-08T14:07:11-06:00</updated>
+    <id>http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios</id>
+    <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
+
+<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
+
+<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
+
+<div><script src='https://gist.github.com/926010.js'></script>
+<noscript><pre><code>if(window.navigator.standalone)
+{//This page is currently standalone
+   console.log(&quot;stand alone&quot;);
+}
+ 
+if(!(&quot;standalone&quot; in window.navigator))
+{//This Page is shown in a browser that can&#39;t
+    console.log(&quot;can&#39;t do standalone&quot;);
+}</code></pre></noscript></div>
+
+
+<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remove Addressbar from iPhone Web App]]></title>
+    <link href="http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
+    <updated>2010-06-22T11:55:31-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
+    <content type="html"><![CDATA[<p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
+head. This will also work with the iPad.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iPad HTML Video Autoplay]]></title>
+    <link href="http://beckje01.github.io/blog/2010/06/01/ipad-html-video-autoplay/"/>
+    <updated>2010-06-01T11:40:52-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/06/01/ipad-html-video-autoplay</id>
+    <content type="html"><![CDATA[<p><strong>The Problem</strong></p>
+
+<p>The iPad and also the iPhone have a bit of special behavior when it comes to using the HTML5 video tag. They both have the autoplay functionality shut off. This behavior is also extended to any event which the user has not started the event chain. (AKA you can’t do the following)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">onLoad=</span><span class="s">&quot;document.myMovie.play()&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>What it Means</strong></p>
+
+<p>So what this really means you can not have a playlist of videos where one video is loaded as soon as the first ends. Also having timed events from one video kick off sub videos will not work unless the user clicks on the new video.</p>
+
+<p><strong>Is this a Bug?</strong></p>
+
+<p>No this is as intended by Apple look for the Device-Specific Considerations <a href="http://developer.apple.com/safari/library/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/AudioandVideoTagBasics/AudioandVideoTagBasics.html">here</a>. What the idea is that any device that could be charged from a data plan shouldn’t allow auto play. While this idea makes sense the execution is poor. I am currently using a wifi only iPad so there is no reason for this restriction it would be best in my mind to detect if they are using wifi or 3g and react accordingly.</p>
+
+<p><strong>What to Do</strong></p>
+
+<p>Design around this I restructured an interaction from popping up this sub video over the main video to instead make a thumbnail active so it could be click to show this sub video this works in my case as the sub video can be viewed any time after the timed event.</p>
+
+<p>Another option is to show the new video element that will display a play symbol you should be able to set a poster image with some text to guide the users.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 Video and the seeked event]]></title>
+    <link href="http://beckje01.github.io/blog/2010/05/03/html5-video-and-the-seeked-event/"/>
+    <updated>2010-05-03T22:18:00-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/05/03/html5-video-and-the-seeked-event</id>
+    <content type="html"><![CDATA[<p>I have been working with the HTML5 video element a bit on both iPad and the Chrome browser. I’ve started to find some odd behavior around the seeked event. First a touch of background about the seeked event. According to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#mediaevents">spec</a> the seeked event should fire when the seeking IDL attribute changes to false. This seems to make perfect sense but when actually using the event it seems inconsistent at best.</p>
+
+<p>I have seen three distinct actions that don’t make sense to me.</p>
+
+<h2>Extra Fires</h2>
+
+<ul>
+<li>While dragging the scrub bar the seeked event will fire many times in the Google Chrome 5.0.342.9 beta on windows.</li>
+<li>When setting the position by changing the currentTime attribute it will fire the seeked event three times in a row on both the iPad and Chrome.</li>
+</ul>
+
+
+<h2>No Fires</h2>
+
+<ul>
+<li>Scrubbing on the iPad never fires the seeked event.</li>
+</ul>
+
+
+<p>So from what I can tell its not the best idea to use the seeked event at this point but the timeupdate event does fire consistently through my testing. So what you can do if you like is keep track of a last value for the timeupdate and then you can detect if it jumps too far (up to you and your use) then fire the logic you wanted to fire on seeked. I am kicking off events at times and I didn’t want to miss events so simply changing my logic to fire as long as the time is past the event point worked fine for my uses but that may not always work. Keeping track of the last time from the timeupdate shouldn’t be a very hard addition if you need special seek logic.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 Video Poster and the iPad]]></title>
+    <link href="http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
+    <updated>2010-04-17T02:44:18-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
+    <content type="html"><![CDATA[<p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>  <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/video&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But moving to the following code works fine in Chrome but on the iPad (Mobile Safari) it will only show the poster and no way to start the video unless you do the pinch zoom to make the video full screen then the controls will show up.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>   <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span> <span class="na">type=</span><span class="s">&quot;video/mp4&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   <span class="nt">&lt;/video&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Simply using the first style is ok if you are only doing one type of video but if you wanted to include other options this issue limits that ability. But for now if you are targeting iPad just use the first option.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DISQUS Comments]]></title>
+    <link href="http://beckje01.github.io/blog/2010/04/07/disqus-comments/"/>
+    <updated>2010-04-07T17:56:42-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/04/07/disqus-comments</id>
+    <content type="html"><![CDATA[<p>One feature I have really liked on my blogs recently is the ability to just use Twitter to comment so I went ahead and added the DISQUS Comment system the plugin is straight forward and easy to use with WordPress. Moving forward with new site projects I will be strongly considering using <a href="http://disqus.com/overview/">DISQUS </a>instead of an internal comment system, I would suggest checking it out as well as <a href="http://intensedebate.com/">InenseDebate </a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Filling an Array with Objects in PHP]]></title>
+    <link href="http://beckje01.github.io/blog/2010/01/28/filling-an-array-with-objects-in-php/"/>
+    <updated>2010-01-28T01:29:45-06:00</updated>
+    <id>http://beckje01.github.io/blog/2010/01/28/filling-an-array-with-objects-in-php</id>
+    <content type="html"><![CDATA[<p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
+
+<p>The following doesn’t work correctly</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="nb">array_fill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So to accomplish the same idea I did the following</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'> <span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'> <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;=</span><span class="mi">12</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Fill Array with new object</span>
+</span><span class='line'>      <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">();</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[pptx mime type]]></title>
+    <link href="http://beckje01.github.io/blog/2010/01/17/pptx-mime-type/"/>
+    <updated>2010-01-17T04:48:16-06:00</updated>
+    <id>http://beckje01.github.io/blog/2010/01/17/pptx-mime-type</id>
+    <content type="html"><![CDATA[<p>I was working with a CMS and found that one file was not downloading correctly people were saying that the file was being zipped up by the CMS. Well it turns out it was the issue with IE6 and a bad MIME Type. The fix is simple for pptx you need the mime type <em>application/vnd.openxmlformats-officedocument.presentationml.presentation</em> once that was added everything was working correctly. With out this a PPTX file will download as a zip.</p>
+
+<p>A few links on the subject:</p>
+
+<ul>
+<li><a href="http://blogs.msdn.com/dmahugh/archive/2006/08/08/692600.aspx">Office 2007 Mime Types</a></li>
+<li><a href="http://serverfault.com/questions/19060/why-are-docx-xlsx-pptx-downloading-from-webserver-as-zip-files">How to fix in Apache</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Oracle Removing Newline Chars]]></title>
+    <link href="http://beckje01.github.io/blog/2009/12/31/oracle-removing-newline-chars/"/>
+    <updated>2009-12-31T06:32:00-06:00</updated>
+    <id>http://beckje01.github.io/blog/2009/12/31/oracle-removing-newline-chars</id>
+    <content type="html"><![CDATA[<p>We were trying to trim white space from a column that had some newlines. The problem was the oracle trim() was only removing spaces. We found that we had to do two Replace operations Replace(col,char(10),”) and Replace(col,char(13),”) one for linefeed and one for newline. I switch between many Languages and I found it annoying I couldn’t use \n or \r but all well I don’t use Oracle that often.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript Passing by Value into an Inline Function
+]]></title>
+    <link href="http://beckje01.github.io/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/"/>
+    <updated>2009-12-31T05:49:05-06:00</updated>
+    <id>http://beckje01.github.io/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function</id>
+    <content type="html"><![CDATA[<p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">campURL</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That code was not working correctly as all the names were coming up as the last one in the loop. And thinking more about it that makes perfect sense. The problem is when the success function fires it looks back to the Activation Record which contains campus_name which has been modified by the loop. So what I need to do to fix it was simply move the Ajax call to a function so an AR would be created for each call allowing me to use the campus_name variable correctly.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">callFetch</span><span class="p">(</span><span class="nx">campURL</span><span class="p">[],</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">callFetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+</feed>

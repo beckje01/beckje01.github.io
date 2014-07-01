@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Java | Jeff Beck]]></title>
+  <link href="http://beckje01.github.io/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://beckje01.github.io/"/>
+  <updated>2014-07-01T18:58:28-05:00</updated>
+  <id>http://beckje01.github.io/</id>
+  <author>
+    <name><![CDATA[Jeff Beck]]></name>
+    <email><![CDATA[beckje01@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
+    <link href="http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
+    <updated>2013-02-03T11:09:23-06:00</updated>
+    <id>http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
+    <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
+
+<p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
+
+<p>In my case the first error was only different by http vs https. The fix for that was simply to apply the scheme attribute to that connector in tomcat. At which point everything was matching except that the port was now being added as 80 in my endpoint and that wasn’t in the intended endpoint. The fix for this was just to add the proxyPort to the connector as well.</p>
+
+<p>So to fully support the OpenSAML on tomcat with SSL offloading I configured the connector as seen below. Take note of the scheme and proxyPort being set.</p>
+
+<p>``` xml</p>
+
+<pre><code>&lt;Connector port="8080" protocol="HTTP/1.1"
+               enableLookups="false"
+               maxThreads="250"
+               connectionTimeout="20000"
+               scheme="https"  
+               proxyPort="443"/&gt;
+</code></pre>
+
+<p>```</p>
+
+<!-- more -->
+
+
+<p>```</p>
+
+<pre><code>3377265 2013-02-01 11:31:30,997 ERROR [http-8080-9] decoding.BaseSAMLMessageDecoder.checkEndpointURI (BaseSAMLMessageDecoder.java:215) - SAML message intended destination endpoint 'https://example.com/app/saml/SSO/alias/https://example.com' did not match the recipient endpoint 'https://example.com:80/app/saml/SSO/alias/https://example.com'
+Feb 1, 2013 11:31:30 AM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet default threw exception
+org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:93)
+        at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+        at org.springframework.security.saml.metadata.MetadataDisplayFilter.doFilter(MetadataDisplayFilter.java:83)
+        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+        at org.springframework.security.saml.SAMLEntryPoint.doFilter(SAMLEntryPoint.java:102)
+        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+        at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+        at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:168)
+        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:69)
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:65)
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+        at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:864)
+        at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:579)
+        at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1665)
+        at java.lang.Thread.run(Thread.java:662)
+Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+        at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+        at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:105)
+        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:172)
+        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:77)
+        ... 37 more
+Servlet.service() for servlet default threw exception
+org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+        at java.lang.Thread.run(Thread.java:662)
+        Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+                at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+                at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+        ... 1 more
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
+    <link href="http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
+    <updated>2012-04-03T04:56:37-05:00</updated>
+    <id>http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url</id>
+    <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
+
+<p>Reference: <a href="http://www.webmasterworld.com/apache/3279075.htm">http://www.webmasterworld.com/apache/3279075.htm</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
+    <link href="http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
+    <updated>2011-05-08T07:52:26-05:00</updated>
+    <id>http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun</id>
+    <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
+
+<p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
+
+<p>To make this work I made a quick JavaScript utility that I can use to output the correct format in UTC time as we wanted. You can see the code below.</p>
+
+<!-- more -->
+
+
+<p>Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.</p>
+
+<p><div><script src='https://gist.github.com/961617.js'></script>
+<noscript><pre><code>/* 
+ * dateUtils.js
+ * 
+ * A simple set of utilites for dealing with dates
+ * 
+ */
+
+
+function toISOFormat(date)
+{
+    var out = &quot;&quot;;
+    out += date.getUTCFullYear() + &quot;-&quot; + padDigit(date.getUTCMonth()+1) + &quot;-&quot; + padDigit(date.getUTCDate()) +&quot;T&quot;+padDigit(date.getUTCHours())+&quot;:&quot;+padDigit(date.getUTCMinutes())+&quot;:&quot;+padDigit(date.getUTCSeconds())+&quot;.&quot;+padMili(date.getUTCMilliseconds())+&quot;Z&quot;;
+    
+    
+    return out;
+}
+
+
+function padDigit(number) 
+{
+    return (number &lt; 10 ? &#39;0&#39; : &#39;&#39;) + number
+}
+
+function padMili(number)
+{
+    if(number&lt;10)
+    {
+        return &quot;00&quot;+number;
+    }
+    else if(number &gt;=10 &amp;&amp; number&lt;100)
+    {
+        return &quot;0&quot;+number;
+    }
+    else
+    {
+        return number;
+    }
+}</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Connector/J 5.1.6 vs Connector/J 5.1.7]]></title>
+    <link href="http://beckje01.github.io/blog/2009/04/09/connectorj-516-vs-connectorj-517/"/>
+    <updated>2009-04-09T11:19:46-05:00</updated>
+    <id>http://beckje01.github.io/blog/2009/04/09/connectorj-516-vs-connectorj-517</id>
+    <content type="html"><![CDATA[<p>While deploying a Java based auto import system I ran into a very odd problem. The code was developed and tested just fine with Connector/J 5.1.6 then while pushing to prod there seemed to be a major issue, the import would run download everything parse it and then clear out the old data but then get stuck. I would then get a series of errors java.sql.SQLException: !Statement.GeneratedKeysNotRequested! well it turned out that the prod sever had Connector/J 5.1.7 installed instead of the 5.1.6 which test had installed. This turned out to be allowing for some wrong practices when it came to prepared statements. It was a pretty easy fix yet it took a bit of time to make sure it happened every where. So why there was a change and what happened is well discussed else where and the links to those will follow. But for now here the change that needs to happen.</p>
+
+<p><code>java
+PreparedStatement postinsert = connection.prepareStatement(sql);
+</code></p>
+
+<p>Just changes to the following. But make sure you do the change for all prepared statements that will use generated keys, its easy to miss one and have the whole app fail because of it.</p>
+
+<p><code>java
+PreparedStatement postinsert = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+</code></p>
+
+<p>So if you would like to read more about whats going on check out these resources:</p>
+
+<ul>
+<li><a href="http://bugs.mysql.com/bug.php?id=34185">The bug report that caused the change</a></li>
+<li><a href="http://bugs.mysql.com/bug.php?id=41448">A bug report that calls the change a bug</a></li>
+<li><a href="http://groups.google.com/group/persevere-framework/browse_thread/thread/8c9ea080a1bf9e65">A bug in the current implementation</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick GWT Note]]></title>
+    <link href="http://beckje01.github.io/blog/2009/03/02/quick-gwt-note/"/>
+    <updated>2009-03-02T14:41:56-06:00</updated>
+    <id>http://beckje01.github.io/blog/2009/03/02/quick-gwt-note</id>
+    <content type="html"><![CDATA[<p>While working on a small GWT project with two other developers I ran into an odd runtime exception “com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException” as I was testing my app in the hosted mode I’m not sure how to refresh that built in browser which is the listed fix. What I ended up doing was a simple clean of the project which solved my problem, I think it relates to how I’m using SVN not integrated into Eclipse with the project yet its hard to tell. But if you run accross this expection try a simple clean before pulling too much hair out.</p>
+]]></content>
+  </entry>
+  
+</feed>

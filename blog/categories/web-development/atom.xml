@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Web Development | Jeff Beck]]></title>
+  <link href="http://beckje01.github.io/blog/categories/web-development/atom.xml" rel="self"/>
+  <link href="http://beckje01.github.io/"/>
+  <updated>2014-07-01T18:58:28-05:00</updated>
+  <id>http://beckje01.github.io/</id>
+  <author>
+    <name><![CDATA[Jeff Beck]]></name>
+    <email><![CDATA[beckje01@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Release Plugin External Maven Config
+]]></title>
+    <link href="http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
+    <updated>2012-10-21T09:00:18-05:00</updated>
+    <id>http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
+    <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
+
+<p>Add this to BuildConfig.groovy:</p>
+
+<p>``` groovy</p>
+
+<pre><code>def mavenConfigFile = new File("${basedir}/grails-app/conf/mavenInfo.groovy")
+if (mavenConfigFile.exists()) {
+    def slurpedMavenInfo = new ConfigSlurper().parse(mavenConfigFile.toURL())
+    slurpedMavenInfo.grails.project.repos.each {k, v -&gt;
+        println "Adding maven info for repo $k"
+        grails.project.repos."$k" = v
+    }
+}
+else {
+    println "No mavenInfo file found."
+}
+</code></pre>
+
+<p>```</p>
+
+<p>Then you can create a file called mavenInfo.groovy:</p>
+
+<p>``` groovy</p>
+
+<pre><code>grails.project.repos.internalSnap.url = 'http://internal.com:8080/nexus/content/repositories/internal-snapshots/'
+grails.project.repos.internalSnap.username = 'fakeUser'
+grails.project.repos.internalSnap.password = 'fakePass123'
+</code></pre>
+
+<p>```</p>
+
+<p>Grab the <a href="http://bit.ly/QAyVhR">gist</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
+]]></title>
+    <link href="http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
+    <updated>2011-10-27T09:32:23-05:00</updated>
+    <id>http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
+    <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.
+``` js</p>
+
+<pre><code>var examples = $('.example');
+_.each(examples,function(elm){
+    $(elm).unload();
+});
+</code></pre>
+
+<p>```</p>
+
+<p>I used <a href="http://documentcloud.github.com/underscore/">Userscore.js</a> to give me a quick foreach style loop and called the unload event on every element that has the class .example which is the default class that jQuery Form Example plugin uses.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
+    <link href="http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
+    <updated>2011-05-08T07:52:26-05:00</updated>
+    <id>http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun</id>
+    <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
+
+<p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
+
+<p>To make this work I made a quick JavaScript utility that I can use to output the correct format in UTC time as we wanted. You can see the code below.</p>
+
+<!-- more -->
+
+
+<p>Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.</p>
+
+<p><div><script src='https://gist.github.com/961617.js'></script>
+<noscript><pre><code>/* 
+ * dateUtils.js
+ * 
+ * A simple set of utilites for dealing with dates
+ * 
+ */
+
+
+function toISOFormat(date)
+{
+    var out = &quot;&quot;;
+    out += date.getUTCFullYear() + &quot;-&quot; + padDigit(date.getUTCMonth()+1) + &quot;-&quot; + padDigit(date.getUTCDate()) +&quot;T&quot;+padDigit(date.getUTCHours())+&quot;:&quot;+padDigit(date.getUTCMinutes())+&quot;:&quot;+padDigit(date.getUTCSeconds())+&quot;.&quot;+padMili(date.getUTCMilliseconds())+&quot;Z&quot;;
+    
+    
+    return out;
+}
+
+
+function padDigit(number) 
+{
+    return (number &lt; 10 ? &#39;0&#39; : &#39;&#39;) + number
+}
+
+function padMili(number)
+{
+    if(number&lt;10)
+    {
+        return &quot;00&quot;+number;
+    }
+    else if(number &gt;=10 &amp;&amp; number&lt;100)
+    {
+        return &quot;0&quot;+number;
+    }
+    else
+    {
+        return number;
+    }
+}</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
+    <link href="http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios/"/>
+    <updated>2011-02-08T14:07:11-06:00</updated>
+    <id>http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios</id>
+    <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
+
+<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
+
+<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
+
+<p><div><script src='https://gist.github.com/926010.js'></script>
+<noscript><pre><code>if(window.navigator.standalone)
+{//This page is currently standalone
+   console.log(&quot;stand alone&quot;);
+}
+ 
+if(!(&quot;standalone&quot; in window.navigator))
+{//This Page is shown in a browser that can&#39;t
+    console.log(&quot;can&#39;t do standalone&quot;);
+}</code></pre></noscript></div>
+</p>
+
+<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remove Addressbar from iPhone Web App]]></title>
+    <link href="http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
+    <updated>2010-06-22T11:55:31-05:00</updated>
+    <id>http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
+    <content type="html"><![CDATA[<p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
+head. This will also work with the iPad.</p>
+
+<p><code>xml
+&lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
