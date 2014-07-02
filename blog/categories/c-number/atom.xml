@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: C# | Jeff Beck]]></title>
-  <link href="http://beckje01.github.io/blog/categories/c-number/atom.xml" rel="self"/>
-  <link href="http://beckje01.github.io/"/>
-  <updated>2014-07-01T21:52:55-05:00</updated>
-  <id>http://beckje01.github.io/</id>
+  <link href="http://beckje01.com/blog/categories/c-number/atom.xml" rel="self"/>
+  <link href="http://beckje01.com/"/>
+  <updated>2014-07-01T22:03:09-05:00</updated>
+  <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
     <email><![CDATA[beckje01@gmail.com]]></email>
@@ -16,9 +16,9 @@
   <entry>
     <title type="html"><![CDATA[Silverlight Move Cursor to End of TextBox
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
+    <link href="http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
     <updated>2009-04-04T15:46:03-05:00</updated>
-    <id>http://beckje01.github.io/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
+    <id>http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
     <content type="html"><![CDATA[<p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
 
 <p>``` c#</p>

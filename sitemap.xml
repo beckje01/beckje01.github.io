@@ -1,193 +1,183 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://beckje01.github.io/blog/2007/11/08/broken-dynamic-tables/</loc>
+        <loc>http://beckje01.com/blog/2007/11/08/broken-dynamic-tables/</loc>
         <lastmod>2014-07-01T17:55:59-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2007/11/11/read-only-tables-with-ie6ie7/</loc>
+        <loc>http://beckje01.com/blog/2007/11/11/read-only-tables-with-ie6ie7/</loc>
         <lastmod>2014-07-01T17:55:45-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/01/09/python-cgi-ftp-headache/</loc>
+        <loc>http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/</loc>
         <lastmod>2014-07-01T17:55:33-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/02/21/amazon-fps-vs-google-checkout/</loc>
+        <loc>http://beckje01.com/blog/2008/02/21/amazon-fps-vs-google-checkout/</loc>
         <lastmod>2014-07-01T17:55:22-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/02/28/forms-submitted-by-javascript/</loc>
+        <loc>http://beckje01.com/blog/2008/02/28/forms-submitted-by-javascript/</loc>
         <lastmod>2014-07-01T17:55:12-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/09/24/javalangincompatibleclasschangeerror/</loc>
+        <loc>http://beckje01.com/blog/2008/09/24/javalangincompatibleclasschangeerror/</loc>
         <lastmod>2014-07-01T17:55:00-05:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://beckje01.github.io/blog/2008/11/05/read-only-tables-with-ie6ie7-workaround/
-        </loc>
+        <loc>http://beckje01.com/blog/2008/11/05/read-only-tables-with-ie6ie7-workaround/</loc>
         <lastmod>2014-07-01T17:54:36-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/11/17/javascript-flash-chart-alternative/</loc>
+        <loc>http://beckje01.com/blog/2008/11/17/javascript-flash-chart-alternative/</loc>
         <lastmod>2014-07-01T17:54:20-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2008/11/23/wget-and-special-characters/</loc>
+        <loc>http://beckje01.com/blog/2008/11/23/wget-and-special-characters/</loc>
         <lastmod>2014-07-01T17:54:03-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2009/02/26/expressionengine-pagination-and-the-dynamic-parameter/
+            http://beckje01.com/blog/2009/02/26/expressionengine-pagination-and-the-dynamic-parameter/
         </loc>
         <lastmod>2014-07-01T17:53:52-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2009/02/26/expressionengine-pagination-and-get-parameters/
+            http://beckje01.com/blog/2009/02/26/expressionengine-pagination-and-get-parameters/
         </loc>
         <lastmod>2014-07-01T17:53:33-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/03/02/quick-gwt-note/</loc>
+        <loc>http://beckje01.com/blog/2009/03/02/quick-gwt-note/</loc>
         <lastmod>2014-07-01T17:53:18-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/03/11/yui-scriptnodedatasource-issue/</loc>
+        <loc>http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/</loc>
         <lastmod>2014-07-01T17:53:01-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/04/02/go-daddy-subdomain-redirects/</loc>
+        <loc>http://beckje01.com/blog/2009/04/02/go-daddy-subdomain-redirects/</loc>
         <lastmod>2014-07-01T17:52:35-05:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://beckje01.github.io/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/
-        </loc>
+        <loc>http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/</loc>
         <lastmod>2014-07-01T17:52:15-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/04/09/connectorj-516-vs-connectorj-517/</loc>
+        <loc>http://beckje01.com/blog/2009/04/09/connectorj-516-vs-connectorj-517/</loc>
         <lastmod>2014-07-01T17:52:02-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/04/09/silverlight-image-error/</loc>
+        <loc>http://beckje01.com/blog/2009/04/09/silverlight-image-error/</loc>
         <lastmod>2014-07-01T17:51:43-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/12/08/html-table-row-height-hack/</loc>
+        <loc>http://beckje01.com/blog/2009/12/08/html-table-row-height-hack/</loc>
         <lastmod>2014-07-01T17:51:25-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/
+            http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/
         </loc>
         <lastmod>2014-07-01T17:51:13-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2009/12/31/oracle-removing-newline-chars/</loc>
+        <loc>http://beckje01.com/blog/2009/12/31/oracle-removing-newline-chars/</loc>
         <lastmod>2014-07-01T17:50:57-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/01/17/pptx-mime-type/</loc>
+        <loc>http://beckje01.com/blog/2010/01/17/pptx-mime-type/</loc>
         <lastmod>2014-07-01T17:50:41-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/01/28/filling-an-array-with-objects-in-php/</loc>
+        <loc>http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php/</loc>
         <lastmod>2014-07-01T17:49:56-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/04/07/disqus-comments/</loc>
+        <loc>http://beckje01.com/blog/2010/04/07/disqus-comments/</loc>
         <lastmod>2014-07-01T17:49:39-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad/</loc>
+        <loc>http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/</loc>
         <lastmod>2014-07-01T17:49:09-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/05/03/html5-video-and-the-seeked-event/</loc>
+        <loc>http://beckje01.com/blog/2010/05/03/html5-video-and-the-seeked-event/</loc>
         <lastmod>2014-07-01T17:48:50-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2010/06/01/ipad-html-video-autoplay/</loc>
+        <loc>http://beckje01.com/blog/2010/06/01/ipad-html-video-autoplay/</loc>
         <lastmod>2014-07-01T17:48:24-05:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app/
-        </loc>
+        <loc>http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app/</loc>
         <lastmod>2014-07-01T17:48:10-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios/</loc>
+        <loc>http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/</loc>
         <lastmod>2014-07-01T17:47:45-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun/</loc>
+        <loc>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/</loc>
         <lastmod>2014-07-01T17:47:27-05:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin/
-        </loc>
+        <loc>http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin/</loc>
         <lastmod>2014-07-01T17:47:04-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url/</loc>
+        <loc>http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url/</loc>
         <lastmod>2014-07-01T17:46:46-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config/
+            http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config/
         </loc>
         <lastmod>2014-07-01T17:46:25-05:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://beckje01.github.io/blog/2012/12/28/cassandra-not-available-after-starting/
-        </loc>
+        <loc>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/</loc>
         <lastmod>2014-07-01T17:46:14-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/
+            http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/
         </loc>
         <lastmod>2014-07-01T17:45:50-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat/</loc>
+        <loc>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/</loc>
         <lastmod>2014-07-01T17:45:26-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://beckje01.github.io/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/
+            http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/
         </loc>
         <lastmod>2014-07-01T14:15:36-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/</loc>
+        <loc>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/</loc>
         <lastmod>2014-07-01T14:15:10-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/2013/10/23/grails-2-3-1-warnings-after-clean/</loc>
+        <loc>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/</loc>
         <lastmod>2014-07-01T14:13:42-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/about.html</loc>
+        <loc>http://beckje01.com/about.html</loc>
         <lastmod>2014-07-01T13:11:13-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/blog/archives/</loc>
+        <loc>http://beckje01.com/blog/archives/</loc>
         <lastmod>2014-07-01T18:55:02-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/</loc>
+        <loc>http://beckje01.com/</loc>
         <lastmod>2014-07-01T17:55:59-05:00</lastmod>
     </url>
     <url>
-        <loc>http://beckje01.github.io/robots.txt</loc>
+        <loc>http://beckje01.com/robots.txt</loc>
         <lastmod>2014-06-29T12:15:23-05:00</lastmod>
     </url>
 </urlset>

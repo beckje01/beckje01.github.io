@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Jeff Beck]]></title>
-  <link href="http://beckje01.github.io/atom.xml" rel="self"/>
-  <link href="http://beckje01.github.io/"/>
-  <updated>2014-07-01T21:52:55-05:00</updated>
-  <id>http://beckje01.github.io/</id>
+  <link href="http://beckje01.com/atom.xml" rel="self"/>
+  <link href="http://beckje01.com/"/>
+  <updated>2014-07-01T22:03:09-05:00</updated>
+  <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
     <email><![CDATA[beckje01@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
-    <link href="http://beckje01.github.io/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
+    <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
     <updated>2013-10-23T04:02:02-05:00</updated>
-    <id>http://beckje01.github.io/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
+    <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -72,9 +72,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
-    <link href="http://beckje01.github.io/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
+    <link href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
     <updated>2013-08-19T18:10:12-05:00</updated>
-    <id>http://beckje01.github.io/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
+    <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
     <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -93,9 +93,9 @@
   <entry>
     <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
+    <link href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
     <updated>2013-02-04T08:27:27-06:00</updated>
-    <id>http://beckje01.github.io/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
+    <id>http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
     <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
 
 <p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
@@ -164,9 +164,9 @@
   
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
-    <link href="http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
+    <link href="http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
     <updated>2013-02-03T11:09:23-06:00</updated>
-    <id>http://beckje01.github.io/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
+    <id>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
     <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
 
 <p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
@@ -315,9 +315,9 @@
   <entry>
     <title type="html"><![CDATA[Grails Display the Current Spring Security Filter Chain
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
+    <link href="http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
     <updated>2013-01-15T04:52:37-06:00</updated>
-    <id>http://beckje01.github.io/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
+    <id>http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
     <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -331,9 +331,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
-    <link href="http://beckje01.github.io/blog/2012/12/28/cassandra-not-available-after-starting/"/>
+    <link href="http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
     <updated>2012-12-28T04:25:45-06:00</updated>
-    <id>http://beckje01.github.io/blog/2012/12/28/cassandra-not-available-after-starting</id>
+    <id>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
     <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
 
 <p>I was able to quickly fix the error by removing my data directory and starting fresh as this is just my development environment that works great for me. You can find your data directory in the cassandra.yaml file ($DSE_HOME/resources/cassandra/conf/cassandra.yaml), look for the <em>data_file_directories</em> entry. Mine was set to <em>/var/lib/cassandra/data</em> so I just ran the following and started cassandra fresh and everything is back to working order.</p>
@@ -387,9 +387,9 @@
   <entry>
     <title type="html"><![CDATA[Grails Release Plugin External Maven Config
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
+    <link href="http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
     <updated>2012-10-21T09:00:18-05:00</updated>
-    <id>http://beckje01.github.io/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
+    <id>http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
 
 <p>Add this to BuildConfig.groovy:</p>
@@ -436,9 +436,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
-    <link href="http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
+    <link href="http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
     <updated>2012-04-03T04:56:37-05:00</updated>
-    <id>http://beckje01.github.io/blog/2012/04/03/grails-redirect-leaving-in-url</id>
+    <id>http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url</id>
     <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
 
 <p>Reference: <a href="http://www.webmasterworld.com/apache/3279075.htm">http://www.webmasterworld.com/apache/3279075.htm</a></p>
@@ -448,9 +448,9 @@
   <entry>
     <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
+    <link href="http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
     <updated>2011-10-27T09:32:23-05:00</updated>
-    <id>http://beckje01.github.io/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
+    <id>http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
     <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -470,9 +470,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
-    <link href="http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
+    <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
     <updated>2011-05-08T07:52:26-05:00</updated>
-    <id>http://beckje01.github.io/blog/2011/05/08/java-and-javascript-datetime-fun</id>
+    <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
     <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
 
 <p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
@@ -531,9 +531,9 @@ function padMili(number)
   
   <entry>
     <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
-    <link href="http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios/"/>
+    <link href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/"/>
     <updated>2011-02-08T14:07:11-06:00</updated>
-    <id>http://beckje01.github.io/blog/2011/02/08/check-for-address-bar-in-ios</id>
+    <id>http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios</id>
     <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
 
 <p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
@@ -558,9 +558,9 @@ if(!(&quot;standalone&quot; in window.navigator))
   
   <entry>
     <title type="html"><![CDATA[Remove Addressbar from iPhone Web App]]></title>
-    <link href="http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
+    <link href="http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
     <updated>2010-06-22T11:55:31-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
+    <id>http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
     <content type="html"><![CDATA[<p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
 head. This will also work with the iPad.</p>
 
@@ -573,9 +573,9 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[iPad HTML Video Autoplay]]></title>
-    <link href="http://beckje01.github.io/blog/2010/06/01/ipad-html-video-autoplay/"/>
+    <link href="http://beckje01.com/blog/2010/06/01/ipad-html-video-autoplay/"/>
     <updated>2010-06-01T11:40:52-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/06/01/ipad-html-video-autoplay</id>
+    <id>http://beckje01.com/blog/2010/06/01/ipad-html-video-autoplay</id>
     <content type="html"><![CDATA[<p><strong>The Problem</strong></p>
 
 <p>The iPad and also the iPhone have a bit of special behavior when it comes to using the HTML5 video tag. They both have the autoplay functionality shut off. This behavior is also extended to any event which the user has not started the event chain. (AKA you can’t do the following)</p>
@@ -603,9 +603,9 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[HTML5 Video and the seeked event]]></title>
-    <link href="http://beckje01.github.io/blog/2010/05/03/html5-video-and-the-seeked-event/"/>
+    <link href="http://beckje01.com/blog/2010/05/03/html5-video-and-the-seeked-event/"/>
     <updated>2010-05-03T22:18:00-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/05/03/html5-video-and-the-seeked-event</id>
+    <id>http://beckje01.com/blog/2010/05/03/html5-video-and-the-seeked-event</id>
     <content type="html"><![CDATA[<p>I have been working with the HTML5 video element a bit on both iPad and the Chrome browser. I’ve started to find some odd behavior around the seeked event. First a touch of background about the seeked event. According to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#mediaevents">spec</a> the seeked event should fire when the seeking IDL attribute changes to false. This seems to make perfect sense but when actually using the event it seems inconsistent at best.</p>
 
 <p>I have seen three distinct actions that don’t make sense to me.</p>
@@ -631,9 +631,9 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[HTML5 Video Poster and the iPad]]></title>
-    <link href="http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
+    <link href="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
     <updated>2010-04-17T02:44:18-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
+    <id>http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
     <content type="html"><![CDATA[<p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -660,18 +660,18 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[DISQUS Comments]]></title>
-    <link href="http://beckje01.github.io/blog/2010/04/07/disqus-comments/"/>
+    <link href="http://beckje01.com/blog/2010/04/07/disqus-comments/"/>
     <updated>2010-04-07T17:56:42-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/04/07/disqus-comments</id>
+    <id>http://beckje01.com/blog/2010/04/07/disqus-comments</id>
     <content type="html"><![CDATA[<p>One feature I have really liked on my blogs recently is the ability to just use Twitter to comment so I went ahead and added the DISQUS Comment system the plugin is straight forward and easy to use with WordPress. Moving forward with new site projects I will be strongly considering using <a href="http://disqus.com/overview/">DISQUS </a>instead of an internal comment system, I would suggest checking it out as well as <a href="http://intensedebate.com/">InenseDebate </a>.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Filling an Array with Objects in PHP]]></title>
-    <link href="http://beckje01.github.io/blog/2010/01/28/filling-an-array-with-objects-in-php/"/>
+    <link href="http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php/"/>
     <updated>2010-01-28T01:29:45-06:00</updated>
-    <id>http://beckje01.github.io/blog/2010/01/28/filling-an-array-with-objects-in-php</id>
+    <id>http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php</id>
     <content type="html"><![CDATA[<p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
 
 <p>The following doesn’t work correctly</p>
@@ -704,9 +704,9 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[pptx mime type]]></title>
-    <link href="http://beckje01.github.io/blog/2010/01/17/pptx-mime-type/"/>
+    <link href="http://beckje01.com/blog/2010/01/17/pptx-mime-type/"/>
     <updated>2010-01-17T04:48:16-06:00</updated>
-    <id>http://beckje01.github.io/blog/2010/01/17/pptx-mime-type</id>
+    <id>http://beckje01.com/blog/2010/01/17/pptx-mime-type</id>
     <content type="html"><![CDATA[<p>I was working with a CMS and found that one file was not downloading correctly people were saying that the file was being zipped up by the CMS. Well it turns out it was the issue with IE6 and a bad MIME Type. The fix is simple for pptx you need the mime type <em>application/vnd.openxmlformats-officedocument.presentationml.presentation</em> once that was added everything was working correctly. With out this a PPTX file will download as a zip.</p>
 
 <p>A few links on the subject:</p>
@@ -721,9 +721,9 @@ head. This will also work with the iPad.</p>
   
   <entry>
     <title type="html"><![CDATA[Oracle Removing Newline Chars]]></title>
-    <link href="http://beckje01.github.io/blog/2009/12/31/oracle-removing-newline-chars/"/>
+    <link href="http://beckje01.com/blog/2009/12/31/oracle-removing-newline-chars/"/>
     <updated>2009-12-31T06:32:00-06:00</updated>
-    <id>http://beckje01.github.io/blog/2009/12/31/oracle-removing-newline-chars</id>
+    <id>http://beckje01.com/blog/2009/12/31/oracle-removing-newline-chars</id>
     <content type="html"><![CDATA[<p>We were trying to trim white space from a column that had some newlines. The problem was the oracle trim() was only removing spaces. We found that we had to do two Replace operations Replace(col,char(10),”) and Replace(col,char(13),”) one for linefeed and one for newline. I switch between many Languages and I found it annoying I couldn’t use \n or \r but all well I don’t use Oracle that often.</p>
 ]]></content>
   </entry>
@@ -731,9 +731,9 @@ head. This will also work with the iPad.</p>
   <entry>
     <title type="html"><![CDATA[JavaScript Passing by Value into an Inline Function
 ]]></title>
-    <link href="http://beckje01.github.io/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/"/>
+    <link href="http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/"/>
     <updated>2009-12-31T05:49:05-06:00</updated>
-    <id>http://beckje01.github.io/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function</id>
+    <id>http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function</id>
     <content type="html"><![CDATA[<p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

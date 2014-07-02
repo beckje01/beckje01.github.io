@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Uncategorized | Jeff Beck]]></title>
-  <link href="http://beckje01.github.io/blog/categories/uncategorized/atom.xml" rel="self"/>
-  <link href="http://beckje01.github.io/"/>
-  <updated>2014-07-01T21:52:55-05:00</updated>
-  <id>http://beckje01.github.io/</id>
+  <link href="http://beckje01.com/blog/categories/uncategorized/atom.xml" rel="self"/>
+  <link href="http://beckje01.com/"/>
+  <updated>2014-07-01T22:03:09-05:00</updated>
+  <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
     <email><![CDATA[beckje01@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[HTML5 Video Poster and the iPad]]></title>
-    <link href="http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
+    <link href="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
     <updated>2010-04-17T02:44:18-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
+    <id>http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
     <content type="html"><![CDATA[<p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
 
 <p>``` html</p>
@@ -44,9 +44,9 @@ But moving to the following code works fine in Chrome but on the iPad (Mobile Sa
   
   <entry>
     <title type="html"><![CDATA[DISQUS Comments]]></title>
-    <link href="http://beckje01.github.io/blog/2010/04/07/disqus-comments/"/>
+    <link href="http://beckje01.com/blog/2010/04/07/disqus-comments/"/>
     <updated>2010-04-07T17:56:42-05:00</updated>
-    <id>http://beckje01.github.io/blog/2010/04/07/disqus-comments</id>
+    <id>http://beckje01.com/blog/2010/04/07/disqus-comments</id>
     <content type="html"><![CDATA[<p>One feature I have really liked on my blogs recently is the ability to just use Twitter to comment so I went ahead and added the DISQUS Comment system the plugin is straight forward and easy to use with WordPress. Moving forward with new site projects I will be strongly considering using <a href="http://disqus.com/overview/">DISQUS </a>instead of an internal comment system, I would suggest checking it out as well as <a href="http://intensedebate.com/">InenseDebate </a>.</p>
 ]]></content>
   </entry>
