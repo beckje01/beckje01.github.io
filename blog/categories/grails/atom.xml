@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-01T22:03:09-05:00</updated>
+  <updated>2014-07-03T09:45:10-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
+    <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
+    <updated>2014-07-03T09:36:21-05:00</updated>
+    <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
+    <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
+
+<p>This is easily fixed by adding New Relic annotations to services and libraries.</p>
+
+<h3>BuildConfig.groovy Changes</h3>
+
+<p>``` groovy
+dependencies {</p>
+
+<pre><code>compile 'com.newrelic.agent.java:newrelic-api:3.4.2'
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>Service Changes</h3>
+
+<p>``` groovy
+import com.newrelic.api.agent.Trace</p>
+
+<p>class SubscriptionService {</p>
+
+<pre><code>@Trace
+def save(Subscription subscription) {
+//Work Here
+</code></pre>
+
+<p>  }
+```</p>
+
+<p>At this point your code is ready to give more detailed transactions, but the agent on the server must also be configured to accept custom tracing. The config option for this is not available from the web so you must update the <code>newrelic.yml</code> file. Set <code>enable_custom_tracing</code> to <code>true</code>.</p>
+
+<p><code>yaml
+  #enable_custom_tracing is used to allow @Trace on methods
+  enable_custom_tracing: true
+</code></p>
+
+<p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
@@ -215,21 +261,6 @@ org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
 </code></pre>
 
 <p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails Display the Current Spring Security Filter Chain
-]]></title>
-    <link href="http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
-    <updated>2013-01-15T04:52:37-06:00</updated>
-    <id>http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
-    <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
-
-<p><code>groovy
-def filterChain = ctx.getBean('springSecurityFilterChain')
-</code>
-Also if you want to poke around the other beans available this is a great post to check out: <a href="http://www.redtoad.ca/ataylor/2012/05/spring-beans-from-the-grails-console/">Spring Beans from the Grails Console</a> .</p>
 ]]></content>
   </entry>
   

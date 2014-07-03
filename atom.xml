@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-01T22:03:09-05:00</updated>
+  <updated>2014-07-03T09:45:10-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
+    <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
+    <updated>2014-07-03T09:36:21-05:00</updated>
+    <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
+    <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
+
+<p>This is easily fixed by adding New Relic annotations to services and libraries.</p>
+
+<h3>BuildConfig.groovy Changes</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;com.newrelic.agent.java:newrelic-api:3.4.2&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Service Changes</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.newrelic.api.agent.Trace</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">SubscriptionService</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Trace</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="nf">save</span><span class="o">(</span><span class="n">Subscription</span> <span class="n">subscription</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">//Work Here</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At this point your code is ready to give more detailed transactions, but the agent on the server must also be configured to accept custom tracing. The config option for this is not available from the web so you must update the <code>newrelic.yml</code> file. Set <code>enable_custom_tracing</code> to <code>true</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'>  <span class="c1">#enable_custom_tracing is used to allow @Trace on methods</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">enable_custom_tracing</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
@@ -725,112 +781,6 @@ head. This will also work with the iPad.</p>
     <updated>2009-12-31T06:32:00-06:00</updated>
     <id>http://beckje01.com/blog/2009/12/31/oracle-removing-newline-chars</id>
     <content type="html"><![CDATA[<p>We were trying to trim white space from a column that had some newlines. The problem was the oracle trim() was only removing spaces. We found that we had to do two Replace operations Replace(col,char(10),”) and Replace(col,char(13),”) one for linefeed and one for newline. I switch between many Languages and I found it annoying I couldn’t use \n or \r but all well I don’t use Oracle that often.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript Passing by Value into an Inline Function
-]]></title>
-    <link href="http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/"/>
-    <updated>2009-12-31T05:49:05-06:00</updated>
-    <id>http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function</id>
-    <content type="html"><![CDATA[<p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">campURL</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That code was not working correctly as all the names were coming up as the last one in the loop. And thinking more about it that makes perfect sense. The problem is when the success function fires it looks back to the Activation Record which contains campus_name which has been modified by the loop. So what I need to do to fix it was simply move the Ajax call to a function so an AR would be created for each call allowing me to use the campus_name variable correctly.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">callFetch</span><span class="p">(</span><span class="nx">campURL</span><span class="p">[],</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">callFetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
