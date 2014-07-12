@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Grails 2.3 RC1 and JMS Plugin - Jeff Beck</title>
+  <title>Silverlight Image Error - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,9 +16,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin">
+  <link rel="canonical" href="http://beckje01.com/blog/2009/04/10/silverlight-image-error">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -70,9 +73,22 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                  <a href="https://twitter.com/beckje01"  class="icon-link" title="Twitter Profile">
+                    <span class="visible-xs">Twitter Profile</span>
+                    <span class="hidden-xs"><i class="fa fa-twitter fa-jeff175"></i></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/beckje01"  class="icon-link" title="GitHub Profile">
+                    <span class="visible-xs">GitHub Profile</span>
+                    <span class="hidden-xs"><i class="fa fa-github fa-jeff175"></i></span>
+
+                  </a>
+                </li>
+                <li>
+                    <a class="subscribe-rss icon-link" href="/atom.xml" title="subscribe via RSS">
                         <span class="visible-xs">RSS</span>
-                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                        <span class="hidden-xs"><i class="fa fa-rss fa-jeff175"></i></span>
                     </a>
                 </li>
                 
@@ -113,31 +129,34 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-10T00:26:16+01:00" pubdate data-updated="true">Apr 10<span>th</span>, 2009</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        Grails 2.3 RC1 and JMS Plugin
+        Silverlight Image Error
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
+<div class="entry-content clearfix"><p>While working in Silverlight I ran across a error that seemed rather odd, not because it didn’t make sense but that I couldn’t see anything I did wrong. So the error was</p>
+
+<p>Unhandled Error in Silverlight 2 Application App.xap<br/>
+Code: 4001<br/>
+categories: ImageError<br/>
+Message: AG_E_NETWORK_ERROR</p>
+
+<p>While checking the Image tag in the xaml I simply couldn’t find anything wrong with it. It looked very similar to the following xaml. The user.profile_image was of course a full URI that worked fine when written directly in the browser.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;org.springframework:spring-jms:3.2.4.RELEASE&#39;</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;Image</span>  <span class="na">Grid</span><span class="err">.</span><span class="na">Row=</span><span class="s">&quot;0&quot;</span> <span class="na">Margin=</span><span class="s">&quot;0,0,5,0&quot;</span> <span class="na">VerticalAlignment=</span><span class="s">&quot;Top&quot;</span>  <span class="na">Source=</span><span class="s">&quot;{Binding user.profile_image}&quot;</span> <span class="nt">&gt;&lt;/Image&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>So that leaves me with what could the problem be, well it turned out it was simple I was a using a GIF file so <a href="http://mydomain.com/foo.gif">http://mydomain.com/foo.gif</a> as a source for an image simply doesn’t work as GIF isn’t supported. But really why would Silverlight not use GIF? Well simply converting the GIF to a PNG then Silverlight can handle the image just fine and display it. Although there are some issues as in Silverlight the only 8 bit and fewer PNG formats support transparency. So if the reason you were using a GIF was for transparency you will have to create an 8 bit or lower PNG. Look for a simple how to next post on converting a GIF to a PNG that Silverlight can display properly with transparency.</p>
 </div>
 
 
@@ -161,13 +180,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-10T00:26:16+01:00" pubdate data-updated="true">Apr 10<span>th</span>, 2009</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/grails/'>Grails</a>
+    <a class='category' href='/blog/categories/silverlight/'>Silverlight</a>
   
 </span>
 
@@ -176,7 +195,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2009/04/10/silverlight-image-error/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2009/04/10/silverlight-image-error/" >Tweet</a>
   
   
   
@@ -186,12 +205,10 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/" title="Previous Post: Grails Custom UserDetailsService using a Grails Service
-">&laquo; Grails Custom UserDetailsService using a Grails Service
-</a></li>
+            <li class="previous"><a href="/blog/2009/04/09/connectorj-516-vs-connectorj-517/" title="Previous Post: Connector/J 5.1.6 vs Connector/J 5.1.7">&laquo; Connector/J 5.1.6 vs Connector/J 5.1.7</a></li>
             
             
-            <li class="next"><a href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/" title="Next Post: Grails 2.3.1 Warnings after clean.">Grails 2.3.1 Warnings after clean. &raquo;</a></li>
+            <li class="next"><a href="/blog/2009/12/08/html-table-row-height-hack/" title="Next Post: HTML Table Row Height Hack">HTML Table Row Height Hack &raquo;</a></li>
             
           </ul>
         
@@ -228,7 +245,7 @@
     
     <a class="list-group-item " href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">Grails 2.3.1 Warnings After Clean.</a>
     
-    <a class="list-group-item active" href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a>
+    <a class="list-group-item " href="/blog/2013/08/20/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a>
     
     <a class="list-group-item " href="/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/">Grails Custom UserDetailsService Using a Grails Service</a>
     
@@ -344,8 +361,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/';
-        var disqus_url = 'http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/';
+        var disqus_identifier = 'http://beckje01.com/blog/2009/04/10/silverlight-image-error/';
+        var disqus_url = 'http://beckje01.com/blog/2009/04/10/silverlight-image-error/';
         var disqus_script = 'embed.js';
       
     (function () {

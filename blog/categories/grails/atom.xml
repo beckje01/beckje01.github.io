@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-03T09:45:10-05:00</updated>
+  <updated>2014-07-12T20:55:40+01:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
     <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
-    <updated>2014-07-03T09:36:21-05:00</updated>
+    <updated>2014-07-03T15:36:21+01:00</updated>
     <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
     <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
 
@@ -62,7 +62,7 @@ def save(Subscription subscription) {
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
     <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
-    <updated>2013-10-23T04:02:02-05:00</updated>
+    <updated>2013-10-23T10:02:02+01:00</updated>
     <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
@@ -103,9 +103,9 @@ $ grails test-app
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
-    <link href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
-    <updated>2013-08-19T18:10:12-05:00</updated>
-    <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
+    <link href="http://beckje01.com/blog/2013/08/20/grails-2-3-rc1-and-jms-plugin/"/>
+    <updated>2013-08-20T00:10:12+01:00</updated>
+    <id>http://beckje01.com/blog/2013/08/20/grails-2-3-rc1-and-jms-plugin</id>
     <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
 
 <p>``` groovy</p>
@@ -124,7 +124,7 @@ $ grails test-app
     <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
 ]]></title>
     <link href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
-    <updated>2013-02-04T08:27:27-06:00</updated>
+    <updated>2013-02-04T14:27:27+00:00</updated>
     <id>http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
     <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
 
@@ -175,7 +175,7 @@ beans = {
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
     <link href="http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
-    <updated>2013-02-03T11:09:23-06:00</updated>
+    <updated>2013-02-03T17:09:23+00:00</updated>
     <id>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
     <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
 

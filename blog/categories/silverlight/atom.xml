@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Silverlight | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/silverlight/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-03T09:45:10-05:00</updated>
+  <updated>2014-07-12T20:55:40+01:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Silverlight Image Error]]></title>
-    <link href="http://beckje01.com/blog/2009/04/09/silverlight-image-error/"/>
-    <updated>2009-04-09T18:26:16-05:00</updated>
-    <id>http://beckje01.com/blog/2009/04/09/silverlight-image-error</id>
+    <link href="http://beckje01.com/blog/2009/04/10/silverlight-image-error/"/>
+    <updated>2009-04-10T00:26:16+01:00</updated>
+    <id>http://beckje01.com/blog/2009/04/10/silverlight-image-error</id>
     <content type="html"><![CDATA[<p>While working in Silverlight I ran across a error that seemed rather odd, not because it didn’t make sense but that I couldn’t see anything I did wrong. So the error was</p>
 
 <p>Unhandled Error in Silverlight 2 Application App.xap<br/>
@@ -39,7 +39,7 @@ Message: AG_E_NETWORK_ERROR</p>
     <title type="html"><![CDATA[Silverlight Move Cursor to End of TextBox
 ]]></title>
     <link href="http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
-    <updated>2009-04-04T15:46:03-05:00</updated>
+    <updated>2009-04-04T21:46:03+01:00</updated>
     <id>http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
     <content type="html"><![CDATA[<p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
 

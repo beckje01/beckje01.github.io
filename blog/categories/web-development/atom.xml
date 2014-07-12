@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-03T09:45:10-05:00</updated>
+  <updated>2014-07-12T20:55:40+01:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -17,7 +17,7 @@
     <title type="html"><![CDATA[Grails Release Plugin External Maven Config
 ]]></title>
     <link href="http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
-    <updated>2012-10-21T09:00:18-05:00</updated>
+    <updated>2012-10-21T15:00:18+01:00</updated>
     <id>http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
 
@@ -59,7 +59,7 @@ grails.project.repos.internalSnap.password = 'fakePass123'
     <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
 ]]></title>
     <link href="http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
-    <updated>2011-10-27T09:32:23-05:00</updated>
+    <updated>2011-10-27T15:32:23+01:00</updated>
     <id>http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
     <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.
 ``` js</p>
@@ -79,7 +79,7 @@ _.each(examples,function(elm){
   <entry>
     <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
     <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
-    <updated>2011-05-08T07:52:26-05:00</updated>
+    <updated>2011-05-08T13:52:26+01:00</updated>
     <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
     <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
 
@@ -138,7 +138,7 @@ function padMili(number)
   <entry>
     <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
     <link href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/"/>
-    <updated>2011-02-08T14:07:11-06:00</updated>
+    <updated>2011-02-08T20:07:11+00:00</updated>
     <id>http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios</id>
     <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
 
@@ -165,7 +165,7 @@ if(!(&quot;standalone&quot; in window.navigator))
   <entry>
     <title type="html"><![CDATA[Remove Addressbar from iPhone Web App]]></title>
     <link href="http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
-    <updated>2010-06-22T11:55:31-05:00</updated>
+    <updated>2010-06-22T17:55:31+01:00</updated>
     <id>http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
     <content type="html"><![CDATA[<p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
 head. This will also work with the iPad.</p>
