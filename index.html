@@ -133,7 +133,61 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T15:36:21+01:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T06:54:30-05:00" pubdate data-updated="true">Jul 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>If you are working on a Groovy script with @Grab, you will sometimes get download failures for dependencies. Such as the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>General error during conversion: Error grabbing Grapes -- [download failed: com.google.guava#guava;16.0!guava.jar(bundle), download failed: org.javassist#javassist;3.18.1-GA!javassist.jar(bundle)]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This issues may have nothing to do with the actual dependency but an issue in your local m2 cache. The quick answer is to just delete <code>~/.groovy/grapes</code> and <code>~/.m2/repository</code>. But doing this will force you to re-download dependencies.</p>
+
+<p>To only delete the cache for items giving you an issue you just need to delete the correct directories in both m2 and grapes cache. So for our Guava example you would do the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rm -r ~/.groovy/grapes/com.google.guava
+</span><span class='line'>rm -r ~/.m2/repository/com/google/guava
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After that you should be able to run the groovy script normally.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2014</time>
         
       </p>
     
@@ -217,7 +271,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T10:02:02+01:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2013</time>
         
       </p>
     
@@ -302,12 +356,12 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-20T00:10:12+01:00" pubdate data-updated="true">Aug 20<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
         
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2013/08/20/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a></h1>
     
   </header>
 
@@ -350,7 +404,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T14:27:27+00:00" pubdate data-updated="true">Feb 4<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate data-updated="true">Feb 4<span>th</span>, 2013</time>
         
       </p>
     
@@ -449,7 +503,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T17:09:23+00:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2013</time>
         
       </p>
     
@@ -512,7 +566,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T10:52:37+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
         
       </p>
     
@@ -556,7 +610,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-12-28T10:25:45+00:00" pubdate data-updated="true">Dec 28<span>th</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-12-28T04:25:45-06:00" pubdate data-updated="true">Dec 28<span>th</span>, 2012</time>
         
       </p>
     
@@ -639,7 +693,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-10-21T15:00:18+01:00" pubdate data-updated="true">Oct 21<span>st</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-10-21T09:00:18-05:00" pubdate data-updated="true">Oct 21<span>st</span>, 2012</time>
         
       </p>
     
@@ -716,7 +770,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T10:56:37+01:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T04:56:37-05:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
         
       </p>
     
@@ -729,56 +783,6 @@
   <div class="entry-content clearfix"><p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
 
 <p>Reference: <a href="http://www.webmasterworld.com/apache/3279075.htm">http://www.webmasterworld.com/apache/3279075.htm</a></p>
-</div>
-  
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-10-27T15:32:23+01:00" pubdate data-updated="true">Oct 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/27/jquery-serialize-and-form-example-plugin/">jQuery Serialize() and Form Example Plugin</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">examples</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.example&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">examples</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">elm</span><span class="p">){</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="nx">elm</span><span class="p">).</span><span class="nx">unload</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I used <a href="http://documentcloud.github.com/underscore/">Userscore.js</a> to give me a quick foreach style loop and called the unload event on every element that has the class .example which is the default class that jQuery Form Example plugin uses.</p>
 </div>
   
   
@@ -817,15 +821,15 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
+    
     <a class="list-group-item " href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a>
     
     <a class="list-group-item " href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">Grails 2.3.1 Warnings After Clean.</a>
     
-    <a class="list-group-item " href="/blog/2013/08/20/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a>
+    <a class="list-group-item " href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a>
     
     <a class="list-group-item " href="/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/">Grails Custom UserDetailsService Using a Grails Service</a>
-    
-    <a class="list-group-item " href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">SAML Matching Endpoints With Tomcat</a>
     
   </div>
 </section>
