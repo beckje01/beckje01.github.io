@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-25T11:02:02-05:00</updated>
+  <updated>2014-08-13T18:23:22-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,75 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
+    <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
+    <updated>2014-08-13T18:16:00-05:00</updated>
+    <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
+    <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
+
+<p>``` java
+Statement upsert = QueryBuilder.update(&ldquo;table&rdquo;)</p>
+
+<pre><code>    .with(QueryBuilder.append("visits", new Date())) //Add to a CQL3 List
+    .where(QueryBuilder.eq("id", "MyID"));
+</code></pre>
+
+<p>session.execute(upsert);
+```</p>
+
+<p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
+
+<p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
+
+<p>```
+create table tablex(</p>
+
+<pre><code> pk1 varchar,
+ pk2 varchar,
+ colA varchar,
+ PRIMARY KEY(pk1,pk2)
+</code></pre>
+
+<p>);
+```
+We can not do the following query:</p>
+
+<p>``` java
+Statement upsert = QueryBuilder.update(&ldquo;tablex&rdquo;)</p>
+
+<pre><code>            .with(QueryBuilder.set("colA", "2"))
+            .where(QueryBuilder.eq("pk1", "1"));
+</code></pre>
+
+<p>```</p>
+
+<p>You will get an <code>InvalidQueryException</code>:</p>
+
+<p>```
+com.datastax.driver.core.exceptions.InvalidQueryException: Missing mandatory PRIMARY KEY part pk2</p>
+
+<pre><code>com.datastax.driver.core.exceptions.InvalidQueryException.copy(InvalidQueryException.java:35)
+com.datastax.driver.core.DefaultResultSetFuture.extractCauseFromExecutionException(DefaultResultSetFuture.java:256)
+com.datastax.driver.core.DefaultResultSetFuture.getUninterruptibly(DefaultResultSetFuture.java:172)
+</code></pre>
+
+<p>```</p>
+
+<p>But the following will upsert:</p>
+
+<p>``` java
+Statement upsert = QueryBuilder.update(&ldquo;tablex&rdquo;)</p>
+
+<pre><code>    .with(QueryBuilder.set("colA", "2"))
+    .where(QueryBuilder.eq("pk1", "1"))
+    .and(QueryBuilder.eq("pk2", "2"));
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
@@ -200,15 +269,6 @@ PreparedStatement postinsert = connection.prepareStatement(sql,PreparedStatement
 <li><a href="http://groups.google.com/group/persevere-framework/browse_thread/thread/8c9ea080a1bf9e65">A bug in the current implementation</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Quick GWT Note]]></title>
-    <link href="http://beckje01.com/blog/2009/03/02/quick-gwt-note/"/>
-    <updated>2009-03-02T14:41:56-06:00</updated>
-    <id>http://beckje01.com/blog/2009/03/02/quick-gwt-note</id>
-    <content type="html"><![CDATA[<p>While working on a small GWT project with two other developers I ran into an odd runtime exception “com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException” as I was testing my app in the hosted mode I’m not sure how to refresh that built in browser which is the listed fix. What I ended up doing was a simple clean of the project which solved my problem, I think it relates to how I’m using SVN not integrated into Eclipse with the project yet its hard to tell. But if you run accross this expection try a simple clean before pulling too much hair out.</p>
 ]]></content>
   </entry>
   

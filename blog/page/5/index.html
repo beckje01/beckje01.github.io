@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Python CGI + FTP = Headache - Jeff Beck</title>
+  <title>Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache">
+  <link rel="canonical" href="http://beckje01.com/blog/page/5">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -111,8 +111,12 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <article class="hentry" role="article">
+    <div class="blog-index">
       
+      
+      
+        <article class="post">
+          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -129,92 +133,67 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate data-updated="true">Jan 9<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-08T04:34:28-06:00" pubdate data-updated="true">Nov 8<span>th</span>, 2007</time>
         
       </p>
     
     
-    <h1 class="entry-title">
-        Python CGI + FTP = Headache
-        
-    </h1>
+      <h1 class="entry-title"><a href="/blog/2007/11/08/broken-dynamic-tables/">Broken Dynamic Tables</a></h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>I have taken over support of a Python CGI application, no big deal seems like an ok code base and the fixes seem simple. The first fix that needed to be done was a very simple change to some wording which required me to change a cgi file so I made the change tested it and it all worked on my dev system so I then uploaded the file over FTP to the server and nothing worked. So after lots of debugging trying all sorts of things, I remembered something about the binary and ASCII transfer settings for FTP. Mine was set to binary so I switched it over to ASCII uploaded the file again and sure enough everything worked again.</p>
+  <div class="entry-content clearfix"><p>I’ve been building a web based application that uses Ajax and other JavaScript extensively. While working with adding rows to tables dynamically I’ve found the wrong way to do it and thought I should share. When adding rows to tables if the rows are simply data this method will work fine, but when the rows contain form inputs there is a problem.</p>
 
-<p>So as a word of advice when working with CGI and FTP always check your transfer settings, had I done this when I started I wouldn’t have wasted hours of my night.</p>
+<p>This will add a new row no problem.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;tableone&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">old</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span>
+</span><span class='line'><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="s2">&quot;&lt;tr&gt;&lt;td&gt;Sample&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But if we add some inputs we start getting problems.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;tableone&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">old</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span>
+</span><span class='line'><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="s2">&quot;&lt;tr&gt;&lt;td&gt;&lt;input type=&#39;text&#39; name=&#39;test&quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot;&#39; id=&#39;text&quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot;&#39; /&gt;&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When we add one row then enter a value in the input then, the user hit a plus button to add another row the data that was entered is lost. So this is how not to do dynamic tables with inputs, more to follow on how to fix this problem.</p>
 </div>
-
-
-      <footer>
-        <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate data-updated="true">Jan 9<span>th</span>, 2008</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/software-engineering/'>Software Engineering</a>
-  
-</span>
-
-
-        </p>
-        
-          <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/" >Tweet</a>
   
   
-  
-</div>
 
-        
-        
-          <ul class="meta text-muted pager">
-            
-            <li class="previous"><a href="/blog/2007/11/11/read-only-tables-with-ie6ie7/" title="Previous Post: Read only tables with IE6/IE7">&laquo; Read only tables with IE6/IE7</a></li>
-            
-            
-            <li class="next"><a href="/blog/2008/02/21/amazon-fps-vs-google-checkout/" title="Next Post: Amazon FPS vs Google Checkout">Amazon FPS vs Google Checkout &raquo;</a></li>
-            
-          </ul>
-        
-      </footer>
-    </article>
-    
-      <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-      </section>
-    
+
+        </article>
+      
+    </div>
+
+    <ul class="pager">
+      
+        <li class="previous disabled"><a href="#">&larr;&nbsp;Older</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+        <li class="next"><a href="/blog/page/4/">Newer&nbsp;&rarr;</a></li>
+      
+    </ul>
   </div>
 
   
-  <aside class="sidebar col-md-3">
-    
+    <aside class="sidebar col-md-3">
       
+        
 <link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
 <section class="panel panel-default clearfix">
 	<span>
@@ -267,7 +246,7 @@
   <h3 class="panel-title">Coderwall</h3>
 </div>
   <ul id="cw_badges">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
 
   <script type="text/javascript">
@@ -321,8 +300,8 @@
 </section>
 
 
-    
-  </aside>
+      
+    </aside>
   
 </div>
 
@@ -348,10 +327,7 @@
       var disqus_shortname = 'beckje01blog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/';
-        var disqus_url = 'http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

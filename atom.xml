@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-07-25T11:02:02-05:00</updated>
+  <updated>2014-08-13T18:23:22-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,82 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
+    <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
+    <updated>2014-08-13T18:16:00-05:00</updated>
+    <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
+    <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;table&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;visits&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;MyID&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
+
+<p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">create</span> <span class="n">table</span> <span class="nf">tablex</span><span class="o">(</span>
+</span><span class='line'>     <span class="n">pk1</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">pk2</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">colA</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">PRIMARY</span> <span class="nf">KEY</span><span class="o">(</span><span class="n">pk1</span><span class="o">,</span><span class="n">pk2</span><span class="o">)</span>
+</span><span class='line'><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can not do the following query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
+</span><span class='line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
+</span><span class='line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You will get an <code>InvalidQueryException</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">:</span> <span class="n">Missing</span> <span class="n">mandatory</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">part</span> <span class="n">pk2</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">InvalidQueryException</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">35</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">extractCauseFromExecutionException</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">256</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">getUninterruptibly</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">172</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But the following will upsert:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">))</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk2&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Failing @Grab Fixes]]></title>
@@ -780,23 +856,6 @@ head. This will also work with the iPad.</p>
 </span><span class='line'>      <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">();</span>
 </span><span class='line'> <span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[pptx mime type]]></title>
-    <link href="http://beckje01.com/blog/2010/01/17/pptx-mime-type/"/>
-    <updated>2010-01-17T04:48:16-06:00</updated>
-    <id>http://beckje01.com/blog/2010/01/17/pptx-mime-type</id>
-    <content type="html"><![CDATA[<p>I was working with a CMS and found that one file was not downloading correctly people were saying that the file was being zipped up by the CMS. Well it turns out it was the issue with IE6 and a bad MIME Type. The fix is simple for pptx you need the mime type <em>application/vnd.openxmlformats-officedocument.presentationml.presentation</em> once that was added everything was working correctly. With out this a PPTX file will download as a zip.</p>
-
-<p>A few links on the subject:</p>
-
-<ul>
-<li><a href="http://blogs.msdn.com/dmahugh/archive/2006/08/08/692600.aspx">Office 2007 Mime Types</a></li>
-<li><a href="http://serverfault.com/questions/19060/why-are-docx-xlsx-pptx-downloading-from-webserver-as-zip-files">How to fix in Apache</a></li>
-</ul>
 
 ]]></content>
   </entry>

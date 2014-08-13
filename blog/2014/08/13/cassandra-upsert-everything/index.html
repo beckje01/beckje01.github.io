@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Python CGI + FTP = Headache - Jeff Beck</title>
+  <title>Cassandra Upsert Everything - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache">
+  <link rel="canonical" href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,22 +129,87 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate data-updated="true">Jan 9<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate data-updated="true">Aug 13<span>th</span>, 2014</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        Python CGI + FTP = Headache
+        Cassandra Upsert Everything
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>I have taken over support of a Python CGI application, no big deal seems like an ok code base and the fixes seem simple. The first fix that needed to be done was a very simple change to some wording which required me to change a cgi file so I made the change tested it and it all worked on my dev system so I then uploaded the file over FTP to the server and nothing worked. So after lots of debugging trying all sorts of things, I remembered something about the binary and ASCII transfer settings for FTP. Mine was set to binary so I switched it over to ASCII uploaded the file again and sure enough everything worked again.</p>
+<div class="entry-content clearfix"><p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
-<p>So as a word of advice when working with CGI and FTP always check your transfer settings, had I done this when I started I wouldn’t have wasted hours of my night.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;table&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;visits&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;MyID&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
+
+<p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">create</span> <span class="n">table</span> <span class="nf">tablex</span><span class="o">(</span>
+</span><span class='line'>     <span class="n">pk1</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">pk2</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">colA</span> <span class="n">varchar</span><span class="o">,</span>
+</span><span class='line'>     <span class="n">PRIMARY</span> <span class="nf">KEY</span><span class="o">(</span><span class="n">pk1</span><span class="o">,</span><span class="n">pk2</span><span class="o">)</span>
+</span><span class='line'><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can not do the following query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
+</span><span class='line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
+</span><span class='line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You will get an <code>InvalidQueryException</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">:</span> <span class="n">Missing</span> <span class="n">mandatory</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">part</span> <span class="n">pk2</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">InvalidQueryException</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">35</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">extractCauseFromExecutionException</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">256</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">getUninterruptibly</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">172</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But the following will upsert:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">))</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk2&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -153,7 +218,7 @@
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -168,13 +233,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate data-updated="true">Jan 9<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate data-updated="true">Aug 13<span>th</span>, 2014</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/software-engineering/'>Software Engineering</a>
+    <a class='category' href='/blog/categories/cql/'>CQL</a>, <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>, <a class='category' href='/blog/categories/java/'>Java</a>
   
 </span>
 
@@ -183,7 +248,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/" >Tweet</a>
   
   
   
@@ -193,10 +258,8 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2007/11/11/read-only-tables-with-ie6ie7/" title="Previous Post: Read only tables with IE6/IE7">&laquo; Read only tables with IE6/IE7</a></li>
+            <li class="previous"><a href="/blog/2014/07/25/failing-at-grab-fixes/" title="Previous Post: Failing @Grab Fixes">&laquo; Failing @Grab Fixes</a></li>
             
-            
-            <li class="next"><a href="/blog/2008/02/21/amazon-fps-vs-google-checkout/" title="Next Post: Amazon FPS vs Google Checkout">Amazon FPS vs Google Checkout &raquo;</a></li>
             
           </ul>
         
@@ -229,7 +292,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
+    <a class="list-group-item active" href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
     <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
@@ -349,8 +412,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/';
-        var disqus_url = 'http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/';
+        var disqus_identifier = 'http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/';
+        var disqus_url = 'http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/';
         var disqus_script = 'embed.js';
       
     (function () {
