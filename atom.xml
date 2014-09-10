@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-08-13T18:23:22-05:00</updated>
+  <updated>2014-09-10T11:16:30-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,134 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ratpack Promise]]></title>
+    <link href="http://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
+    <updated>2014-09-10T15:33:46-05:00</updated>
+    <id>http://beckje01.com/blog/2014/09/10/ratpack-promise</id>
+    <content type="html"><![CDATA[<p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
+
+<p>Ratpack Promises are very easy to work with, there are just a few key points:</p>
+
+<ul>
+<li>Only attach to a promise one time</li>
+<li>If dealing with the error case it must be done before the success case</li>
+<li>They are Lazy</li>
+<li>In Groovy we depend on <a href="http://mrhaki.blogspot.com/2013/11/groovy-goodness-implicit-closure.html">Implicit Closure Coercion</a> to change our closures to an Action.</li>
+</ul>
+
+
+<h2>Happy Path</h2>
+
+<figure class='code'><figcaption><span>Consuming Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.</p>
+
+<figure class='code'><figcaption><span>Explicit Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If some error occurs while trying to get the value for the <code>then</code> block the exception will be thrown. Which can be picked up by some error handler down the chain.</p>
+
+<h2>Error Callback</h2>
+
+<p>So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with <code>onError</code> instead of <code>then</code>.</p>
+
+<figure class='code'><figcaption><span>Ratpack Promise with Failure Path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span> <span class="n">onError</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span> <span class="s2">&quot;Something when wrong: ${it.message}&quot;</span>
+</span><span class='line'><span class="o">}</span> <span class="n">then</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">render</span> <span class="s2">&quot;Got a ${it.statusCode} status with body of:\n\n${it.body.text}&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>onError</code> will pass in a throwable to the closure that you can log or do whatever work you would like in the case of a failure.</p>
+
+<h2>Lazy Promises</h2>
+
+<p>Ratpack promises won&rsquo;t actually try to generate the value until the <code>then</code> block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.</p>
+
+<figure class='code'><figcaption><span>Deterministic Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}.</span><span class="na">then</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
+</span><span class='line'>  <span class="n">sleep</span> <span class="mi">5000</span>
+</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&quot;bang!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What will happen in Ratpack is we will always get the exception &ldquo;bang!&rdquo;, because the get request will not even get started until the <code>doWork</code> block of execution is finished. Once finished having a <code>then{}</code> will trigger a background thread to start generating the value.</p>
+
+<h2>What not to do</h2>
+
+<p>You shouldn&rsquo;t try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don&rsquo;t do the following:</p>
+
+<figure class='code'><figcaption><span>Don&#8217;t do this</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Starting in Ratpack 0.9.9 the above code should actually throw an error.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
@@ -822,41 +950,6 @@ head. This will also work with the iPad.</p>
     <updated>2010-04-07T17:56:42-05:00</updated>
     <id>http://beckje01.com/blog/2010/04/07/disqus-comments</id>
     <content type="html"><![CDATA[<p>One feature I have really liked on my blogs recently is the ability to just use Twitter to comment so I went ahead and added the DISQUS Comment system the plugin is straight forward and easy to use with WordPress. Moving forward with new site projects I will be strongly considering using <a href="http://disqus.com/overview/">DISQUS </a>instead of an internal comment system, I would suggest checking it out as well as <a href="http://intensedebate.com/">InenseDebate </a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Filling an Array with Objects in PHP]]></title>
-    <link href="http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php/"/>
-    <updated>2010-01-28T01:29:45-06:00</updated>
-    <id>http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php</id>
-    <content type="html"><![CDATA[<p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
-
-<p>The following doesn’t work correctly</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="nb">array_fill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">());</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So to accomplish the same idea I did the following</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'> <span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'> <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;=</span><span class="mi">12</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">//Fill Array with new object</span>
-</span><span class='line'>      <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">();</span>
-</span><span class='line'> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

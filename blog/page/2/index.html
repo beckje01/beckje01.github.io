@@ -133,6 +133,83 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-10-21T09:00:18-05:00" pubdate data-updated="true">Oct 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/21/grails-release-plugin-external-maven-config/">Grails Release Plugin External Maven Config</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
+
+<p>Add this to BuildConfig.groovy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">mavenConfigFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s2">&quot;${basedir}/grails-app/conf/mavenInfo.groovy&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">mavenConfigFile</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">slurpedMavenInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConfigSlurper</span><span class="o">().</span><span class="na">parse</span><span class="o">(</span><span class="n">mavenConfigFile</span><span class="o">.</span><span class="na">toURL</span><span class="o">())</span>
+</span><span class='line'>  <span class="n">slurpedMavenInfo</span><span class="o">.</span><span class="na">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">each</span> <span class="o">{</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span> <span class="o">-&gt;</span>
+</span><span class='line'>      <span class="n">println</span> <span class="s2">&quot;Adding maven info for repo $k&quot;</span>
+</span><span class='line'>      <span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="s2">&quot;$k&quot;</span> <span class="o">=</span> <span class="n">v</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="s2">&quot;No mavenInfo file found.&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you can create a file called mavenInfo.groovy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">url</span> <span class="o">=</span> <span class="s1">&#39;http://internal.com:8080/nexus/content/repositories/internal-snapshots/&#39;</span>
+</span><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">username</span> <span class="o">=</span> <span class="s1">&#39;fakeUser&#39;</span>
+</span><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">repos</span><span class="o">.</span><span class="na">internalSnap</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="s1">&#39;fakePass123&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Grab the <a href="http://bit.ly/QAyVhR">gist</a>.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T04:56:37-05:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
         
       </p>
@@ -555,69 +632,6 @@ head. This will also work with the iPad.</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-28T01:29:45-06:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/28/filling-an-array-with-objects-in-php/">Filling an Array With Objects in PHP</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
-
-<p>The following doesn’t work correctly</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="nb">array_fill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">());</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So to accomplish the same idea I did the following</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'> <span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'> <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;=</span><span class="mi">12</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">//Fill Array with new object</span>
-</span><span class='line'>      <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">();</span>
-</span><span class='line'> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -649,6 +663,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
+    
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
     <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
@@ -656,8 +672,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a>
     
     <a class="list-group-item " href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">Grails 2.3.1 Warnings After Clean.</a>
-    
-    <a class="list-group-item " href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a>
     
   </div>
 </section>

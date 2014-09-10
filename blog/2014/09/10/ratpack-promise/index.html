@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Check for Address Bar in iOS - Jeff Beck</title>
+  <title>Ratpack Promise - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios">
+  <link rel="canonical" href="http://beckje01.com/blog/2014/09/10/ratpack-promise">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,38 +129,139 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate data-updated="true">Feb 8<span>th</span>, 2011</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        Check for Address Bar in iOS
+        Ratpack Promise
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
+<div class="entry-content clearfix"><p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
 
-<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
+<p>Ratpack Promises are very easy to work with, there are just a few key points:</p>
 
-<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
-
-<div><script src='https://gist.github.com/926010.js'></script>
-<noscript><pre><code>if(window.navigator.standalone)
-{//This page is currently standalone
-   console.log(&quot;stand alone&quot;);
-}
- 
-if(!(&quot;standalone&quot; in window.navigator))
-{//This Page is shown in a browser that can&#39;t
-    console.log(&quot;can&#39;t do standalone&quot;);
-}</code></pre></noscript></div>
+<ul>
+<li>Only attach to a promise one time</li>
+<li>If dealing with the error case it must be done before the success case</li>
+<li>They are Lazy</li>
+<li>In Groovy we depend on <a href="http://mrhaki.blogspot.com/2013/11/groovy-goodness-implicit-closure.html">Implicit Closure Coercion</a> to change our closures to an Action.</li>
+</ul>
 
 
-<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
+<h2>Happy Path</h2>
+
+<figure class='code'><figcaption><span>Consuming Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.</p>
+
+<figure class='code'><figcaption><span>Explicit Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If some error occurs while trying to get the value for the <code>then</code> block the exception will be thrown. Which can be picked up by some error handler down the chain.</p>
+
+<h2>Error Callback</h2>
+
+<p>So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with <code>onError</code> instead of <code>then</code>.</p>
+
+<figure class='code'><figcaption><span>Ratpack Promise with Failure Path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span> <span class="n">onError</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span> <span class="s2">&quot;Something when wrong: ${it.message}&quot;</span>
+</span><span class='line'><span class="o">}</span> <span class="n">then</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">render</span> <span class="s2">&quot;Got a ${it.statusCode} status with body of:\n\n${it.body.text}&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>onError</code> will pass in a throwable to the closure that you can log or do whatever work you would like in the case of a failure.</p>
+
+<h2>Lazy Promises</h2>
+
+<p>Ratpack promises won&rsquo;t actually try to generate the value until the <code>then</code> block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.</p>
+
+<figure class='code'><figcaption><span>Deterministic Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}.</span><span class="na">then</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
+</span><span class='line'>  <span class="n">sleep</span> <span class="mi">5000</span>
+</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&quot;bang!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What will happen in Ratpack is we will always get the exception &ldquo;bang!&rdquo;, because the get request will not even get started until the <code>doWork</code> block of execution is finished. Once finished having a <code>then{}</code> will trigger a background thread to start generating the value.</p>
+
+<h2>What not to do</h2>
+
+<p>You shouldn&rsquo;t try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don&rsquo;t do the following:</p>
+
+<figure class='code'><figcaption><span>Don&#8217;t do this</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Starting in Ratpack 0.9.9 the above code should actually throw an error.</p>
 </div>
 
 
@@ -169,7 +270,7 @@ if(!(&quot;standalone&quot; in window.navigator))
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -184,13 +285,13 @@ if(!(&quot;standalone&quot; in window.navigator))
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate data-updated="true">Feb 8<span>th</span>, 2011</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/ratpack/'>Ratpack</a>
   
 </span>
 
@@ -199,7 +300,7 @@ if(!(&quot;standalone&quot; in window.navigator))
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2014/09/10/ratpack-promise/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2014/09/10/ratpack-promise/" >Tweet</a>
   
   
   
@@ -209,10 +310,8 @@ if(!(&quot;standalone&quot; in window.navigator))
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2010/06/22/remove-addressbar-from-iphone-web-app/" title="Previous Post: Remove Addressbar from iPhone Web App">&laquo; Remove Addressbar from iPhone Web App</a></li>
+            <li class="previous"><a href="/blog/2014/08/13/cassandra-upsert-everything/" title="Previous Post: Cassandra Upsert Everything">&laquo; Cassandra Upsert Everything</a></li>
             
-            
-            <li class="next"><a href="/blog/2011/05/08/java-and-javascript-datetime-fun/" title="Next Post: Java and JavaScript Datetime Fun">Java and JavaScript Datetime Fun &raquo;</a></li>
             
           </ul>
         
@@ -245,7 +344,7 @@ if(!(&quot;standalone&quot; in window.navigator))
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
+    <a class="list-group-item active" href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
@@ -365,8 +464,8 @@ if(!(&quot;standalone&quot; in window.navigator))
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/';
-        var disqus_url = 'http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/';
+        var disqus_identifier = 'http://beckje01.com/blog/2014/09/10/ratpack-promise/';
+        var disqus_url = 'http://beckje01.com/blog/2014/09/10/ratpack-promise/';
         var disqus_script = 'embed.js';
       
     (function () {

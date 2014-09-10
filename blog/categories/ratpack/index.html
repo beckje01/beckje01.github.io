@@ -4,10 +4,10 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Check for Address Bar in iOS - Jeff Beck</title>
+  <title>Category: Ratpack - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
-  
+  <meta name="description" content="Category: Ratpack">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios">
+  <link rel="canonical" href="http://beckje01.comblog/categories/ratpack">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -61,13 +61,13 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
                     <a href="/about.html">About</a>
                 </li>
-                <li >
+                <li class="active">
                     <a href="/blog/archives">Archives</a>
                 </li>
             </ul>
@@ -111,67 +111,32 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <article class="hentry" role="article">
+    <article role="article">
       
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate data-updated="true">Feb 8<span>th</span>, 2011</time>
-        
-      </p>
-    
-    
-    <h1 class="entry-title">
-        Check for Address Bar in iOS
-        
-    </h1>
-    
-  </header>
-
-
-<div class="entry-content clearfix"><p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
-
-<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
-
-<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
-
-<div><script src='https://gist.github.com/926010.js'></script>
-<noscript><pre><code>if(window.navigator.standalone)
-{//This page is currently standalone
-   console.log(&quot;stand alone&quot;);
-}
- 
-if(!(&quot;standalone&quot; in window.navigator))
-{//This Page is shown in a browser that can&#39;t
-    console.log(&quot;can&#39;t do standalone&quot;);
-}</code></pre></noscript></div>
-
-
-<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
-</div>
-
-
-      <footer>
-        <p class="meta text-muted">
+        <header class="page-header">
           
+          
+            <h1 class="entry-title">
+              Category: Ratpack
+              
+            </h1>
+          
+        </header>
+      
+      <div class="entry-content">
+        <div id="blog-archives" class="category">
+
+
+
+  
+  <h2>2014</h2>
+
+<article class="page-header">
+  
+<h1><a href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a></h1>
+<p class="meta text-muted">
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
 
 
 
@@ -183,54 +148,33 @@ if(!(&quot;standalone&quot; in window.navigator))
 
 
 
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate data-updated="true">Feb 8<span>th</span>, 2011</time>
-          
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
+  
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/ratpack/'>Ratpack</a>
   
 </span>
 
 
-        </p>
-        
-          <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/" >Tweet</a>
-  
-  
-  
+</p>
+
+</article>
+
 </div>
 
-        
-        
-          <ul class="meta text-muted pager">
-            
-            <li class="previous"><a href="/blog/2010/06/22/remove-addressbar-from-iphone-web-app/" title="Previous Post: Remove Addressbar from iPhone Web App">&laquo; Remove Addressbar from iPhone Web App</a></li>
-            
-            
-            <li class="next"><a href="/blog/2011/05/08/java-and-javascript-datetime-fun/" title="Next Post: Java and JavaScript Datetime Fun">Java and JavaScript Datetime Fun &raquo;</a></li>
-            
-          </ul>
-        
-      </footer>
+      </div>
+      
     </article>
-    
-      <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-      </section>
     
   </div>
 
   
-  <aside class="sidebar col-md-3">
-    
+    <aside class="sidebar col-md-3">
       
+        
 <link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
 <section class="panel panel-default clearfix">
 	<span>
@@ -337,8 +281,8 @@ if(!(&quot;standalone&quot; in window.navigator))
 </section>
 
 
-    
-  </aside>
+      
+    </aside>
   
 </div>
 
@@ -364,10 +308,7 @@ if(!(&quot;standalone&quot; in window.navigator))
       var disqus_shortname = 'beckje01blog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/';
-        var disqus_url = 'http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
