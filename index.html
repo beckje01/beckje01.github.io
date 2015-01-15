@@ -133,7 +133,61 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate data-updated="true">Sep 10<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> this allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
+
+<p>We found an issue while running both of these in production. Overtime the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
+
+<p>So at this time we can&rsquo;t use the App Info plugin session tracking with the Memcached Session Manager, since it leads to a memory leak as all those sessions have references inside the plugin and can never be garbage collected.</p>
+
+<p>We can simply turn off the session tracking with the following code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">appinfo</span><span class="o">.</span><span class="na">useContextListener</span> <span class="o">=</span> <span class="kc">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But note this config change effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
+
+<p>Below is our memory graph before and after the change:</p>
+
+<p><img src="/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
         
       </p>
     
@@ -289,7 +343,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate data-updated="true">Aug 13<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
         
       </p>
     
@@ -393,7 +447,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T06:54:30-05:00" pubdate data-updated="true">Jul 25<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T06:54:30-05:00" pubdate class="published updated" >Jul 25<span>th</span>, 2014</time>
         
       </p>
     
@@ -447,7 +501,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
         
       </p>
     
@@ -531,7 +585,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
         
       </p>
     
@@ -616,7 +670,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate class="published updated" >Aug 19<span>th</span>, 2013</time>
         
       </p>
     
@@ -664,7 +718,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate data-updated="true">Feb 4<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
         
       </p>
     
@@ -763,7 +817,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
         
       </p>
     
@@ -826,7 +880,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate class="published updated" >Jan 15<span>th</span>, 2013</time>
         
       </p>
     
@@ -844,89 +898,6 @@
 
 
 <p>Also if you want to poke around the other beans available this is a great post to check out: <a href="http://www.redtoad.ca/ataylor/2012/05/spring-beans-from-the-grails-console/">Spring Beans from the Grails Console</a> .</p>
-</div>
-  
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-12-28T04:25:45-06:00" pubdate data-updated="true">Dec 28<span>th</span>, 2012</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/28/cassandra-not-available-after-starting/">Cassandra Not Available After Starting</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
-
-<p>I was able to quickly fix the error by removing my data directory and starting fresh as this is just my development environment that works great for me. You can find your data directory in the cassandra.yaml file ($DSE_HOME/resources/cassandra/conf/cassandra.yaml), look for the <em>data_file_directories</em> entry. Mine was set to <em>/var/lib/cassandra/data</em> so I just ran the following and started cassandra fresh and everything is back to working order.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rm -r /var/lib/cassandra/data
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>INFO <span class="o">[</span>JOB-TRACKER-INIT<span class="o">]</span> 2012-12-28 10:32:32,515 JobTracker.java <span class="o">(</span>line 2427<span class="o">)</span> problem cleaning system directory: cfs:/tmp/hadoop-jeffbeck/mapred/system
-</span><span class='line'>java.io.IOException: UnavailableException<span class="o">()</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1137<span class="o">)</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystem.listStatus<span class="o">(</span>CassandraFileSystem.java:192<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2392<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2195<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2189<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:303<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:294<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.HadoopTrackerPlugin<span class="nv">$1</span>.run<span class="o">(</span>HadoopTrackerPlugin.java:230<span class="o">)</span>
-</span><span class='line'>  at java.lang.Thread.run<span class="o">(</span>Thread.java:680<span class="o">)</span>
-</span><span class='line'>Caused by: UnavailableException<span class="o">()</span>
-</span><span class='line'>  at org.apache.cassandra.service.ReadCallback.assureSufficientLiveNodes<span class="o">(</span>ReadCallback.java:212<span class="o">)</span>
-</span><span class='line'>  at org.apache.cassandra.service.StorageProxy.scan<span class="o">(</span>StorageProxy.java:1083<span class="o">)</span>
-</span><span class='line'>  at org.apache.cassandra.thrift.CassandraServer.get_indexed_slices<span class="o">(</span>CassandraServer.java:746<span class="o">)</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1120<span class="o">)</span>
-</span><span class='line'>  ... 8 more
-</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -965,6 +936,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
+    
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
@@ -972,8 +945,6 @@
     <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
     <a class="list-group-item " href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a>
-    
-    <a class="list-group-item " href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">Grails 2.3.1 Warnings After Clean.</a>
     
   </div>
 </section>
@@ -1067,7 +1038,7 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2014 - Jeff Beck<br>
+  Copyright &copy; 2015 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.

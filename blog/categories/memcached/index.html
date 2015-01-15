@@ -4,10 +4,10 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>YUI ScriptNodeDataSource Issue - Jeff Beck</title>
+  <title>Category: Memcached - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
-  
+  <meta name="description" content="Category: Memcached">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue">
+  <link rel="canonical" href="http://beckje01.comblog/categories/memcached">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -61,13 +61,13 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
                     <a href="/about.html">About</a>
                 </li>
-                <li >
+                <li class="active">
                     <a href="/blog/archives">Archives</a>
                 </li>
             </ul>
@@ -111,53 +111,32 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <article class="hentry" role="article">
+    <article role="article">
       
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T17:00:50-05:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
-        
-      </p>
-    
-    
-    <h1 class="entry-title">
-        YUI ScriptNodeDataSource Issue
-        
-    </h1>
-    
-  </header>
-
-
-<div class="entry-content clearfix"><p>While using the YUI Library, I came across an annoying issue. It is stated places that order matters when dealing with the library includes, yet there are still some issues that come up. The main one I’ve found is with the YAHOO.util.ScriptNodeDataSource this is used for accessing remote data via the YUI Get Utility. But using the configuration from Yahoo the Get library isn’t included by default, yet when you add it after finding that error the system still won’t work.</p>
-
-<p>The Get Utility has to be loaded before the DataSource library, yet this is the only part of the DataSource library that require the Get utility so it isn’t listed as a dependency for that library. I used the YUI Dependency Configurator yet while working without the combined files you can still introduce the ordering issue. Yahoo needs to add a simple check that the Get utility is always loaded before the DataSource Utility yet that haven’t yet. You may not have this issue while using the combined files mode as it will all be executed at once.</p>
-
-<p>So if you see an error message like “this.getUtility is undefined” make sure you have the Get Utility loaded before the DataSource.</p>
-</div>
-
-
-      <footer>
-        <p class="meta text-muted">
+        <header class="page-header">
           
+          
+            <h1 class="entry-title">
+              Category: Memcached
+              
+            </h1>
+          
+        </header>
+      
+      <div class="entry-content">
+        <div id="blog-archives" class="category">
+
+
+
+  
+  <h2>2015</h2>
+
+<article class="page-header">
+  
+<h1><a href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a></h1>
+<p class="meta text-muted">
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
 
 
 
@@ -169,54 +148,33 @@
 
 
 
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T17:00:50-05:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
-          
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
+  
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/memcached/'>Memcached</a>
   
 </span>
 
 
-        </p>
-        
-          <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/" >Tweet</a>
-  
-  
-  
+</p>
+
+</article>
+
 </div>
 
-        
-        
-          <ul class="meta text-muted pager">
-            
-            <li class="previous"><a href="/blog/2009/03/02/quick-gwt-note/" title="Previous Post: Quick GWT Note">&laquo; Quick GWT Note</a></li>
-            
-            
-            <li class="next"><a href="/blog/2009/04/02/go-daddy-subdomain-redirects/" title="Next Post: Go Daddy Subdomain Redirects">Go Daddy Subdomain Redirects &raquo;</a></li>
-            
-          </ul>
-        
-      </footer>
+      </div>
+      
     </article>
-    
-      <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-      </section>
     
   </div>
 
   
-  <aside class="sidebar col-md-3">
-    
+    <aside class="sidebar col-md-3">
       
+        
 <link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
 <section class="panel panel-default clearfix">
 	<span>
@@ -323,8 +281,8 @@
 </section>
 
 
-    
-  </aside>
+      
+    </aside>
   
 </div>
 
@@ -350,10 +308,7 @@
       var disqus_shortname = 'beckje01blog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/';
-        var disqus_url = 'http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

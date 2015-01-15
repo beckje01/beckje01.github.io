@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2014-09-17T09:21:42-05:00</updated>
+  <updated>2015-01-14T20:48:44-06:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
+    <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
+    <updated>2015-01-14T20:46:00-06:00</updated>
+    <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
+    <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> this allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
+
+<p>We found an issue while running both of these in production. Overtime the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
+
+<p>So at this time we can&rsquo;t use the App Info plugin session tracking with the Memcached Session Manager, since it leads to a memory leak as all those sessions have references inside the plugin and can never be garbage collected.</p>
+
+<p>We can simply turn off the session tracking with the following code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">appinfo</span><span class="o">.</span><span class="na">useContextListener</span> <span class="o">=</span> <span class="kc">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But note this config change effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
+
+<p>Below is our memory graph before and after the change:</p>
+
+<p><img src="http://beckje01.com/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ratpack Promise]]></title>
@@ -941,15 +967,6 @@ head. This will also work with the iPad.</p>
 
 
 <p>Simply using the first style is ok if you are only doing one type of video but if you wanted to include other options this issue limits that ability. But for now if you are targeting iPad just use the first option.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[DISQUS Comments]]></title>
-    <link href="http://beckje01.com/blog/2010/04/07/disqus-comments/"/>
-    <updated>2010-04-07T17:56:42-05:00</updated>
-    <id>http://beckje01.com/blog/2010/04/07/disqus-comments</id>
-    <content type="html"><![CDATA[<p>One feature I have really liked on my blogs recently is the ability to just use Twitter to comment so I went ahead and added the DISQUS Comment system the plugin is straight forward and easy to use with WordPress. Moving forward with new site projects I will be strongly considering using <a href="http://disqus.com/overview/">DISQUS </a>instead of an internal comment system, I would suggest checking it out as well as <a href="http://intensedebate.com/">InenseDebate </a>.</p>
 ]]></content>
   </entry>
   

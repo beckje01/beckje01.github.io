@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>YUI ScriptNodeDataSource Issue - Jeff Beck</title>
+  <title>Memcached Tomcat Sessions and Grails App Info Plugin - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,24 +129,37 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T17:00:50-05:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        YUI ScriptNodeDataSource Issue
+        Memcached Tomcat Sessions and Grails App Info Plugin
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>While using the YUI Library, I came across an annoying issue. It is stated places that order matters when dealing with the library includes, yet there are still some issues that come up. The main one I’ve found is with the YAHOO.util.ScriptNodeDataSource this is used for accessing remote data via the YUI Get Utility. But using the configuration from Yahoo the Get library isn’t included by default, yet when you add it after finding that error the system still won’t work.</p>
+<div class="entry-content clearfix"><p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> this allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
-<p>The Get Utility has to be loaded before the DataSource library, yet this is the only part of the DataSource library that require the Get utility so it isn’t listed as a dependency for that library. I used the YUI Dependency Configurator yet while working without the combined files you can still introduce the ordering issue. Yahoo needs to add a simple check that the Get utility is always loaded before the DataSource Utility yet that haven’t yet. You may not have this issue while using the combined files mode as it will all be executed at once.</p>
+<p>We found an issue while running both of these in production. Overtime the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
 
-<p>So if you see an error message like “this.getUtility is undefined” make sure you have the Get Utility loaded before the DataSource.</p>
+<p>So at this time we can&rsquo;t use the App Info plugin session tracking with the Memcached Session Manager, since it leads to a memory leak as all those sessions have references inside the plugin and can never be garbage collected.</p>
+
+<p>We can simply turn off the session tracking with the following code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">appinfo</span><span class="o">.</span><span class="na">useContextListener</span> <span class="o">=</span> <span class="kc">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But note this config change effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
+
+<p>Below is our memory graph before and after the change:</p>
+
+<p><img src="/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
 </div>
 
 
@@ -155,7 +168,7 @@
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -170,13 +183,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T17:00:50-05:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/memcached/'>Memcached</a>
   
 </span>
 
@@ -185,7 +198,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/" >Tweet</a>
   
   
   
@@ -195,10 +208,8 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2009/03/02/quick-gwt-note/" title="Previous Post: Quick GWT Note">&laquo; Quick GWT Note</a></li>
+            <li class="previous"><a href="/blog/2014/09/10/ratpack-promise/" title="Previous Post: Ratpack Promise">&laquo; Ratpack Promise</a></li>
             
-            
-            <li class="next"><a href="/blog/2009/04/02/go-daddy-subdomain-redirects/" title="Next Post: Go Daddy Subdomain Redirects">Go Daddy Subdomain Redirects &raquo;</a></li>
             
           </ul>
         
@@ -231,7 +242,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
+    <a class="list-group-item active" href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
@@ -351,8 +362,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/';
-        var disqus_url = 'http://beckje01.com/blog/2009/03/11/yui-scriptnodedatasource-issue/';
+        var disqus_identifier = 'http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/';
+        var disqus_url = 'http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/';
         var disqus_script = 'embed.js';
       
     (function () {
