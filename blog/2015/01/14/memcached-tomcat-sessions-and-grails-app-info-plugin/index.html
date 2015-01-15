@@ -142,9 +142,9 @@
   </header>
 
 
-<div class="entry-content clearfix"><p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> this allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
+<div class="entry-content clearfix"><p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
-<p>We found an issue while running both of these in production. Overtime the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
+<p>We found an issue while running both of these in production. Over time the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
 
 <p>So at this time we can&rsquo;t use the App Info plugin session tracking with the Memcached Session Manager, since it leads to a memory leak as all those sessions have references inside the plugin and can never be garbage collected.</p>
 
@@ -155,7 +155,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>But note this config change effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
+<p>But note this config change effect will effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
 
 <p>Below is our memory graph before and after the change:</p>
 
