@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-01-14T21:00:51-06:00</updated>
+  <updated>2015-02-14T15:42:52-06:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,90 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
+    <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
+    <updated>2015-02-14T15:41:00-06:00</updated>
+    <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
+    <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
+
+<p>The simple solution is to simply turn off transactions for integration tests, that solution will work but tends to lead to data pollution in downstream tests. Burt Beckwith has a solution in his post <a href="http://burtbeckwith.com/blog/?p=82">An Alternative Approach for Grails Integration Tests</a>. Using this solution we can rebuild the database for each test.</p>
+
+<p>In general most of the time you can use the default transactional testing behavior, therefore we want to only use this method some of the time. To achieve this effect we will modify Burt&rsquo;s original solution slightly.</p>
+
+<ul>
+<li>Rebuild the database <em>after</em> each test</li>
+<li>Depend on the configured data source</li>
+<li>Update to Spock</li>
+</ul>
+
+
+<h2>Updated Solution</h2>
+
+<p>```groovy NonTransactionalIntegrationSpec.groovy
+import org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.Configuration
+import org.hibernate.tool.hbm2ddl.SchemaExport</p>
+
+<p>class NonTransactionalIntegrationSpec extends company.IntegrationSpec {</p>
+
+<pre><code>@Shared
+private static Configuration _configuration
+
+@Shared
+def grailsApplication
+
+static transactional = false
+
+def setupSpec() {
+    if (!_configuration) {
+        // 1-time creation of the configuration
+        Properties properties = new Properties()
+        properties.setProperty 'hibernate.connection.driver_class', grailsApplication.config.dataSource.driverClassName
+        properties.setProperty 'hibernate.connection.username', grailsApplication.config.dataSource.username
+        properties.setProperty 'hibernate.connection.password', grailsApplication.config.dataSource.password
+        properties.setProperty 'hibernate.connection.url', grailsApplication.config.dataSource.url
+        properties.setProperty 'hibernate.dialect', 'org.hibernate.dialect.H2Dialect'
+
+        _configuration = new DefaultGrailsDomainConfiguration(grailsApplication: grailsApplication, properties: properties)
+    }
+}
+
+def cleanupSpec() {
+  //After spec nuke and pave the test db
+  new SchemaExport(_configuration).create(false, true)
+
+  //Clear the sessions
+  SessionFactory sf = grailsApplication.getMainContext().getBean('sessionFactory')
+  sf.getCurrentSession().clear()
+}
+</code></pre>
+
+<p>}
+```
+You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
+
+<h2>When to Use</h2>
+
+<p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
+
+<p>```groovy
+  @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+  def getSomething(){</p>
+
+<pre><code>//Do some read only operation.
+</code></pre>
+
+<p>  }
+```</p>
+
+<p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
+
+<p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
@@ -138,58 +222,6 @@ $ grails test-app
 <pre><code>dependencies {
   compile 'org.springframework:spring-jms:3.2.4.RELEASE'
   ...
-}
-</code></pre>
-
-<p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
-]]></title>
-    <link href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
-    <updated>2013-02-04T08:27:27-06:00</updated>
-    <id>http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
-    <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
-
-<p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
-
-<p><strong>My <em>resources.groovy</em></strong></p>
-
-<p>``` groovy</p>
-
-<pre><code>import com.example.saml.CustomUserDetailsService
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
-beans = {
-    userDetailsService(CustomUserDetailsService) {
-         grailsApplication = ref('grailsApplication')
-         myService = ref('myService')  //Here we give the reference to the service we want available.
-         authorityClassName = SpringSecurityUtils.securityConfig.authority.className
-         authorityJoinClassName = SpringSecurityUtils.securityConfig.userLookup.authorityJoinClassName
-         authorityNameField = SpringSecurityUtils.securityConfig.authority.nameField
-         samlAutoCreateActive = SpringSecurityUtils.securityConfig.saml.autoCreate.active
-         samlAutoAssignAuthorities = SpringSecurityUtils.securityConfig.saml.autoCreate.assignAuthorities as Boolean
-         samlAutoCreateKey = SpringSecurityUtils.securityConfig.saml.autoCreate.key as String
-         samlUserAttributeMappings = SpringSecurityUtils.securityConfig.saml.userAttributeMappings
-         samlUserGroupAttribute = SpringSecurityUtils.securityConfig.saml.userGroupAttribute as String
-         samlUserGroupToRoleMapping = SpringSecurityUtils.securityConfig.saml.userGroupToRoleMapping
-         userDomainClassName = SpringSecurityUtils.securityConfig.userLookup.userDomainClassName
-         authoritiesPropertyName = SpringSecurityUtils.securityConfig.userLookup.authoritiesPropertyName
-     }
-}
-</code></pre>
-
-<p>```</p>
-
-<p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
-
-<p>``` groovy</p>
-
-<pre><code>class CustomUserDetailsService extends SpringSamlUserDetailsService {
-    def myService
-...
 }
 </code></pre>
 

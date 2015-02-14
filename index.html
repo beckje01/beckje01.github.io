@@ -133,6 +133,158 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
+
+<p>The simple solution is to simply turn off transactions for integration tests, that solution will work but tends to lead to data pollution in downstream tests. Burt Beckwith has a solution in his post <a href="http://burtbeckwith.com/blog/?p=82">An Alternative Approach for Grails Integration Tests</a>. Using this solution we can rebuild the database for each test.</p>
+
+<p>In general most of the time you can use the default transactional testing behavior, therefore we want to only use this method some of the time. To achieve this effect we will modify Burt&rsquo;s original solution slightly.</p>
+
+<ul>
+<li>Rebuild the database <em>after</em> each test</li>
+<li>Depend on the configured data source</li>
+<li>Update to Spock</li>
+</ul>
+
+
+<h2>Updated Solution</h2>
+
+<figure class='code'><figcaption><span>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Shared</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n">_configuration</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Shared</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(!</span><span class="n">_configuration</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// 1-time creation of the configuration</span>
+</span><span class='line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.driver_class&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.username&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.password&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.url&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.dialect&#39;</span><span class="o">,</span> <span class="s1">&#39;org.hibernate.dialect.H2Dialect&#39;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">_configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">//After spec nuke and pave the test db</span>
+</span><span class='line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n">_configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Clear the sessions</span>
+</span><span class='line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;sessionFactory&#39;</span><span class="o">)</span>
+</span><span class='line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
+
+<h2>When to Use</h2>
+
+<p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">(){</span>
+</span><span class='line'>    <span class="c1">//Do some read only operation.</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
+
+<p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
         
       </p>
@@ -861,50 +1013,6 @@
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate class="published updated" >Jan 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/">Grails Display the Current Spring Security Filter Chain</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">filterChain</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;springSecurityFilterChain&#39;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Also if you want to poke around the other beans available this is a great post to check out: <a href="http://www.redtoad.ca/ataylor/2012/05/spring-beans-from-the-grails-console/">Spring Beans from the Grails Console</a> .</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -936,6 +1044,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
+    
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
@@ -943,8 +1053,6 @@
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
     <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a>
     
   </div>
 </section>

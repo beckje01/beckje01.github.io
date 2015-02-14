@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-01-14T21:00:51-06:00</updated>
+  <updated>2015-02-14T15:42:52-06:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,130 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
+    <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
+    <updated>2015-02-14T15:41:00-06:00</updated>
+    <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
+    <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
+
+<p>The simple solution is to simply turn off transactions for integration tests, that solution will work but tends to lead to data pollution in downstream tests. Burt Beckwith has a solution in his post <a href="http://burtbeckwith.com/blog/?p=82">An Alternative Approach for Grails Integration Tests</a>. Using this solution we can rebuild the database for each test.</p>
+
+<p>In general most of the time you can use the default transactional testing behavior, therefore we want to only use this method some of the time. To achieve this effect we will modify Burt&rsquo;s original solution slightly.</p>
+
+<ul>
+<li>Rebuild the database <em>after</em> each test</li>
+<li>Depend on the configured data source</li>
+<li>Update to Spock</li>
+</ul>
+
+
+<h2>Updated Solution</h2>
+
+<figure class='code'><figcaption><span>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Shared</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n">_configuration</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Shared</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(!</span><span class="n">_configuration</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// 1-time creation of the configuration</span>
+</span><span class='line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.driver_class&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.username&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.password&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.url&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
+</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.dialect&#39;</span><span class="o">,</span> <span class="s1">&#39;org.hibernate.dialect.H2Dialect&#39;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">_configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">//After spec nuke and pave the test db</span>
+</span><span class='line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n">_configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Clear the sessions</span>
+</span><span class='line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;sessionFactory&#39;</span><span class="o">)</span>
+</span><span class='line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
+
+<h2>When to Use</h2>
+
+<p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">(){</span>
+</span><span class='line'>    <span class="c1">//Do some read only operation.</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
+
+<p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
@@ -938,35 +1062,6 @@ head. This will also work with the iPad.</p>
 
 
 <p>So from what I can tell its not the best idea to use the seeked event at this point but the timeupdate event does fire consistently through my testing. So what you can do if you like is keep track of a last value for the timeupdate and then you can detect if it jumps too far (up to you and your use) then fire the logic you wanted to fire on seeked. I am kicking off events at times and I didn’t want to miss events so simply changing my logic to fire as long as the time is past the event point worked fine for my uses but that may not always work. Keeping track of the last time from the timeupdate shouldn’t be a very hard addition if you need special seek logic.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[HTML5 Video Poster and the iPad]]></title>
-    <link href="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/"/>
-    <updated>2010-04-17T02:44:18-05:00</updated>
-    <id>http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad</id>
-    <content type="html"><![CDATA[<p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>  <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/video&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But moving to the following code works fine in Chrome but on the iPad (Mobile Safari) it will only show the poster and no way to start the video unless you do the pinch zoom to make the video full screen then the controls will show up.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>   <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span> <span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span> <span class="na">type=</span><span class="s">&quot;video/mp4&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>   <span class="nt">&lt;/video&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Simply using the first style is ok if you are only doing one type of video but if you wanted to include other options this issue limits that ability. But for now if you are targeting iPad just use the first option.</p>
 ]]></content>
   </entry>
   

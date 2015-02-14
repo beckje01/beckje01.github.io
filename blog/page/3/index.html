@@ -133,6 +133,63 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T02:44:18-05:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/17/html5-video-poster-and-the-ipad/">HTML5 Video Poster and the iPad</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>  <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/video&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But moving to the following code works fine in Chrome but on the iPad (Mobile Safari) it will only show the poster and no way to start the video unless you do the pinch zoom to make the video full screen then the controls will show up.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>   <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span> <span class="na">type=</span><span class="s">&quot;video/mp4&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   <span class="nt">&lt;/video&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Simply using the first style is ok if you are only doing one type of video but if you wanted to include other options this issue limits that ability. But for now if you are targeting iPad just use the first option.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-07T17:56:42-05:00" pubdate class="published updated" >Apr 7<span>th</span>, 2010</time>
         
       </p>
@@ -655,51 +712,6 @@ Message: AG_E_NETWORK_ERROR</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-02T18:15:30-05:00" pubdate class="published updated" >Apr 2<span>nd</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/02/go-daddy-subdomain-redirects/">Go Daddy Subdomain Redirects</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>After seeing this great <a href="http://www.thingelstad.com/friendly-social-urls-using-redirects/">post</a> from Jamie Thingelstad about using subdomains to redirect people to your LinkedIn or Twitter profile I thought it would be great to add that to my site.</p>
-
-<p>But it was a big process that it shouldn’t have been. I found it very hard to actually find where in the my Go Daddy hosting where to put the subdomain. So if you are doing hosting with Go Daddy and have used their subdomains tied to a folder you have to goto a completely different section to do this type of redirect. It’s in the domain management which one would expect but I look right past the correct section at least a half dozen times, so below there is a picture below the fold with a red box showing exactly where to add the subdomains.</p>
-
-<p>The process is simple once you find the correct section. Simply click add then fill out the “subdomain” and “forward to” fields as an example I did “subdomain”: twitter and “forward to”: <a href="http://twitter.com/beckje01">http://twitter.com/beckje01</a> Those simple steps have now set up <a href="http://twitter.jeffbeck.info"> http://twitter.jeffbeck.info </a> to link to my twitter account.</p>
-
-<p><img src="http://jeffbeck.info/blog/wp-content/uploads/2009/04/subdomain-1024x440.jpg" title="subdomain" alt="subdomain" /></p>
-
-<p>[![Add to Del.icio.us][5]][5] [![Add to Facebook][6]][6] [![Add to LinkedIn][7]][7] [![Add to reddit][8]][8] [![Add to Twitter][9]][9]</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -731,6 +743,8 @@ Message: AG_E_NETWORK_ERROR</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
+    
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
@@ -738,8 +752,6 @@ Message: AG_E_NETWORK_ERROR</p>
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
     <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a>
     
   </div>
 </section>
