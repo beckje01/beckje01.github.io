@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>HTML Table Row Height Hack - Jeff Beck</title>
+  <title>Cassandra Stale Snapshots - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2009/12/08/html-table-row-height-hack">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,20 +129,30 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-08T09:24:24-06:00" pubdate class="published updated" >Dec 8<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        HTML Table Row Height Hack
+        Cassandra Stale Snapshots
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>Working with a fixed height and width table I found a problem where rows were expanding too much I needed each row to only grow in height enough to contain the text and not fill the rest of the table. The number of rows was dynamic but the height fixed. The hack is simple add a height to each row of 1px which will make it so the rows only grow enough to contain your text then add a last row to act as a buffer with no height. Below the fold I have examples.</p>
+<div class="entry-content clearfix"><p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
+</span><span class='line'><span class="nv">$ </span>du -h
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you see large or multiple directories under columnFamily/snapshots/ that may indicate there are stale snapshots that can be cleaned up.
+We will want to check when these snapshots where created so inside the snapshots directory of the column family run</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -153,21 +163,49 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table</span> <span class="na">height=</span><span class="s">&quot;200px&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;example.gif&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;</span>Some Text<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;example2.gif&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;</span>Some More Text<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;&lt;/tr&gt;</span> <span class="c">&lt;!--The Buffer Row--&gt;</span>
-</span><span class='line'><span class="nt">&lt;/table&gt;</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ls -lah
+</span><span class='line'>total 3.3M
+</span><span class='line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 .
+</span><span class='line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That will take care of removing the stale snapshot you should see disk space recovered immediately.</p>
+
+<p>You can also look in the logs for failed repairs we see something like the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>2015-02-20 23:37:52,220 RepairSession.java <span class="o">(</span>line 288<span class="o">)</span> <span class="o">[</span>repair <span class="c">#72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error</span>
+</span><span class='line'>system.log.10-java.io.IOException: Failed during snapshot creation.
+</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot<span class="o">(</span>RepairSession.java:323<span class="o">)</span>
+</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairJob<span class="nv">$2</span>.onFailure<span class="o">(</span>RepairJob.java:126<span class="o">)</span>
+</span><span class='line'>system.log.10- at com.google.common.util.concurrent.Futures<span class="nv">$4</span>.run<span class="o">(</span>Futures.java:1160<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker<span class="o">(</span>ThreadPoolExecutor.java:1145<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor<span class="nv">$Worker</span>.run<span class="o">(</span>ThreadPoolExecutor.java:615<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In that case the bad snapshot would be <em>72e69720-b959-11e4-9b55-39152d07d3bf</em>.</p>
 </div>
 
 
@@ -176,7 +214,7 @@
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -191,13 +229,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-08T09:24:24-06:00" pubdate class="published updated" >Dec 8<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>
   
 </span>
 
@@ -206,7 +244,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2009/12/08/html-table-row-height-hack/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2009/12/08/html-table-row-height-hack/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/" >Tweet</a>
   
   
   
@@ -216,12 +254,8 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2009/04/09/silverlight-image-error/" title="Previous Post: Silverlight Image Error">&laquo; Silverlight Image Error</a></li>
+            <li class="previous"><a href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/" title="Previous Post: Grails Integration Testing of Complex Transactions">&laquo; Grails Integration Testing of Complex Transactions</a></li>
             
-            
-            <li class="next"><a href="/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/" title="Next Post: JavaScript Passing by Value into an Inline Function
-">JavaScript Passing by Value into an Inline Function
- &raquo;</a></li>
             
           </ul>
         
@@ -254,7 +288,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
+    <a class="list-group-item active" href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
@@ -374,8 +408,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2009/12/08/html-table-row-height-hack/';
-        var disqus_url = 'http://beckje01.com/blog/2009/12/08/html-table-row-height-hack/';
+        var disqus_identifier = 'http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/';
+        var disqus_url = 'http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/';
         var disqus_script = 'embed.js';
       
     (function () {

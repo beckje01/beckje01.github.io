@@ -133,6 +133,106 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
+</span><span class='line'><span class="nv">$ </span>du -h
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you see large or multiple directories under columnFamily/snapshots/ that may indicate there are stale snapshots that can be cleaned up.
+We will want to check when these snapshots where created so inside the snapshots directory of the column family run</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ls -lah
+</span><span class='line'>total 3.3M
+</span><span class='line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 .
+</span><span class='line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
+</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That will take care of removing the stale snapshot you should see disk space recovered immediately.</p>
+
+<p>You can also look in the logs for failed repairs we see something like the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>2015-02-20 23:37:52,220 RepairSession.java <span class="o">(</span>line 288<span class="o">)</span> <span class="o">[</span>repair <span class="c">#72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error</span>
+</span><span class='line'>system.log.10-java.io.IOException: Failed during snapshot creation.
+</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot<span class="o">(</span>RepairSession.java:323<span class="o">)</span>
+</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairJob<span class="nv">$2</span>.onFailure<span class="o">(</span>RepairJob.java:126<span class="o">)</span>
+</span><span class='line'>system.log.10- at com.google.common.util.concurrent.Futures<span class="nv">$4</span>.run<span class="o">(</span>Futures.java:1160<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker<span class="o">(</span>ThreadPoolExecutor.java:1145<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor<span class="nv">$Worker</span>.run<span class="o">(</span>ThreadPoolExecutor.java:615<span class="o">)</span>
+</span><span class='line'>system.log.10- at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In that case the bad snapshot would be <em>72e69720-b959-11e4-9b55-39152d07d3bf</em>.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
         
       </p>
@@ -950,69 +1050,6 @@
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">SAML Matching Endpoints With Tomcat</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
-
-<p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
-
-<p>In my case the first error was only different by http vs https. The fix for that was simply to apply the scheme attribute to that connector in tomcat. At which point everything was matching except that the port was now being added as 80 in my endpoint and that wasn’t in the intended endpoint. The fix for this was just to add the proxyPort to the connector as well.</p>
-
-<p>So to fully support the OpenSAML on tomcat with SSL offloading I configured the connector as seen below. Take note of the scheme and proxyPort being set.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&quot;8080&quot;</span> <span class="na">protocol=</span><span class="s">&quot;HTTP/1.1&quot;</span>
-</span><span class='line'>               <span class="na">enableLookups=</span><span class="s">&quot;false&quot;</span>
-</span><span class='line'>               <span class="na">maxThreads=</span><span class="s">&quot;250&quot;</span>
-</span><span class='line'>               <span class="na">connectionTimeout=</span><span class="s">&quot;20000&quot;</span>
-</span><span class='line'>               <span class="na">scheme=</span><span class="s">&quot;https&quot;</span>
-</span><span class='line'>               <span class="na">proxyPort=</span><span class="s">&quot;443&quot;</span><span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">Read on &rarr;</a>
-    </footer>
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1044,6 +1081,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
+    
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
@@ -1051,8 +1090,6 @@
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
   </div>
 </section>

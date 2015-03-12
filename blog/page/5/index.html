@@ -133,6 +133,52 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-28T18:45:09-06:00" pubdate class="published updated" >Feb 28<span>th</span>, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/28/forms-submitted-by-javascript/">Forms Submitted by JavaScript</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While building a simple shopping cart I was adding an update link so customers could easily update the cart quantities I would have done Ajax but we are on a time crunch and it would be more billable so get this much working now add the rest in the second phase. So I have my normal submit button, called submit and I wanted a simple link that said update that would submit the form to another page. Well thats not hard so I simply changed the action of the form and called the submit function, as seen below.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;cartform&quot;</span><span class="p">).</span><span class="nx">action</span> <span class="o">=</span> <span class="s1">&#39;cart.php?action=update&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nb">document</span><span class="p">.</span><span class="nx">mycart</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well that should work fine, oh but no it doesn’t nothing at all was happening it was very odd. So I got out the error console and find that submit is not a function. Well thats odd. So I assume that I have and outdated reference for JavaScript so I dig around and all the example I see work just fine. After staring at it for what seemed hours I thought it better not be over writing the submit function for the form with the button named submit. Well it was, SOB. So if you make sure to not overwrite functions of forms with your field names, its just a big headache.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-21T12:49:42-06:00" pubdate class="published updated" >Feb 21<span>st</span>, 2008</time>
         
       </p>
@@ -338,6 +384,8 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
+    
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
@@ -345,8 +393,6 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
   </div>
 </section>

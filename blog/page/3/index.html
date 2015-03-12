@@ -133,6 +133,62 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-05-03T22:18:00-05:00" pubdate class="published updated" >May 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2010/05/03/html5-video-and-the-seeked-event/">HTML5 Video and the Seeked Event</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>I have been working with the HTML5 video element a bit on both iPad and the Chrome browser. I’ve started to find some odd behavior around the seeked event. First a touch of background about the seeked event. According to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#mediaevents">spec</a> the seeked event should fire when the seeking IDL attribute changes to false. This seems to make perfect sense but when actually using the event it seems inconsistent at best.</p>
+
+<p>I have seen three distinct actions that don’t make sense to me.</p>
+
+<h2>Extra Fires</h2>
+
+<ul>
+<li>While dragging the scrub bar the seeked event will fire many times in the Google Chrome 5.0.342.9 beta on windows.</li>
+<li>When setting the position by changing the currentTime attribute it will fire the seeked event three times in a row on both the iPad and Chrome.</li>
+</ul>
+
+
+<h2>No Fires</h2>
+
+<ul>
+<li>Scrubbing on the iPad never fires the seeked event.</li>
+</ul>
+
+
+<p>So from what I can tell its not the best idea to use the seeked event at this point but the timeupdate event does fire consistently through my testing. So what you can do if you like is keep track of a last value for the timeupdate and then you can detect if it jumps too far (up to you and your use) then fire the logic you wanted to fire on seeked. I am kicking off events at times and I didn’t want to miss events so simply changing my logic to fire as long as the time is past the event point worked fine for my uses but that may not always work. Keeping track of the last time from the timeupdate shouldn’t be a very hard addition if you need special seek logic.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T02:44:18-05:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
         
       </p>
@@ -657,61 +713,6 @@ Message: AG_E_NETWORK_ERROR</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-04T15:46:03-05:00" pubdate class="published updated" >Apr 4<span>th</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/">Silverlight Move Cursor to End of TextBox</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">txtSearch</span><span class="p">.</span><span class="n">Focus</span><span class="p">();</span>
-</span><span class='line'><span class="n">txtSearch</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;sometext &quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But then there is a problem the cursor is at the start of the text box so if a user starts typing they end up adding to the start when I want them to just add on to the end. So after some hunting I found the SelectionStart property of the TextBox, while this may be obvious to people who work in Silverlight and C# all the time it didn’t jump right out at me so I thought it was worth talking about. So by using SelectionStart and I can move the cursor to the end and users can just append to my started search text.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">txtSearch</span><span class="p">.</span><span class="n">Focus</span><span class="p">();</span>
-</span><span class='line'><span class="n">txtSearch</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;sometext &quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">txtSearch</span><span class="p">.</span><span class="n">SelectionStart</span> <span class="p">=</span> <span class="n">txtSearch</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -743,6 +744,8 @@ Message: AG_E_NETWORK_ERROR</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
+    
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
@@ -750,8 +753,6 @@ Message: AG_E_NETWORK_ERROR</p>
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
   </div>
 </section>

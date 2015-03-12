@@ -133,6 +133,69 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">SAML Matching Endpoints With Tomcat</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
+
+<p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
+
+<p>In my case the first error was only different by http vs https. The fix for that was simply to apply the scheme attribute to that connector in tomcat. At which point everything was matching except that the port was now being added as 80 in my endpoint and that wasn’t in the intended endpoint. The fix for this was just to add the proxyPort to the connector as well.</p>
+
+<p>So to fully support the OpenSAML on tomcat with SSL offloading I configured the connector as seen below. Take note of the scheme and proxyPort being set.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&quot;8080&quot;</span> <span class="na">protocol=</span><span class="s">&quot;HTTP/1.1&quot;</span>
+</span><span class='line'>               <span class="na">enableLookups=</span><span class="s">&quot;false&quot;</span>
+</span><span class='line'>               <span class="na">maxThreads=</span><span class="s">&quot;250&quot;</span>
+</span><span class='line'>               <span class="na">connectionTimeout=</span><span class="s">&quot;20000&quot;</span>
+</span><span class='line'>               <span class="na">scheme=</span><span class="s">&quot;https&quot;</span>
+</span><span class='line'>               <span class="na">proxyPort=</span><span class="s">&quot;443&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate class="published updated" >Jan 15<span>th</span>, 2013</time>
         
       </p>
@@ -609,62 +672,6 @@ head. This will also work with the iPad.</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-05-03T22:18:00-05:00" pubdate class="published updated" >May 3<span>rd</span>, 2010</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2010/05/03/html5-video-and-the-seeked-event/">HTML5 Video and the Seeked Event</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>I have been working with the HTML5 video element a bit on both iPad and the Chrome browser. I’ve started to find some odd behavior around the seeked event. First a touch of background about the seeked event. According to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#mediaevents">spec</a> the seeked event should fire when the seeking IDL attribute changes to false. This seems to make perfect sense but when actually using the event it seems inconsistent at best.</p>
-
-<p>I have seen three distinct actions that don’t make sense to me.</p>
-
-<h2>Extra Fires</h2>
-
-<ul>
-<li>While dragging the scrub bar the seeked event will fire many times in the Google Chrome 5.0.342.9 beta on windows.</li>
-<li>When setting the position by changing the currentTime attribute it will fire the seeked event three times in a row on both the iPad and Chrome.</li>
-</ul>
-
-
-<h2>No Fires</h2>
-
-<ul>
-<li>Scrubbing on the iPad never fires the seeked event.</li>
-</ul>
-
-
-<p>So from what I can tell its not the best idea to use the seeked event at this point but the timeupdate event does fire consistently through my testing. So what you can do if you like is keep track of a last value for the timeupdate and then you can detect if it jumps too far (up to you and your use) then fire the logic you wanted to fire on seeked. I am kicking off events at times and I didn’t want to miss events so simply changing my logic to fire as long as the time is past the event point worked fine for my uses but that may not always work. Keeping track of the last time from the timeupdate shouldn’t be a very hard addition if you need special seek logic.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -696,6 +703,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
+    
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
@@ -703,8 +712,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
     <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
-    
-    <a class="list-group-item " href="/blog/2014/07/25/failing-at-grab-fixes/">Failing @Grab Fixes</a>
     
   </div>
 </section>
