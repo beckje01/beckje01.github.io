@@ -133,6 +133,43 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T08:13:38-05:00" pubdate class="published updated" >Sep 24<span>th</span>, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/24/javalangincompatibleclasschangeerror/">java.lang.IncompatibleClassChangeError</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>So I encountered this odd error while working with the Crystal Reports XI Java Report Viewer. It showed up as “java.lang.IncompatibleClassChangeError: Implementing class” this has been one of the more cryptic messages from Java that I’ve had in a while. So a quick search turned up that this error can occur when parts of the Java Project have been compiled at separate times. So I did a quick clean build, well not that quick. Unfortunately I still got the error at run time. It was only happening with Crystal Reports so with some more digging I finally found that ReportViewer.jar and jrcerom.jar must be the first two jars in the class path to work. While I this is the first time in Java I’ve seen this it wasn’t too hard to fix. While using NetBeans in the library tab there are buttons to change the order of the files, unfortunately if you aren’t using NetBeans you will have go in and change the class path files by hand.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-28T18:45:09-06:00" pubdate class="published updated" >Feb 28<span>th</span>, 2008</time>
         
       </p>
@@ -384,6 +421,8 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
+    
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
@@ -391,8 +430,6 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
-    
-    <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
   </div>
 </section>

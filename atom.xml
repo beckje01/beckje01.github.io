@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-03-12T14:25:41-05:00</updated>
+  <updated>2015-04-18T20:55:26-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
+    <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
+    <updated>2015-04-18T20:54:00-05:00</updated>
+    <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
+    <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
+
+<p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grails.plugin.springsecurity.useSwitchUserFilter = true</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Spring Security by default will add a new role of <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/constant-values.html#org.springframework.security.web.authentication.switchuser.SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR">ROLE_PREVIOUS_ADMINISTRATOR</a> for the user while impersonating the other user. This will work in most cases but for us it was hard to reason about since we had an idea of admin which was separate from our support team who would mostly be using this tool.</p>
+
+<p>So for our use we wanted our own roles. The ability to do this is exposed in the SwitchUserFilter calling <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/org/springframework/security/web/authentication/switchuser/SwitchUserAuthorityChanger.html">SwitchUserAuthorityChanger</a>. With an implementation of the interface you can add any roles you would like.</p>
+
+<p>Example authority changer:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">RoleImpersonatedSwitchUserAuthorityChanger</span> <span class="kd">implements</span> <span class="n">SwitchUserAuthorityChanger</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">modifyGrantedAuthorities</span><span class="o">(</span><span class="n">UserDetails</span> <span class="n">targetUser</span><span class="o">,</span> <span class="n">Authentication</span> <span class="n">currentAuthentication</span><span class="o">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authoritiesToBeGranted</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">SwitchUserGrantedAuthority</span> <span class="n">roleImpersonatedSwitchAuthority</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwitchUserGrantedAuthority</span><span class="o">(</span><span class="s2">&quot;ROLE_IMPERSONATED_USER&quot;</span><span class="o">,</span> <span class="n">currentAuthentication</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">augmentedAuthoritiesToBeGranted</span> <span class="o">=</span> <span class="n">authoritiesToBeGranted</span> <span class="o">+</span> <span class="n">roleImpersonatedSwitchAuthority</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">augmentedAuthoritiesToBeGranted</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In Grails we set our authority changer during bootstrap.</p>
+
+<figure class='code'><figcaption><span>BootStrap.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">BootStrap</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserProcessingFilter</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserAuthorityChanger</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">rabbitTemplate</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">init</span> <span class="o">=</span> <span class="o">{</span> <span class="n">servletContext</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">switchUserProcessingFilter</span><span class="o">.</span><span class="na">setSwitchUserAuthorityChanger</span><span class="o">(</span><span class="n">switchUserAuthorityChanger</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//....</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
+
+<p>There are many other options to think about when allowing impersonation of users, it may even make sense to remove some roles from an impersonated user. That is easily done by simply removing roles from the list retuned from the authority changer.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cassandra Stale Snapshots]]></title>
@@ -1076,36 +1155,6 @@ head. This will also work with the iPad.</p>
 </pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[iPad HTML Video Autoplay]]></title>
-    <link href="http://beckje01.com/blog/2010/06/01/ipad-html-video-autoplay/"/>
-    <updated>2010-06-01T11:40:52-05:00</updated>
-    <id>http://beckje01.com/blog/2010/06/01/ipad-html-video-autoplay</id>
-    <content type="html"><![CDATA[<p><strong>The Problem</strong></p>
-
-<p>The iPad and also the iPhone have a bit of special behavior when it comes to using the HTML5 video tag. They both have the autoplay functionality shut off. This behavior is also extended to any event which the user has not started the event chain. (AKA you can’t do the following)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">onLoad=</span><span class="s">&quot;document.myMovie.play()&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>What it Means</strong></p>
-
-<p>So what this really means you can not have a playlist of videos where one video is loaded as soon as the first ends. Also having timed events from one video kick off sub videos will not work unless the user clicks on the new video.</p>
-
-<p><strong>Is this a Bug?</strong></p>
-
-<p>No this is as intended by Apple look for the Device-Specific Considerations <a href="http://developer.apple.com/safari/library/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/AudioandVideoTagBasics/AudioandVideoTagBasics.html">here</a>. What the idea is that any device that could be charged from a data plan shouldn’t allow auto play. While this idea makes sense the execution is poor. I am currently using a wifi only iPad so there is no reason for this restriction it would be best in my mind to detect if they are using wifi or 3g and react accordingly.</p>
-
-<p><strong>What to Do</strong></p>
-
-<p>Design around this I restructured an interaction from popping up this sub video over the main video to instead make a thumbnail active so it could be click to show this sub video this works in my case as the sub video can be viewed any time after the timed event.</p>
-
-<p>Another option is to show the new video element that will display a play symbol you should be able to set a poster image with some text to guide the users.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>HTML5 Video Poster and the iPad - Jeff Beck</title>
+  <title>SpringSecurity Impersonate Users Custom Roles - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,40 +129,90 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T02:44:18-05:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-05:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        HTML5 Video Poster and the iPad
+        SpringSecurity Impersonate Users Custom Roles
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>While working on a small HTML5 based project for the iPad I found some interesting things with how it handles the poster attribute and defining the video source. The following HTML works fine on Mobile Safari (iPad) and my desktop Chrome.</p>
+<div class="entry-content clearfix"><p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>  <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/video&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grails.plugin.springsecurity.useSwitchUserFilter = true</span></code></pre></td></tr></table></div></figure>
 
 
-<p>But moving to the following code works fine in Chrome but on the iPad (Mobile Safari) it will only show the poster and no way to start the video unless you do the pinch zoom to make the video full screen then the controls will show up.</p>
+<p>Spring Security by default will add a new role of <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/constant-values.html#org.springframework.security.web.authentication.switchuser.SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR">ROLE_PREVIOUS_ADMINISTRATOR</a> for the user while impersonating the other user. This will work in most cases but for us it was hard to reason about since we had an idea of admin which was separate from our support team who would mostly be using this tool.</p>
+
+<p>So for our use we wanted our own roles. The ability to do this is exposed in the SwitchUserFilter calling <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/org/springframework/security/web/authentication/switchuser/SwitchUserAuthorityChanger.html">SwitchUserAuthorityChanger</a>. With an implementation of the interface you can add any roles you would like.</p>
+
+<p>Example authority changer:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>   <span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">&quot;vidtest&quot;</span>  <span class="na">poster=</span><span class="s">&#39;poster.jpg&#39;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span> <span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;big_buck_bunny.mp4&quot;</span> <span class="na">type=</span><span class="s">&quot;video/mp4&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>   <span class="nt">&lt;/video&gt;</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">RoleImpersonatedSwitchUserAuthorityChanger</span> <span class="kd">implements</span> <span class="n">SwitchUserAuthorityChanger</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">modifyGrantedAuthorities</span><span class="o">(</span><span class="n">UserDetails</span> <span class="n">targetUser</span><span class="o">,</span> <span class="n">Authentication</span> <span class="n">currentAuthentication</span><span class="o">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authoritiesToBeGranted</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">SwitchUserGrantedAuthority</span> <span class="n">roleImpersonatedSwitchAuthority</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwitchUserGrantedAuthority</span><span class="o">(</span><span class="s2">&quot;ROLE_IMPERSONATED_USER&quot;</span><span class="o">,</span> <span class="n">currentAuthentication</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">augmentedAuthoritiesToBeGranted</span> <span class="o">=</span> <span class="n">authoritiesToBeGranted</span> <span class="o">+</span> <span class="n">roleImpersonatedSwitchAuthority</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">augmentedAuthoritiesToBeGranted</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Simply using the first style is ok if you are only doing one type of video but if you wanted to include other options this issue limits that ability. But for now if you are targeting iPad just use the first option.</p>
+<p>In Grails we set our authority changer during bootstrap.</p>
+
+<figure class='code'><figcaption><span>BootStrap.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">BootStrap</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserProcessingFilter</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserAuthorityChanger</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">rabbitTemplate</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">init</span> <span class="o">=</span> <span class="o">{</span> <span class="n">servletContext</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">switchUserProcessingFilter</span><span class="o">.</span><span class="na">setSwitchUserAuthorityChanger</span><span class="o">(</span><span class="n">switchUserAuthorityChanger</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//....</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
+
+<p>There are many other options to think about when allowing impersonation of users, it may even make sense to remove some roles from an impersonated user. That is easily done by simply removing roles from the list retuned from the authority changer.</p>
 </div>
 
 
@@ -171,7 +221,7 @@
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -186,13 +236,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T02:44:18-05:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-05:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/uncategorized/'>Uncategorized</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/springsecurity/'>SpringSecurity</a>
   
 </span>
 
@@ -201,7 +251,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/" >Tweet</a>
   
   
   
@@ -211,10 +261,8 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2010/04/07/disqus-comments/" title="Previous Post: DISQUS Comments">&laquo; DISQUS Comments</a></li>
+            <li class="previous"><a href="/blog/2015/03/12/cassandra-stale-snapshots/" title="Previous Post: Cassandra Stale Snapshots">&laquo; Cassandra Stale Snapshots</a></li>
             
-            
-            <li class="next"><a href="/blog/2010/05/03/html5-video-and-the-seeked-event/" title="Next Post: HTML5 Video and the seeked event">HTML5 Video and the seeked event &raquo;</a></li>
             
           </ul>
         
@@ -247,7 +295,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
+    <a class="list-group-item active" href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
@@ -367,8 +415,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/';
-        var disqus_url = 'http://beckje01.com/blog/2010/04/17/html5-video-poster-and-the-ipad/';
+        var disqus_identifier = 'http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/';
+        var disqus_url = 'http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/';
         var disqus_script = 'embed.js';
       
     (function () {

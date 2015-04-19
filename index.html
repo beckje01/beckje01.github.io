@@ -133,6 +133,113 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-05:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
+
+<p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grails.plugin.springsecurity.useSwitchUserFilter = true</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Spring Security by default will add a new role of <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/constant-values.html#org.springframework.security.web.authentication.switchuser.SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR">ROLE_PREVIOUS_ADMINISTRATOR</a> for the user while impersonating the other user. This will work in most cases but for us it was hard to reason about since we had an idea of admin which was separate from our support team who would mostly be using this tool.</p>
+
+<p>So for our use we wanted our own roles. The ability to do this is exposed in the SwitchUserFilter calling <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/org/springframework/security/web/authentication/switchuser/SwitchUserAuthorityChanger.html">SwitchUserAuthorityChanger</a>. With an implementation of the interface you can add any roles you would like.</p>
+
+<p>Example authority changer:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">RoleImpersonatedSwitchUserAuthorityChanger</span> <span class="kd">implements</span> <span class="n">SwitchUserAuthorityChanger</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">modifyGrantedAuthorities</span><span class="o">(</span><span class="n">UserDetails</span> <span class="n">targetUser</span><span class="o">,</span> <span class="n">Authentication</span> <span class="n">currentAuthentication</span><span class="o">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authoritiesToBeGranted</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">SwitchUserGrantedAuthority</span> <span class="n">roleImpersonatedSwitchAuthority</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwitchUserGrantedAuthority</span><span class="o">(</span><span class="s2">&quot;ROLE_IMPERSONATED_USER&quot;</span><span class="o">,</span> <span class="n">currentAuthentication</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">augmentedAuthoritiesToBeGranted</span> <span class="o">=</span> <span class="n">authoritiesToBeGranted</span> <span class="o">+</span> <span class="n">roleImpersonatedSwitchAuthority</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">augmentedAuthoritiesToBeGranted</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In Grails we set our authority changer during bootstrap.</p>
+
+<figure class='code'><figcaption><span>BootStrap.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">BootStrap</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserProcessingFilter</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserAuthorityChanger</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">rabbitTemplate</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">init</span> <span class="o">=</span> <span class="o">{</span> <span class="n">servletContext</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">switchUserProcessingFilter</span><span class="o">.</span><span class="na">setSwitchUserAuthorityChanger</span><span class="o">(</span><span class="n">switchUserAuthorityChanger</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//....</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
+
+<p>There are many other options to think about when allowing impersonation of users, it may even make sense to remove some roles from an impersonated user. That is easily done by simply removing roles from the list retuned from the authority changer.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
         
       </p>
@@ -951,105 +1058,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/">Grails Custom UserDetailsService Using a Grails Service</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
-
-<p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
-
-<p><strong>My <em>resources.groovy</em></strong></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">beans</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>       <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;grailsApplication&#39;</span><span class="o">)</span>
-</span><span class='line'>       <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;myService&#39;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
-</span><span class='line'>       <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
-</span><span class='line'>       <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
-</span><span class='line'>       <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
-</span><span class='line'>       <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
-</span><span class='line'>       <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
-</span><span class='line'>       <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
-</span><span class='line'>       <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
-</span><span class='line'>       <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
-</span><span class='line'>       <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
-</span><span class='line'>   <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">myService</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1081,6 +1089,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
+    
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
@@ -1088,8 +1098,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
-    
-    <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
   </div>
 </section>

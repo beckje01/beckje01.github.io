@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-03-12T14:25:41-05:00</updated>
+  <updated>2015-04-18T20:55:26-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
+    <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
+    <updated>2015-04-18T20:54:00-05:00</updated>
+    <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
+    <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
+
+<p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
+
+<p><code>
+grails.plugin.springsecurity.useSwitchUserFilter = true
+</code></p>
+
+<p>Spring Security by default will add a new role of <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/constant-values.html#org.springframework.security.web.authentication.switchuser.SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR">ROLE_PREVIOUS_ADMINISTRATOR</a> for the user while impersonating the other user. This will work in most cases but for us it was hard to reason about since we had an idea of admin which was separate from our support team who would mostly be using this tool.</p>
+
+<p>So for our use we wanted our own roles. The ability to do this is exposed in the SwitchUserFilter calling <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/org/springframework/security/web/authentication/switchuser/SwitchUserAuthorityChanger.html">SwitchUserAuthorityChanger</a>. With an implementation of the interface you can add any roles you would like.</p>
+
+<p>Example authority changer:</p>
+
+<p>```groovy
+class RoleImpersonatedSwitchUserAuthorityChanger implements SwitchUserAuthorityChanger {</p>
+
+<pre><code>@Override
+public Collection&lt;GrantedAuthority&gt; modifyGrantedAuthorities(UserDetails targetUser, Authentication currentAuthentication, Collection&lt;GrantedAuthority&gt; authoritiesToBeGranted) {
+    SwitchUserGrantedAuthority roleImpersonatedSwitchAuthority = new SwitchUserGrantedAuthority("ROLE_IMPERSONATED_USER", currentAuthentication);
+
+    Collection&lt;? extends GrantedAuthority&gt; augmentedAuthoritiesToBeGranted = authoritiesToBeGranted + roleImpersonatedSwitchAuthority
+
+    return augmentedAuthoritiesToBeGranted;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>In Grails we set our authority changer during bootstrap.</p>
+
+<p>```groovy BootStrap.groovy</p>
+
+<p>class BootStrap {</p>
+
+<pre><code>def switchUserProcessingFilter
+def switchUserAuthorityChanger
+
+def rabbitTemplate
+
+def init = { servletContext -&gt;  
+switchUserProcessingFilter.setSwitchUserAuthorityChanger(switchUserAuthorityChanger)
+
+//....
+</code></pre>
+
+<p>  }
+```</p>
+
+<p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
+
+<p>There are many other options to think about when allowing impersonation of users, it may even make sense to remove some roles from an impersonated user. That is easily done by simply removing roles from the list retuned from the authority changer.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
@@ -204,25 +265,6 @@ $ grails test-app
 | Completed 6 cucumber tests, 0 failed in 0m 3s
 | Server stopped
 | Tests PASSED
-</code></pre>
-
-<p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
-    <link href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
-    <updated>2013-08-19T18:10:12-05:00</updated>
-    <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
-    <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
-
-<p>``` groovy</p>
-
-<pre><code>dependencies {
-  compile 'org.springframework:spring-jms:3.2.4.RELEASE'
-  ...
-}
 </code></pre>
 
 <p>```</p>

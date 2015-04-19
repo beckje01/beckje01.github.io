@@ -197,16 +197,22 @@
         <lastmod>2015-03-12T14:24:58-05:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/
+        </loc>
+        <lastmod>2015-04-18T20:54:50-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://beckje01.com/about.html</loc>
         <lastmod>2014-09-17T09:15:33-05:00</lastmod>
     </url>
     <url>
         <loc>http://beckje01.com/blog/archives/</loc>
-        <lastmod>2015-03-12T14:24:58-05:00</lastmod>
+        <lastmod>2015-04-18T20:54:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://beckje01.com/</loc>
-        <lastmod>2015-03-12T14:24:58-05:00</lastmod>
+        <lastmod>2015-04-18T20:54:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://beckje01.com/robots.txt</loc>

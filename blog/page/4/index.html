@@ -133,6 +133,64 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-09T11:19:46-05:00" pubdate class="published updated" >Apr 9<span>th</span>, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/09/connectorj-516-vs-connectorj-517/">Connector/J 5.1.6 vs Connector/J 5.1.7</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While deploying a Java based auto import system I ran into a very odd problem. The code was developed and tested just fine with Connector/J 5.1.6 then while pushing to prod there seemed to be a major issue, the import would run download everything parse it and then clear out the old data but then get stuck. I would then get a series of errors java.sql.SQLException: !Statement.GeneratedKeysNotRequested! well it turned out that the prod sever had Connector/J 5.1.7 installed instead of the 5.1.6 which test had installed. This turned out to be allowing for some wrong practices when it came to prepared statements. It was a pretty easy fix yet it took a bit of time to make sure it happened every where. So why there was a change and what happened is well discussed else where and the links to those will follow. But for now here the change that needs to happen.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">PreparedStatement</span> <span class="n">postinsert</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just changes to the following. But make sure you do the change for all prepared statements that will use generated keys, its easy to miss one and have the whole app fail because of it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">PreparedStatement</span> <span class="n">postinsert</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span><span class="n">PreparedStatement</span><span class="o">.</span><span class="na">RETURN_GENERATED_KEYS</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So if you would like to read more about whats going on check out these resources:</p>
+
+<ul>
+<li><a href="http://bugs.mysql.com/bug.php?id=34185">The bug report that caused the change</a></li>
+<li><a href="http://bugs.mysql.com/bug.php?id=41448">A bug report that calls the change a bug</a></li>
+<li><a href="http://groups.google.com/group/persevere-framework/browse_thread/thread/8c9ea080a1bf9e65">A bug in the current implementation</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-04T15:46:03-05:00" pubdate class="published updated" >Apr 4<span>th</span>, 2009</time>
         
       </p>
@@ -565,43 +623,6 @@ Change to:</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T08:13:38-05:00" pubdate class="published updated" >Sep 24<span>th</span>, 2008</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2008/09/24/javalangincompatibleclasschangeerror/">java.lang.IncompatibleClassChangeError</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>So I encountered this odd error while working with the Crystal Reports XI Java Report Viewer. It showed up as “java.lang.IncompatibleClassChangeError: Implementing class” this has been one of the more cryptic messages from Java that I’ve had in a while. So a quick search turned up that this error can occur when parts of the Java Project have been compiled at separate times. So I did a quick clean build, well not that quick. Unfortunately I still got the error at run time. It was only happening with Crystal Reports so with some more digging I finally found that ReportViewer.jar and jrcerom.jar must be the first two jars in the class path to work. While I this is the first time in Java I’ve seen this it wasn’t too hard to fix. While using NetBeans in the library tab there are buttons to change the order of the files, unfortunately if you aren’t using NetBeans you will have go in and change the class path files by hand.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -633,6 +654,8 @@ Change to:</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
+    
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
@@ -640,8 +663,6 @@ Change to:</p>
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
-    
-    <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
   </div>
 </section>

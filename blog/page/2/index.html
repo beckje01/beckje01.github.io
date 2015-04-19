@@ -133,6 +133,105 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/">Grails Custom UserDetailsService Using a Grails Service</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
+
+<p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
+
+<p><strong>My <em>resources.groovy</em></strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">beans</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>       <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;grailsApplication&#39;</span><span class="o">)</span>
+</span><span class='line'>       <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;myService&#39;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
+</span><span class='line'>       <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
+</span><span class='line'>       <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
+</span><span class='line'>       <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
+</span><span class='line'>       <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
+</span><span class='line'>       <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
+</span><span class='line'>       <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
+</span><span class='line'>       <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
+</span><span class='line'>       <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
+</span><span class='line'>       <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
+</span><span class='line'>       <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
+</span><span class='line'>       <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
+</span><span class='line'>   <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="n">myService</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
         
       </p>
@@ -614,64 +713,6 @@ head. This will also work with the iPad.</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-01T11:40:52-05:00" pubdate class="published updated" >Jun 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/01/ipad-html-video-autoplay/">iPad HTML Video Autoplay</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p><strong>The Problem</strong></p>
-
-<p>The iPad and also the iPhone have a bit of special behavior when it comes to using the HTML5 video tag. They both have the autoplay functionality shut off. This behavior is also extended to any event which the user has not started the event chain. (AKA you can’t do the following)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">onLoad=</span><span class="s">&quot;document.myMovie.play()&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>What it Means</strong></p>
-
-<p>So what this really means you can not have a playlist of videos where one video is loaded as soon as the first ends. Also having timed events from one video kick off sub videos will not work unless the user clicks on the new video.</p>
-
-<p><strong>Is this a Bug?</strong></p>
-
-<p>No this is as intended by Apple look for the Device-Specific Considerations <a href="http://developer.apple.com/safari/library/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/AudioandVideoTagBasics/AudioandVideoTagBasics.html">here</a>. What the idea is that any device that could be charged from a data plan shouldn’t allow auto play. While this idea makes sense the execution is poor. I am currently using a wifi only iPad so there is no reason for this restriction it would be best in my mind to detect if they are using wifi or 3g and react accordingly.</p>
-
-<p><strong>What to Do</strong></p>
-
-<p>Design around this I restructured an interaction from popping up this sub video over the main video to instead make a thumbnail active so it could be click to show this sub video this works in my case as the sub video can be viewed any time after the timed event.</p>
-
-<p>Another option is to show the new video element that will display a play symbol you should be able to set a poster image with some text to guide the users.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -703,6 +744,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
+    
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
@@ -710,8 +753,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
     <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
-    
-    <a class="list-group-item " href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a>
     
   </div>
 </section>
