@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Silverlight | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/silverlight/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Silverlight Image Error]]></title>
     <link href="http://beckje01.com/blog/2009/04/09/silverlight-image-error/"/>
-    <updated>2009-04-09T18:26:16-05:00</updated>
+    <updated>2009-04-09T19:26:16-04:00</updated>
     <id>http://beckje01.com/blog/2009/04/09/silverlight-image-error</id>
     <content type="html"><![CDATA[<p>While working in Silverlight I ran across a error that seemed rather odd, not because it didn’t make sense but that I couldn’t see anything I did wrong. So the error was</p>
 
@@ -39,7 +39,7 @@ Message: AG_E_NETWORK_ERROR</p>
     <title type="html"><![CDATA[Silverlight Move Cursor to End of TextBox
 ]]></title>
     <link href="http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
-    <updated>2009-04-04T15:46:03-05:00</updated>
+    <updated>2009-04-04T16:46:03-04:00</updated>
     <id>http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
     <content type="html"><![CDATA[<p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
 

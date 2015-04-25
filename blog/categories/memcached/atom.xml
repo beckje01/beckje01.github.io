@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Memcached | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/memcached/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
     <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
-    <updated>2015-01-14T20:46:00-06:00</updated>
+    <updated>2015-01-14T20:46:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 

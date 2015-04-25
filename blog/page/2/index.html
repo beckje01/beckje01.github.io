@@ -133,7 +133,55 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T19:10:12-04:00" pubdate class="published updated" >Aug 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;org.springframework:spring-jms:3.2.4.RELEASE&#39;</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T09:27:27-05:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
         
       </p>
     
@@ -232,7 +280,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T11:09:23-06:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T12:09:23-05:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
         
       </p>
     
@@ -295,7 +343,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T04:52:37-06:00" pubdate class="published updated" >Jan 15<span>th</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-01-15T05:52:37-05:00" pubdate class="published updated" >Jan 15<span>th</span>, 2013</time>
         
       </p>
     
@@ -339,7 +387,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-12-28T04:25:45-06:00" pubdate class="published updated" >Dec 28<span>th</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-12-28T05:25:45-05:00" pubdate class="published updated" >Dec 28<span>th</span>, 2012</time>
         
       </p>
     
@@ -422,7 +470,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-10-21T09:00:18-05:00" pubdate class="published updated" >Oct 21<span>st</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-10-21T10:00:18-04:00" pubdate class="published updated" >Oct 21<span>st</span>, 2012</time>
         
       </p>
     
@@ -499,7 +547,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T04:56:37-05:00" pubdate class="published updated" >Apr 3<span>rd</span>, 2012</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T05:56:37-04:00" pubdate class="published updated" >Apr 3<span>rd</span>, 2012</time>
         
       </p>
     
@@ -538,7 +586,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-10-27T09:32:23-05:00" pubdate class="published updated" >Oct 27<span>th</span>, 2011</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-10-27T10:32:23-04:00" pubdate class="published updated" >Oct 27<span>th</span>, 2011</time>
         
       </p>
     
@@ -588,7 +636,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T08:52:26-04:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
         
       </p>
     
@@ -634,7 +682,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate class="published updated" >Feb 8<span>th</span>, 2011</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T15:07:11-05:00" pubdate class="published updated" >Feb 8<span>th</span>, 2011</time>
         
       </p>
     
@@ -663,49 +711,6 @@ if(!(&quot;standalone&quot; in window.navigator))
 
 
 <p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
-</div>
-  
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-22T11:55:31-05:00" pubdate class="published updated" >Jun 22<span>nd</span>, 2010</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/22/remove-addressbar-from-iphone-web-app/">Remove Addressbar From iPhone Web App</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
-head. This will also work with the iPad.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -744,6 +749,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
+    
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
@@ -751,8 +758,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
   </div>
 </section>

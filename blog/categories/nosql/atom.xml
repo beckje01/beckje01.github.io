@@ -4,7 +4,7 @@
   <title><![CDATA[Category: NoSQL | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/nosql/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
     <link href="http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
-    <updated>2012-12-28T04:25:45-06:00</updated>
+    <updated>2012-12-28T05:25:45-05:00</updated>
     <id>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
     <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
 

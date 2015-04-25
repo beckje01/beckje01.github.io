@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -14,9 +14,51 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Grails 3 and Spring Java Config]]></title>
+    <link href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/"/>
+    <updated>2015-04-24T22:52:53-04:00</updated>
+    <id>http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config</id>
+    <content type="html"><![CDATA[<p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
+
+<p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
+
+<p>```yaml application.yml
+grails:</p>
+
+<pre><code>profile: web
+codegen:
+    defaultPackage: example
+spring:
+    bean:
+        packages:
+            - example.config
+</code></pre>
+
+<p>```</p>
+
+<p>I found that while the beans were all wired correctly and <code>@Autowired</code> all worked correctly, but any mappings with <code>@RequestMapping</code> where always returning a 404. Everything looked wired correctly but Grails wasn&rsquo;t letting any requests through.</p>
+
+<p>So I switched over to using <code>@ComponentScan</code> then the requests were properly mapped and everything started working.</p>
+
+<p>Using ComponentScan with Grails 3 is very easy:</p>
+
+<p><code>groovy Application.groovy
+@ComponentScan("example.config")
+class Application extends GrailsAutoConfiguration {
+  //...
+}
+</code></p>
+
+<p>This will scan the package of <code>example.config</code> for any Spring components so your Spring Java configs can all live in this package and easily get picked up.</p>
+
+<p>This post is the blog form of this <a href="http://stackoverflow.com/questions/29736850/grails-3-and-spring-requestmapping">SO Question</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
     <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
-    <updated>2015-04-18T20:54:00-05:00</updated>
+    <updated>2015-04-18T20:54:00-04:00</updated>
     <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
     <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 
@@ -77,7 +119,7 @@ switchUserProcessingFilter.setSwitchUserAuthorityChanger(switchUserAuthorityChan
   <entry>
     <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
     <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
-    <updated>2015-02-14T15:41:00-06:00</updated>
+    <updated>2015-02-14T15:41:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
     <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
 
@@ -161,7 +203,7 @@ You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anythi
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
     <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
-    <updated>2015-01-14T20:46:00-06:00</updated>
+    <updated>2015-01-14T20:46:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
@@ -186,7 +228,7 @@ grails.plugins.appinfo.useContextListener = false
   <entry>
     <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
     <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
-    <updated>2014-07-03T09:36:21-05:00</updated>
+    <updated>2014-07-03T10:36:21-04:00</updated>
     <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
     <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
 
@@ -226,48 +268,6 @@ def save(Subscription subscription) {
 </code></p>
 
 <p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
-    <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
-    <updated>2013-10-23T04:02:02-05:00</updated>
-    <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
-    <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
-
-<p>``` sh</p>
-
-<pre><code>$ grails clean
-| Application cleaned.
-
-$ grails test-app
-| Environment set to test.....
-| Warning No config found for the application.
-| Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
-</code></pre>
-
-<p>```
-Start using package in between and the problem will go away.</p>
-
-<p>``` sh</p>
-
-<pre><code>$ grails clean
-| Application cleaned.
-$ grails package
-| Compiling 10 source files
-| Compiling 12 source files.....
-
-$ grails test-app
-| Environment set to test.....
-| Server running. Browse to http://localhost:8080/api
-| Running 6 cucumber tests...
-| Completed 6 cucumber tests, 0 failed in 0m 3s
-| Server stopped
-| Tests PASSED
-</code></pre>
-
-<p>```</p>
 ]]></content>
   </entry>
   

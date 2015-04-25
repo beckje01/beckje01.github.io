@@ -4,7 +4,7 @@
   <title><![CDATA[Category: C# | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/c-number/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -17,7 +17,7 @@
     <title type="html"><![CDATA[Silverlight Move Cursor to End of TextBox
 ]]></title>
     <link href="http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox/"/>
-    <updated>2009-04-04T15:46:03-05:00</updated>
+    <updated>2009-04-04T16:46:03-04:00</updated>
     <id>http://beckje01.com/blog/2009/04/04/silverlight-move-cursor-to-end-of-textbox</id>
     <content type="html"><![CDATA[<p>While working on in Silverlight I found the need to auto populate a TextBox then shift focus to that TextBox. That was simple to do with the following code.</p>
 

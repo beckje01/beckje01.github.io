@@ -133,7 +133,86 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-05:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T22:52:53-04:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
+
+<p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
+
+<figure class='code'><figcaption><span>application.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">grails</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">profile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">codegen</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">defaultPackage</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">example</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">spring</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">bean</span><span class="p-Indicator">:</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">packages</span><span class="p-Indicator">:</span>
+</span><span class='line'>                <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">example.config</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I found that while the beans were all wired correctly and <code>@Autowired</code> all worked correctly, but any mappings with <code>@RequestMapping</code> where always returning a 404. Everything looked wired correctly but Grails wasn&rsquo;t letting any requests through.</p>
+
+<p>So I switched over to using <code>@ComponentScan</code> then the requests were properly mapped and everything started working.</p>
+
+<p>Using ComponentScan with Grails 3 is very easy:</p>
+
+<figure class='code'><figcaption><span>Application.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&quot;example.config&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will scan the package of <code>example.config</code> for any Spring components so your Spring Java configs can all live in this package and easily get picked up.</p>
+
+<p>This post is the blog form of this <a href="http://stackoverflow.com/questions/29736850/grails-3-and-spring-requestmapping">SO Question</a>.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-04:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
         
       </p>
     
@@ -240,7 +319,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T10:47:19-04:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
         
       </p>
     
@@ -340,7 +419,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-05:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
         
       </p>
     
@@ -492,7 +571,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-05:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
         
       </p>
     
@@ -546,7 +625,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T16:33:46-04:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
         
       </p>
     
@@ -702,7 +781,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T19:16:00-04:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
         
       </p>
     
@@ -806,7 +885,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T06:54:30-05:00" pubdate class="published updated" >Jul 25<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T07:54:30-04:00" pubdate class="published updated" >Jul 25<span>th</span>, 2014</time>
         
       </p>
     
@@ -860,7 +939,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T10:36:21-04:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
         
       </p>
     
@@ -944,7 +1023,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T05:02:02-04:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
         
       </p>
     
@@ -1010,54 +1089,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-08-19T18:10:12-05:00" pubdate class="published updated" >Aug 19<span>th</span>, 2013</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/">Grails 2.3 RC1 and JMS Plugin</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;org.springframework:spring-jms:3.2.4.RELEASE&#39;</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1089,6 +1120,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
+    
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
@@ -1096,8 +1129,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
   </div>
 </section>

@@ -133,7 +133,83 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T08:13:38-05:00" pubdate class="published updated" >Sep 24<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-05T04:16:36-05:00" pubdate class="published updated" >Nov 5<span>th</span>, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/05/read-only-tables-with-ie6ie7-workaround/">Read Only Tables With IE6/IE7 Workaround</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>In an earlier post, I reported that the TR element in IE6/IE7 had a read only innerhtml. I have found a way to get around this while not perfect it works. It turns out while the TR’s innnerhtml is read only a TD is not. So you can add a TD with a column span equal to the total column in the table. Then you can add what you wanted to the TD’s innerhtml. Check out the example code below.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">addrow</span><span class="p">(</span><span class="nx">http_request</span><span class="p">,</span><span class="nx">elm</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">temp</span><span class="o">=</span> <span class="nx">http_request</span><span class="p">;</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">tablebody</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">tBodies</span><span class="p">[];</span>
+</span><span class='line'>              <span class="k">try</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">cell</span> <span class="o">=</span> <span class="nx">row</span><span class="p">.</span><span class="nx">insertCell</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">colSpan</span> <span class="o">=</span> <span class="s2">&quot;6&quot;</span><span class="p">;</span>
+</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s2">&quot;nopadding&quot;</span><span class="p">;</span>
+</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;table style=&#39;margin:0; padding:0; width:100%&#39; border=&#39;1&#39;&gt;&lt;tr&gt;&quot;</span><span class="o">+</span><span class="nx">temp</span><span class="o">+</span><span class="s2">&quot;&lt;/tr&gt;&lt;/table&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span><span class="s2">&quot;sctablerow&quot;</span><span class="o">+</span><span class="nx">nextelm</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T09:13:38-04:00" pubdate class="published updated" >Sep 24<span>th</span>, 2008</time>
         
       </p>
     
@@ -170,7 +246,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-28T18:45:09-06:00" pubdate class="published updated" >Feb 28<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-28T19:45:09-05:00" pubdate class="published updated" >Feb 28<span>th</span>, 2008</time>
         
       </p>
     
@@ -216,7 +292,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-21T12:49:42-06:00" pubdate class="published updated" >Feb 21<span>st</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-21T13:49:42-05:00" pubdate class="published updated" >Feb 21<span>st</span>, 2008</time>
         
       </p>
     
@@ -259,7 +335,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate class="published updated" >Jan 9<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T04:30:16-05:00" pubdate class="published updated" >Jan 9<span>th</span>, 2008</time>
         
       </p>
     
@@ -298,7 +374,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-11T08:23:46-06:00" pubdate class="published updated" >Nov 11<span>th</span>, 2007</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-11T09:23:46-05:00" pubdate class="published updated" >Nov 11<span>th</span>, 2007</time>
         
       </p>
     
@@ -346,7 +422,7 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-08T04:34:28-06:00" pubdate class="published updated" >Nov 8<span>th</span>, 2007</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-08T05:34:28-05:00" pubdate class="published updated" >Nov 8<span>th</span>, 2007</time>
         
       </p>
     
@@ -421,6 +497,8 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
+    
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
@@ -428,8 +506,6 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
   </div>
 </section>

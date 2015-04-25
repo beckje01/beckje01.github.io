@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ratpack | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/ratpack/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-18T20:55:26-05:00</updated>
+  <updated>2015-04-24T23:10:22-04:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Ratpack Promise]]></title>
     <link href="http://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
-    <updated>2014-09-10T15:33:46-05:00</updated>
+    <updated>2014-09-10T16:33:46-04:00</updated>
     <id>http://beckje01.com/blog/2014/09/10/ratpack-promise</id>
     <content type="html"><![CDATA[<p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
 

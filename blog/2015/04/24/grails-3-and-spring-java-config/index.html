@@ -4,10 +4,10 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Java - Jeff Beck</title>
+  <title>Grails 3 and Spring Java Config - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
-  <meta name="description" content="Category: Java">
+  
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.comblog/categories/java">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -61,13 +61,13 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li >
+                <li class="active">
                     <a href="/">Blog</a>
                 </li>
                 <li >
                     <a href="/about.html">About</a>
                 </li>
-                <li class="active">
+                <li >
                     <a href="/blog/archives">Archives</a>
                 </li>
             </ul>
@@ -111,31 +111,16 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <article role="article">
+    <article class="hentry" role="article">
       
-        <header class="page-header">
-          
-          
-            <h1 class="entry-title">
-              Category: Java
-              
-            </h1>
-          
-        </header>
-      
-      <div class="entry-content">
-        <div id="blog-archives" class="category">
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
 
 
 
-  
-  <h2>2014</h2>
 
-<article class="page-header">
-  
-<h1><a href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a></h1>
-<p class="meta text-muted">
-  
 
 
 
@@ -144,256 +129,130 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T22:52:53-04:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        Grails 3 and Spring Java Config
+        
+    </h1>
+    
+  </header>
 
 
+<div class="entry-content clearfix"><p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
 
+<p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T19:16:00-04:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
-  
+<figure class='code'><figcaption><span>application.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">grails</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">profile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">codegen</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">defaultPackage</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">example</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">spring</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">bean</span><span class="p-Indicator">:</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">packages</span><span class="p-Indicator">:</span>
+</span><span class='line'>                <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">example.config</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/cql/'>CQL</a>, <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>, <a class='category' href='/blog/categories/java/'>Java</a>
-  
-</span>
 
+<p>I found that while the beans were all wired correctly and <code>@Autowired</code> all worked correctly, but any mappings with <code>@RequestMapping</code> where always returning a 404. Everything looked wired correctly but Grails wasn&rsquo;t letting any requests through.</p>
 
-</p>
+<p>So I switched over to using <code>@ComponentScan</code> then the requests were properly mapped and everything started working.</p>
 
-</article>
+<p>Using ComponentScan with Grails 3 is very easy:</p>
 
+<figure class='code'><figcaption><span>Application.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&quot;example.config&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-  
-  <h2>2013</h2>
+<p>This will scan the package of <code>example.config</code> for any Spring components so your Spring Java configs can all live in this package and easily get picked up.</p>
 
-<article class="page-header">
-  
-<h1><a href="/blog/2013/02/03/saml-matching-endpoints-with-tomcat/">SAML Matching Endpoints with Tomcat</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-03T12:09:23-05:00" pubdate class="published updated" >Feb 3<span>rd</span>, 2013</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/java/'>Java</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
-
-
-  
-  <h2>2012</h2>
-
-<article class="page-header">
-  
-<h1><a href="/blog/2012/04/03/grails-redirect-leaving-in-url/">Grails Redirect Leaving %2F in URL</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2012-04-03T05:56:37-04:00" pubdate class="published updated" >Apr 3<span>rd</span>, 2012</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/java/'>Java</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
-
-
-  
-  <h2>2011</h2>
-
-<article class="page-header">
-  
-<h1><a href="/blog/2011/05/08/java-and-javascript-datetime-fun/">Java and JavaScript Datetime Fun</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T08:52:26-04:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
-
-
-  
-  <h2>2009</h2>
-
-<article class="page-header">
-  
-<h1><a href="/blog/2009/04/09/connectorj-516-vs-connectorj-517/">Connector/J 5.1.6 vs Connector/J 5.1.7</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-09T12:19:46-04:00" pubdate class="published updated" >Apr 9<span>th</span>, 2009</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
-
-
-<article class="page-header">
-  
-<h1><a href="/blog/2009/03/02/quick-gwt-note/">Quick GWT Note</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-02T15:41:56-05:00" pubdate class="published updated" >Mar 2<span>nd</span>, 2009</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
-
-
-  
-  <h2>2008</h2>
-
-<article class="page-header">
-  
-<h1><a href="/blog/2008/09/24/javalangincompatibleclasschangeerror/">java.lang.IncompatibleClassChangeError</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T09:13:38-04:00" pubdate class="published updated" >Sep 24<span>th</span>, 2008</time>
-  
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/software-engineering/'>Software Engineering</a>
-  
-</span>
-
-
-</p>
-
-</article>
-
+<p>This post is the blog form of this <a href="http://stackoverflow.com/questions/29736850/grails-3-and-spring-requestmapping">SO Question</a>.</p>
 </div>
 
-      </div>
-      
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T22:52:53-04:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/" >Tweet</a>
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/" title="Previous Post: SpringSecurity Impersonate Users Custom Roles">&laquo; SpringSecurity Impersonate Users Custom Roles</a></li>
+            
+            
+          </ul>
+        
+      </footer>
     </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
     
   </div>
 
   
-    <aside class="sidebar col-md-3">
+  <aside class="sidebar col-md-3">
+    
       
-        
 <link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
 <section class="panel panel-default clearfix">
 	<span>
@@ -408,7 +267,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
+    <a class="list-group-item active" href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
@@ -500,8 +359,8 @@
 </section>
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -527,7 +386,10 @@
       var disqus_shortname = 'beckje01blog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/';
+        var disqus_url = 'http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

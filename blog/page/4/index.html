@@ -133,7 +133,58 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-09T11:19:46-05:00" pubdate class="published updated" >Apr 9<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-09T19:26:16-04:00" pubdate class="published updated" >Apr 9<span>th</span>, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/09/silverlight-image-error/">Silverlight Image Error</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working in Silverlight I ran across a error that seemed rather odd, not because it didn’t make sense but that I couldn’t see anything I did wrong. So the error was</p>
+
+<p>Unhandled Error in Silverlight 2 Application App.xap<br/>
+Code: 4001<br/>
+categories: ImageError<br/>
+Message: AG_E_NETWORK_ERROR</p>
+
+<p>While checking the Image tag in the xaml I simply couldn’t find anything wrong with it. It looked very similar to the following xaml. The user.profile_image was of course a full URI that worked fine when written directly in the browser.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;Image</span>  <span class="na">Grid</span><span class="err">.</span><span class="na">Row=</span><span class="s">&quot;0&quot;</span> <span class="na">Margin=</span><span class="s">&quot;0,0,5,0&quot;</span> <span class="na">VerticalAlignment=</span><span class="s">&quot;Top&quot;</span>  <span class="na">Source=</span><span class="s">&quot;{Binding user.profile_image}&quot;</span> <span class="nt">&gt;&lt;/Image&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So that leaves me with what could the problem be, well it turned out it was simple I was a using a GIF file so <a href="http://mydomain.com/foo.gif">http://mydomain.com/foo.gif</a> as a source for an image simply doesn’t work as GIF isn’t supported. But really why would Silverlight not use GIF? Well simply converting the GIF to a PNG then Silverlight can handle the image just fine and display it. Although there are some issues as in Silverlight the only 8 bit and fewer PNG formats support transparency. So if the reason you were using a GIF was for transparency you will have to create an 8 bit or lower PNG. Look for a simple how to next post on converting a GIF to a PNG that Silverlight can display properly with transparency.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-09T12:19:46-04:00" pubdate class="published updated" >Apr 9<span>th</span>, 2009</time>
         
       </p>
     
@@ -191,7 +242,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-04T15:46:03-05:00" pubdate class="published updated" >Apr 4<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-04T16:46:03-04:00" pubdate class="published updated" >Apr 4<span>th</span>, 2009</time>
         
       </p>
     
@@ -246,7 +297,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-02T18:15:30-05:00" pubdate class="published updated" >Apr 2<span>nd</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-04-02T19:15:30-04:00" pubdate class="published updated" >Apr 2<span>nd</span>, 2009</time>
         
       </p>
     
@@ -291,7 +342,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T17:00:50-05:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-11T18:00:50-04:00" pubdate class="published updated" >Mar 11<span>th</span>, 2009</time>
         
       </p>
     
@@ -332,7 +383,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-02T14:41:56-06:00" pubdate class="published updated" >Mar 2<span>nd</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-02T15:41:56-05:00" pubdate class="published updated" >Mar 2<span>nd</span>, 2009</time>
         
       </p>
     
@@ -369,7 +420,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T18:55:58-06:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T19:55:58-05:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
         
       </p>
     
@@ -427,7 +478,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T13:09:22-06:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T14:09:22-05:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
         
       </p>
     
@@ -485,7 +536,7 @@ Change to:</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-23T19:36:15-06:00" pubdate class="published updated" >Nov 23<span>rd</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-23T20:36:15-05:00" pubdate class="published updated" >Nov 23<span>rd</span>, 2008</time>
         
       </p>
     
@@ -522,7 +573,7 @@ Change to:</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-17T16:30:08-06:00" pubdate class="published updated" >Nov 17<span>th</span>, 2008</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-17T17:30:08-05:00" pubdate class="published updated" >Nov 17<span>th</span>, 2008</time>
         
       </p>
     
@@ -542,82 +593,6 @@ Change to:</p>
     <footer>
       <a class="btn btn-default" rel="full-article" href="/blog/2008/11/17/javascript-flash-chart-alternative/">Read on &rarr;</a>
     </footer>
-  
-
-
-        </article>
-      
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-05T03:16:36-06:00" pubdate class="published updated" >Nov 5<span>th</span>, 2008</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2008/11/05/read-only-tables-with-ie6ie7-workaround/">Read Only Tables With IE6/IE7 Workaround</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>In an earlier post, I reported that the TR element in IE6/IE7 had a read only innerhtml. I have found a way to get around this while not perfect it works. It turns out while the TR’s innnerhtml is read only a TD is not. So you can add a TD with a column span equal to the total column in the table. Then you can add what you wanted to the TD’s innerhtml. Check out the example code below.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">addrow</span><span class="p">(</span><span class="nx">http_request</span><span class="p">,</span><span class="nx">elm</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>            <span class="kd">var</span> <span class="nx">temp</span><span class="o">=</span> <span class="nx">http_request</span><span class="p">;</span>
-</span><span class='line'>            <span class="kd">var</span> <span class="nx">tablebody</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">tBodies</span><span class="p">[];</span>
-</span><span class='line'>              <span class="k">try</span>
-</span><span class='line'>              <span class="p">{</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">cell</span> <span class="o">=</span> <span class="nx">row</span><span class="p">.</span><span class="nx">insertCell</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">colSpan</span> <span class="o">=</span> <span class="s2">&quot;6&quot;</span><span class="p">;</span>
-</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s2">&quot;nopadding&quot;</span><span class="p">;</span>
-</span><span class='line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;table style=&#39;margin:0; padding:0; width:100%&#39; border=&#39;1&#39;&gt;&lt;tr&gt;&quot;</span><span class="o">+</span><span class="nx">temp</span><span class="o">+</span><span class="s2">&quot;&lt;/tr&gt;&lt;/table&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>              <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span>
-</span><span class='line'>              <span class="p">{</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span><span class="s2">&quot;sctablerow&quot;</span><span class="o">+</span><span class="nx">nextelm</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-</span><span class='line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
-</span><span class='line'>              <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
   
 
 
@@ -654,6 +629,8 @@ Change to:</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
+    
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
@@ -661,8 +638,6 @@ Change to:</p>
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
     <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a>
     
   </div>
 </section>
