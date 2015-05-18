@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Python CGI + FTP = Headache]]></title>
     <link href="http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache/"/>
-    <updated>2008-01-09T04:30:16-05:00</updated>
+    <updated>2008-01-09T03:30:16-06:00</updated>
     <id>http://beckje01.com/blog/2008/01/09/python-cgi-ftp-headache</id>
     <content type="html"><![CDATA[<p>I have taken over support of a Python CGI application, no big deal seems like an ok code base and the fixes seem simple. The first fix that needed to be done was a very simple change to some wording which required me to change a cgi file so I made the change tested it and it all worked on my dev system so I then uploaded the file over FTP to the server and nothing worked. So after lots of debugging trying all sorts of things, I remembered something about the binary and ASCII transfer settings for FTP. Mine was set to binary so I switched it over to ASCII uploaded the file again and sure enough everything worked again.</p>
 

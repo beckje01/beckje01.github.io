@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CQL | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/cql/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
     <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
-    <updated>2014-08-13T19:16:00-04:00</updated>
+    <updated>2014-08-13T18:16:00-05:00</updated>
     <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
     <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 

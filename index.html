@@ -133,7 +133,146 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T22:52:53-04:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-05-17T16:45:08-05:00" pubdate class="published updated" >May 17<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Vertx 3 is a great step forward you can now work with Vertx without having to install a command line tool to run it. Now you can use standard Maven or Gradle to run your application.</p>
+
+<p>With Gradle the samples given all are based on the use of the great <a href="https://github.com/johnrengelman/shadow">Shadow Plugin</a>. While this is good for deployments and most local development I missed a few of the features of the application plugin.</p>
+
+<p>Set up your <code>build.gradle</code> with the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;application&#39;</span>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;com.github.johnrengelman.shadow&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-core:${project.vertxVersion}&quot;</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-apex:${project.vertxVersion}&quot;</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-auth-service:${project.vertxVersion}&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">def</span> <span class="n">mainVerticle</span> <span class="o">=</span> <span class="s2">&quot;groovy:ex.main.RestVerticle&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mainClassName</span> <span class="o">=</span> <span class="s2">&quot;io.vertx.core.Starter&quot;</span>
+</span><span class='line'><span class="n">run</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;run&quot;</span><span class="o">,</span> <span class="n">mainVerticle</span><span class="o">]</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">jar</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">manifest</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">attributes</span> <span class="s1">&#39;Main-Verticle&#39;</span><span class="o">:</span> <span class="n">mainVerticle</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">shadowJar</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">classifier</span> <span class="o">=</span> <span class="s1">&#39;fat&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">mergeServiceFiles</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">include</span> <span class="s1">&#39;META-INF/services/io.vertx.core.spi.VerticleFactory&#39;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;io.vertx:codegen&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;junit:junit&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;org.mvel:mvel2&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;log4j:log4j&#39;</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this case we are deploying Vertx with verticles. So we set the main verticle which does our setup. I define that as variable since we will need to use it in two places once as an argument to the Vertx starter and again in the Jar manifest. You will note the main verticle includes the type in our case it is Groovy but if you are doing JavaScript you would change it there.</p>
+
+<p>Now we can take advantage of the application plugin allowing us to use the simple <code>gradle run</code> instead of depending on the Shadow plugin it is also faster then rebuilding the whole fat jar.</p>
+
+<p>But the main reason I wanted to use the application plugin was the ability to debug easily.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">$</span> <span class="n">gradle</span> <span class="n">run</span> <span class="o">--</span><span class="n">debug</span><span class="o">-</span><span class="n">jvm</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That command will allow us to attach a debugger to 5005 <em>default</em>. With these changes Vertx 3 development fits in along side my other Grails 3 and Java 8 projects easily.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T21:52:53-05:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
         
       </p>
     
@@ -212,7 +351,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-04:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-18T20:54:00-05:00" pubdate class="published updated" >Apr 18<span>th</span>, 2015</time>
         
       </p>
     
@@ -319,7 +458,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T10:47:19-04:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
         
       </p>
     
@@ -419,7 +558,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-05:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
         
       </p>
     
@@ -571,7 +710,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-05:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-01-14T20:46:00-06:00" pubdate class="published updated" >Jan 14<span>th</span>, 2015</time>
         
       </p>
     
@@ -625,7 +764,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T16:33:46-04:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
         
       </p>
     
@@ -781,7 +920,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T19:16:00-04:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
         
       </p>
     
@@ -885,7 +1024,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T07:54:30-04:00" pubdate class="published updated" >Jul 25<span>th</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-25T06:54:30-05:00" pubdate class="published updated" >Jul 25<span>th</span>, 2014</time>
         
       </p>
     
@@ -939,7 +1078,7 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T10:36:21-04:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
         
       </p>
     
@@ -1004,91 +1143,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T05:02:02-04:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">Grails 2.3.1 Warnings After Clean.</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Warning No config found <span class="k">for </span>the application.
-</span><span class='line'>| Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Start using package in between and the problem will go away.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'><span class="nv">$ </span>grails package
-</span><span class='line'>| Compiling 10 <span class="nb">source </span>files
-</span><span class='line'>| Compiling 12 <span class="nb">source </span>files.....
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Server running. Browse to http://localhost:8080/api
-</span><span class='line'>| Running 6 cucumber tests...
-</span><span class='line'>| Completed 6 cucumber tests, 0 failed in 0m 3s
-</span><span class='line'>| Server stopped
-</span><span class='line'>| Tests PASSED
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1120,6 +1174,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
+    
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
@@ -1127,8 +1183,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
-    
-    <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
   </div>
 </section>

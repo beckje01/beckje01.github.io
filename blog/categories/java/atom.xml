@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
     <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
-    <updated>2014-08-13T19:16:00-04:00</updated>
+    <updated>2014-08-13T18:16:00-05:00</updated>
     <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
     <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
@@ -85,7 +85,7 @@ Statement upsert = QueryBuilder.update(&ldquo;tablex&rdquo;)</p>
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
     <link href="http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
-    <updated>2013-02-03T12:09:23-05:00</updated>
+    <updated>2013-02-03T11:09:23-06:00</updated>
     <id>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
     <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
 
@@ -177,7 +177,7 @@ org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
   <entry>
     <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
     <link href="http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
-    <updated>2012-04-03T05:56:37-04:00</updated>
+    <updated>2012-04-03T04:56:37-05:00</updated>
     <id>http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url</id>
     <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
 
@@ -188,7 +188,7 @@ org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
   <entry>
     <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
     <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
-    <updated>2011-05-08T08:52:26-04:00</updated>
+    <updated>2011-05-08T07:52:26-05:00</updated>
     <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
     <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
 
@@ -247,7 +247,7 @@ function padMili(number)
   <entry>
     <title type="html"><![CDATA[Connector/J 5.1.6 vs Connector/J 5.1.7]]></title>
     <link href="http://beckje01.com/blog/2009/04/09/connectorj-516-vs-connectorj-517/"/>
-    <updated>2009-04-09T12:19:46-04:00</updated>
+    <updated>2009-04-09T11:19:46-05:00</updated>
     <id>http://beckje01.com/blog/2009/04/09/connectorj-516-vs-connectorj-517</id>
     <content type="html"><![CDATA[<p>While deploying a Java based auto import system I ran into a very odd problem. The code was developed and tested just fine with Connector/J 5.1.6 then while pushing to prod there seemed to be a major issue, the import would run download everything parse it and then clear out the old data but then get stuck. I would then get a series of errors java.sql.SQLException: !Statement.GeneratedKeysNotRequested! well it turned out that the prod sever had Connector/J 5.1.7 installed instead of the 5.1.6 which test had installed. This turned out to be allowing for some wrong practices when it came to prepared statements. It was a pretty easy fix yet it took a bit of time to make sure it happened every where. So why there was a change and what happened is well discussed else where and the links to those will follow. But for now here the change that needs to happen.</p>
 

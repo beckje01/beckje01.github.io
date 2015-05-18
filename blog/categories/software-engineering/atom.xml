@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software Engineering | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/software-engineering/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
     <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
-    <updated>2013-10-23T05:02:02-04:00</updated>
+    <updated>2013-10-23T04:02:02-05:00</updated>
     <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
@@ -58,7 +58,7 @@ $ grails test-app
   <entry>
     <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
     <link href="http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
-    <updated>2012-12-28T05:25:45-05:00</updated>
+    <updated>2012-12-28T04:25:45-06:00</updated>
     <id>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
     <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
 
@@ -97,7 +97,7 @@ Caused by: UnavailableException()
     <title type="html"><![CDATA[Grails Release Plugin External Maven Config
 ]]></title>
     <link href="http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
-    <updated>2012-10-21T10:00:18-04:00</updated>
+    <updated>2012-10-21T09:00:18-05:00</updated>
     <id>http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
 
@@ -138,7 +138,7 @@ grails.project.repos.internalSnap.password = 'fakePass123'
   <entry>
     <title type="html"><![CDATA[Remove Addressbar from iPhone Web App]]></title>
     <link href="http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app/"/>
-    <updated>2010-06-22T12:55:31-04:00</updated>
+    <updated>2010-06-22T11:55:31-05:00</updated>
     <id>http://beckje01.com/blog/2010/06/22/remove-addressbar-from-iphone-web-app</id>
     <content type="html"><![CDATA[<p>If you are creating a web app for the iPhone there is an easy to to hide the address bar when opening the page from a link on the users home screen. You simply need to add the following meta tag to your<br/>
 head. This will also work with the iPad.</p>
@@ -152,7 +152,7 @@ head. This will also work with the iPad.</p>
   <entry>
     <title type="html"><![CDATA[Filling an Array with Objects in PHP]]></title>
     <link href="http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php/"/>
-    <updated>2010-01-28T02:29:45-05:00</updated>
+    <updated>2010-01-28T01:29:45-06:00</updated>
     <id>http://beckje01.com/blog/2010/01/28/filling-an-array-with-objects-in-php</id>
     <content type="html"><![CDATA[<p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
 

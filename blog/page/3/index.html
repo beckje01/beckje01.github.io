@@ -133,7 +133,62 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-22T12:55:31-04:00" pubdate class="published updated" >Jun 22<span>nd</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate class="published updated" >Feb 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/08/check-for-address-bar-in-ios/">Check for Address Bar in iOS</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
+
+<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
+
+<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
+
+<div><script src='https://gist.github.com/926010.js'></script>
+<noscript><pre><code>if(window.navigator.standalone)
+{//This page is currently standalone
+   console.log(&quot;stand alone&quot;);
+}
+ 
+if(!(&quot;standalone&quot; in window.navigator))
+{//This Page is shown in a browser that can&#39;t
+    console.log(&quot;can&#39;t do standalone&quot;);
+}</code></pre></noscript></div>
+
+
+<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-22T11:55:31-05:00" pubdate class="published updated" >Jun 22<span>nd</span>, 2010</time>
         
       </p>
     
@@ -176,7 +231,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-01T12:40:52-04:00" pubdate class="published updated" >Jun 1<span>st</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-06-01T11:40:52-05:00" pubdate class="published updated" >Jun 1<span>st</span>, 2010</time>
         
       </p>
     
@@ -234,7 +289,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-05-03T23:18:00-04:00" pubdate class="published updated" >May 3<span>rd</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-05-03T22:18:00-05:00" pubdate class="published updated" >May 3<span>rd</span>, 2010</time>
         
       </p>
     
@@ -290,7 +345,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T03:44:18-04:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-17T02:44:18-05:00" pubdate class="published updated" >Apr 17<span>th</span>, 2010</time>
         
       </p>
     
@@ -347,7 +402,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-07T18:56:42-04:00" pubdate class="published updated" >Apr 7<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-04-07T17:56:42-05:00" pubdate class="published updated" >Apr 7<span>th</span>, 2010</time>
         
       </p>
     
@@ -384,7 +439,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-28T02:29:45-05:00" pubdate class="published updated" >Jan 28<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-28T01:29:45-06:00" pubdate class="published updated" >Jan 28<span>th</span>, 2010</time>
         
       </p>
     
@@ -447,7 +502,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-17T05:48:16-05:00" pubdate class="published updated" >Jan 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-17T04:48:16-06:00" pubdate class="published updated" >Jan 17<span>th</span>, 2010</time>
         
       </p>
     
@@ -492,7 +547,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T07:32:00-05:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T06:32:00-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
         
       </p>
     
@@ -529,7 +584,7 @@ head. This will also work with the iPad.</p>
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T06:49:05-05:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
         
       </p>
     
@@ -643,68 +698,6 @@ head. This will also work with the iPad.</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-08T10:24:24-05:00" pubdate class="published updated" >Dec 8<span>th</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/12/08/html-table-row-height-hack/">HTML Table Row Height Hack</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Working with a fixed height and width table I found a problem where rows were expanding too much I needed each row to only grow in height enough to contain the text and not fill the rest of the table. The number of rows was dynamic but the height fixed. The hack is simple add a height to each row of 1px which will make it so the rows only grow enough to contain your text then add a last row to act as a buffer with no height. Below the fold I have examples.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table</span> <span class="na">height=</span><span class="s">&quot;200px&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;example.gif&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;</span>Some Text<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;example2.gif&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;td&gt;</span>Some More Text<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;&lt;/tr&gt;</span> <span class="c">&lt;!--The Buffer Row--&gt;</span>
-</span><span class='line'><span class="nt">&lt;/table&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -736,6 +729,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
+    
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
@@ -743,8 +738,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
     <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
-    
-    <a class="list-group-item " href="/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/">Memcached Tomcat Sessions and Grails App Info Plugin</a>
     
   </div>
 </section>

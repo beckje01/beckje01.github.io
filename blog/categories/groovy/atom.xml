@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Groovy | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/groovy/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Grails 3 and Spring Java Config]]></title>
     <link href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/"/>
-    <updated>2015-04-24T22:52:53-04:00</updated>
+    <updated>2015-04-24T21:52:53-05:00</updated>
     <id>http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config</id>
     <content type="html"><![CDATA[<p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
 
@@ -58,7 +58,7 @@ class Application extends GrailsAutoConfiguration {
   <entry>
     <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
     <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
-    <updated>2015-04-18T20:54:00-04:00</updated>
+    <updated>2015-04-18T20:54:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
     <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 
@@ -119,7 +119,7 @@ switchUserProcessingFilter.setSwitchUserAuthorityChanger(switchUserAuthorityChan
   <entry>
     <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
     <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
-    <updated>2015-02-14T15:41:00-05:00</updated>
+    <updated>2015-02-14T15:41:00-06:00</updated>
     <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
     <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
 
@@ -203,7 +203,7 @@ You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anythi
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
     <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
-    <updated>2015-01-14T20:46:00-05:00</updated>
+    <updated>2015-01-14T20:46:00-06:00</updated>
     <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
@@ -228,7 +228,7 @@ grails.plugins.appinfo.useContextListener = false
   <entry>
     <title type="html"><![CDATA[Ratpack Promise]]></title>
     <link href="http://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
-    <updated>2014-09-10T16:33:46-04:00</updated>
+    <updated>2014-09-10T15:33:46-05:00</updated>
     <id>http://beckje01.com/blog/2014/09/10/ratpack-promise</id>
     <content type="html"><![CDATA[<p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
 

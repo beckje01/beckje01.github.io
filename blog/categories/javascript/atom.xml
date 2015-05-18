@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -17,7 +17,7 @@
     <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
 ]]></title>
     <link href="http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
-    <updated>2011-10-27T10:32:23-04:00</updated>
+    <updated>2011-10-27T09:32:23-05:00</updated>
     <id>http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
     <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.
 ``` js</p>
@@ -37,7 +37,7 @@ _.each(examples,function(elm){
   <entry>
     <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
     <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
-    <updated>2011-05-08T08:52:26-04:00</updated>
+    <updated>2011-05-08T07:52:26-05:00</updated>
     <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
     <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
 
@@ -96,7 +96,7 @@ function padMili(number)
   <entry>
     <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
     <link href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/"/>
-    <updated>2011-02-08T15:07:11-05:00</updated>
+    <updated>2011-02-08T14:07:11-06:00</updated>
     <id>http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios</id>
     <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
 
@@ -123,7 +123,7 @@ if(!(&quot;standalone&quot; in window.navigator))
   <entry>
     <title type="html"><![CDATA[HTML5 Video and the seeked event]]></title>
     <link href="http://beckje01.com/blog/2010/05/03/html5-video-and-the-seeked-event/"/>
-    <updated>2010-05-03T23:18:00-04:00</updated>
+    <updated>2010-05-03T22:18:00-05:00</updated>
     <id>http://beckje01.com/blog/2010/05/03/html5-video-and-the-seeked-event</id>
     <content type="html"><![CDATA[<p>I have been working with the HTML5 video element a bit on both iPad and the Chrome browser. I’ve started to find some odd behavior around the seeked event. First a touch of background about the seeked event. According to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#mediaevents">spec</a> the seeked event should fire when the seeking IDL attribute changes to false. This seems to make perfect sense but when actually using the event it seems inconsistent at best.</p>
 
@@ -152,7 +152,7 @@ if(!(&quot;standalone&quot; in window.navigator))
     <title type="html"><![CDATA[JavaScript Passing by Value into an Inline Function
 ]]></title>
     <link href="http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/"/>
-    <updated>2009-12-31T06:49:05-05:00</updated>
+    <updated>2009-12-31T05:49:05-06:00</updated>
     <id>http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function</id>
     <content type="html"><![CDATA[<p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
 

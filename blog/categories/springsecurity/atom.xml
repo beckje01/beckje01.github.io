@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SpringSecurity | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/springsecurity/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
     <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
-    <updated>2015-04-18T20:54:00-04:00</updated>
+    <updated>2015-04-18T20:54:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
     <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 

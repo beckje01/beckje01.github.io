@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-04-24T23:10:22-04:00</updated>
+  <updated>2015-05-17T23:39:29-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -14,9 +14,120 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Vertx3 and Gradle Application Plugin]]></title>
+    <link href="http://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin/"/>
+    <updated>2015-05-17T16:45:08-05:00</updated>
+    <id>http://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin</id>
+    <content type="html"><![CDATA[<p>Vertx 3 is a great step forward you can now work with Vertx without having to install a command line tool to run it. Now you can use standard Maven or Gradle to run your application.</p>
+
+<p>With Gradle the samples given all are based on the use of the great <a href="https://github.com/johnrengelman/shadow">Shadow Plugin</a>. While this is good for deployments and most local development I missed a few of the features of the application plugin.</p>
+
+<p>Set up your <code>build.gradle</code> with the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;application&#39;</span>
+</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;com.github.johnrengelman.shadow&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-core:${project.vertxVersion}&quot;</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-apex:${project.vertxVersion}&quot;</span>
+</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-auth-service:${project.vertxVersion}&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">def</span> <span class="n">mainVerticle</span> <span class="o">=</span> <span class="s2">&quot;groovy:ex.main.RestVerticle&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mainClassName</span> <span class="o">=</span> <span class="s2">&quot;io.vertx.core.Starter&quot;</span>
+</span><span class='line'><span class="n">run</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;run&quot;</span><span class="o">,</span> <span class="n">mainVerticle</span><span class="o">]</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">jar</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">manifest</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">attributes</span> <span class="s1">&#39;Main-Verticle&#39;</span><span class="o">:</span> <span class="n">mainVerticle</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">shadowJar</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">classifier</span> <span class="o">=</span> <span class="s1">&#39;fat&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">mergeServiceFiles</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">include</span> <span class="s1">&#39;META-INF/services/io.vertx.core.spi.VerticleFactory&#39;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;io.vertx:codegen&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;junit:junit&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;org.mvel:mvel2&#39;</span><span class="o">))</span>
+</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;log4j:log4j&#39;</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this case we are deploying Vertx with verticles. So we set the main verticle which does our setup. I define that as variable since we will need to use it in two places once as an argument to the Vertx starter and again in the Jar manifest. You will note the main verticle includes the type in our case it is Groovy but if you are doing JavaScript you would change it there.</p>
+
+<p>Now we can take advantage of the application plugin allowing us to use the simple <code>gradle run</code> instead of depending on the Shadow plugin it is also faster then rebuilding the whole fat jar.</p>
+
+<p>But the main reason I wanted to use the application plugin was the ability to debug easily.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">$</span> <span class="n">gradle</span> <span class="n">run</span> <span class="o">--</span><span class="n">debug</span><span class="o">-</span><span class="n">jvm</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That command will allow us to attach a debugger to 5005 <em>default</em>. With these changes Vertx 3 development fits in along side my other Grails 3 and Java 8 projects easily.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Grails 3 and Spring Java Config]]></title>
     <link href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/"/>
-    <updated>2015-04-24T22:52:53-04:00</updated>
+    <updated>2015-04-24T21:52:53-05:00</updated>
     <id>http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config</id>
     <content type="html"><![CDATA[<p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
 
@@ -67,7 +178,7 @@
   <entry>
     <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
     <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
-    <updated>2015-04-18T20:54:00-04:00</updated>
+    <updated>2015-04-18T20:54:00-05:00</updated>
     <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
     <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 
@@ -146,7 +257,7 @@
   <entry>
     <title type="html"><![CDATA[Cassandra Stale Snapshots]]></title>
     <link href="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/"/>
-    <updated>2015-03-12T10:47:19-04:00</updated>
+    <updated>2015-03-12T09:47:19-05:00</updated>
     <id>http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots</id>
     <content type="html"><![CDATA[<p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
 
@@ -218,7 +329,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
     <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
-    <updated>2015-02-14T15:41:00-05:00</updated>
+    <updated>2015-02-14T15:41:00-06:00</updated>
     <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
     <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
 
@@ -342,7 +453,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
     <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
-    <updated>2015-01-14T20:46:00-05:00</updated>
+    <updated>2015-01-14T20:46:00-06:00</updated>
     <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
@@ -368,7 +479,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Ratpack Promise]]></title>
     <link href="http://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
-    <updated>2014-09-10T16:33:46-04:00</updated>
+    <updated>2014-09-10T15:33:46-05:00</updated>
     <id>http://beckje01.com/blog/2014/09/10/ratpack-promise</id>
     <content type="html"><![CDATA[<p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
 
@@ -496,7 +607,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
     <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
-    <updated>2014-08-13T19:16:00-04:00</updated>
+    <updated>2014-08-13T18:16:00-05:00</updated>
     <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
     <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
@@ -572,7 +683,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Failing @Grab Fixes]]></title>
     <link href="http://beckje01.com/blog/2014/07/25/failing-at-grab-fixes/"/>
-    <updated>2014-07-25T07:54:30-04:00</updated>
+    <updated>2014-07-25T06:54:30-05:00</updated>
     <id>http://beckje01.com/blog/2014/07/25/failing-at-grab-fixes</id>
     <content type="html"><![CDATA[<p>If you are working on a Groovy script with @Grab, you will sometimes get download failures for dependencies. Such as the following:</p>
 
@@ -598,7 +709,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
     <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
-    <updated>2014-07-03T10:36:21-04:00</updated>
+    <updated>2014-07-03T09:36:21-05:00</updated>
     <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
     <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
 
@@ -654,7 +765,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
     <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
-    <updated>2013-10-23T05:02:02-04:00</updated>
+    <updated>2013-10-23T04:02:02-05:00</updated>
     <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
@@ -711,7 +822,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
     <link href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
-    <updated>2013-08-19T19:10:12-04:00</updated>
+    <updated>2013-08-19T18:10:12-05:00</updated>
     <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
     <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
 
@@ -732,7 +843,7 @@ We will want to check when these snapshots where created so inside the snapshots
     <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
 ]]></title>
     <link href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
-    <updated>2013-02-04T09:27:27-05:00</updated>
+    <updated>2013-02-04T08:27:27-06:00</updated>
     <id>http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
     <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
 
@@ -803,7 +914,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
     <link href="http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
-    <updated>2013-02-03T12:09:23-05:00</updated>
+    <updated>2013-02-03T11:09:23-06:00</updated>
     <id>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
     <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
 
@@ -954,7 +1065,7 @@ We will want to check when these snapshots where created so inside the snapshots
     <title type="html"><![CDATA[Grails Display the Current Spring Security Filter Chain
 ]]></title>
     <link href="http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
-    <updated>2013-01-15T05:52:37-05:00</updated>
+    <updated>2013-01-15T04:52:37-06:00</updated>
     <id>http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
     <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
 
@@ -970,7 +1081,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
     <link href="http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
-    <updated>2012-12-28T05:25:45-05:00</updated>
+    <updated>2012-12-28T04:25:45-06:00</updated>
     <id>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
     <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
 
@@ -1026,7 +1137,7 @@ We will want to check when these snapshots where created so inside the snapshots
     <title type="html"><![CDATA[Grails Release Plugin External Maven Config
 ]]></title>
     <link href="http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config/"/>
-    <updated>2012-10-21T10:00:18-04:00</updated>
+    <updated>2012-10-21T09:00:18-05:00</updated>
     <id>http://beckje01.com/blog/2012/10/21/grails-release-plugin-external-maven-config</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/release">grails release plugin</a> is great for publishing plugins to grails central but it will also publish a plugin to a maven repo. You simple need to configure the new maven repo inside build config. But if you want to release snapshots to an internal maven but not have that config checked in publicly that is a bit more tricky. With a quick bit of code added to BuildConfig.groovy we can have it pull in the config from a file we can choose to not checkin. Now with our public code we don’t need to expose our internal login info. See the file changes below for an example.</p>
 
@@ -1075,7 +1186,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
     <link href="http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
-    <updated>2012-04-03T05:56:37-04:00</updated>
+    <updated>2012-04-03T04:56:37-05:00</updated>
     <id>http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url</id>
     <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
 
@@ -1087,7 +1198,7 @@ We will want to check when these snapshots where created so inside the snapshots
     <title type="html"><![CDATA[jQuery serialize() and Form Example Plugin
 ]]></title>
     <link href="http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin/"/>
-    <updated>2011-10-27T10:32:23-04:00</updated>
+    <updated>2011-10-27T09:32:23-05:00</updated>
     <id>http://beckje01.com/blog/2011/10/27/jquery-serialize-and-form-example-plugin</id>
     <content type="html"><![CDATA[<p>When working with jQuery 1.6.1 and the <a href="http://mudge.github.com/jquery_example/">jQuery Form Example Plugin</a> I found that the examples were being serialized the plan was to use Ajax to send the serialized data back to the server and save it but I didn’t want to have to try and remove the examples server side. So triggering unload on the examples will allow serialize to get the correct data. Example JavaScript below.</p>
 
@@ -1109,7 +1220,7 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
     <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
-    <updated>2011-05-08T08:52:26-04:00</updated>
+    <updated>2011-05-08T07:52:26-05:00</updated>
     <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
     <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
 
@@ -1164,33 +1275,6 @@ function padMili(number)
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Check for Address Bar in iOS]]></title>
-    <link href="http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios/"/>
-    <updated>2011-02-08T15:07:11-05:00</updated>
-    <id>http://beckje01.com/blog/2011/02/08/check-for-address-bar-in-ios</id>
-    <content type="html"><![CDATA[<p>As we know how to hide the address bar in iOS, we may want to tell if a user has that bar showing or not. I use this detection to show instructions to the user to add a site to their home screen if they are not in stand alone mode.</p>
-
-<p>There are two properties we want to look at <em>“standalone” in window.navigator</em> and <em>window.navigator.standalone</em>. We can use the first expression to check if the device supports full screen mode and the second to check if it is in full screen mode. I have checked these with the iPhone and iPad, with iOS versions 3 and 4 if anyone has any issues please post a comment and we can try and work through it.</p>
-
-<p>The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.</p>
-
-<div><script src='https://gist.github.com/926010.js'></script>
-<noscript><pre><code>if(window.navigator.standalone)
-{//This page is currently standalone
-   console.log(&quot;stand alone&quot;);
-}
- 
-if(!(&quot;standalone&quot; in window.navigator))
-{//This Page is shown in a browser that can&#39;t
-    console.log(&quot;can&#39;t do standalone&quot;);
-}</code></pre></noscript></div>
-
-
-<p>There is a great write up by Ben Nadel you can find over at his blog. <a href="http://www.bennadel.com/blog/1950-Detecting-iPhone-s-App-Mode-Full-Screen-Mode-For-Web-Applications.htm">Post</a></p>
 ]]></content>
   </entry>
   
