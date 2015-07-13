@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-05-17T23:39:29-05:00</updated>
+  <updated>2015-07-12T21:30:01-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 3 and JaCoCo]]></title>
+    <link href="http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco/"/>
+    <updated>2015-07-12T21:29:00-05:00</updated>
+    <id>http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco</id>
+    <content type="html"><![CDATA[<p>Now that we have Gradle as our build system we have a whole range of plugins we can use directly in Gradle. For code coverage I am using the JaCoCo plugin. To use it with Grails we just apply the plugin to the build. By default you will get a HTML report, in the <code>build/report/jacoco</code> directory.</p>
+
+<p><code>groovy
+apply plugin: "jacoco"
+</code></p>
+
+<p>But Grails 3 has it&rsquo;s test phases split up, out of the box you will have <code>test</code> and <code>integrationTest</code>. Starting with the JaCoCo gradle plugin, you will get coverage for just your <code>test</code> phase.</p>
+
+<p>We can easily fix this by letting JaCoCo know about the phases we want reported on so we just adjust the config for the jacocoTestReport task.</p>
+
+<p>```groovy
+jacocoTestReport {</p>
+
+<pre><code>executionData integrationTest, test
+//...
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails 3 and Spring Java Config]]></title>
@@ -222,52 +249,6 @@ grails.plugins.appinfo.useContextListener = false
 <p>Below is our memory graph before and after the change:</p>
 
 <p><img src="/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
-    <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
-    <updated>2014-07-03T09:36:21-05:00</updated>
-    <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
-    <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
-
-<p>This is easily fixed by adding New Relic annotations to services and libraries.</p>
-
-<h3>BuildConfig.groovy Changes</h3>
-
-<p>``` groovy
-dependencies {</p>
-
-<pre><code>compile 'com.newrelic.agent.java:newrelic-api:3.4.2'
-</code></pre>
-
-<p>}
-```</p>
-
-<h3>Service Changes</h3>
-
-<p>``` groovy
-import com.newrelic.api.agent.Trace</p>
-
-<p>class SubscriptionService {</p>
-
-<pre><code>@Trace
-def save(Subscription subscription) {
-//Work Here
-</code></pre>
-
-<p>  }
-```</p>
-
-<p>At this point your code is ready to give more detailed transactions, but the agent on the server must also be configured to accept custom tracing. The config option for this is not available from the web so you must update the <code>newrelic.yml</code> file. Set <code>enable_custom_tracing</code> to <code>true</code>.</p>
-
-<p><code>yaml
-  #enable_custom_tracing is used to allow @Trace on methods
-  enable_custom_tracing: true
-</code></p>
-
-<p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
 ]]></content>
   </entry>
   

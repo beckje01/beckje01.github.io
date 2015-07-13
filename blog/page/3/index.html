@@ -133,6 +133,52 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/08/java-and-javascript-datetime-fun/">Java and JavaScript Datetime Fun</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
+
+<p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
+
+<p>To make this work I made a quick JavaScript utility that I can use to output the correct format in UTC time as we wanted. You can see the code below.</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2011/05/08/java-and-javascript-datetime-fun/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-02-08T14:07:11-06:00" pubdate class="published updated" >Feb 8<span>th</span>, 2011</time>
         
       </p>
@@ -565,139 +611,6 @@ head. This will also work with the iPad.</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/">JavaScript Passing by Value Into an Inline Function</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">campURL</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That code was not working correctly as all the names were coming up as the last one in the loop. And thinking more about it that makes perfect sense. The problem is when the success function fires it looks back to the Activation Record which contains campus_name which has been modified by the loop. So what I need to do to fix it was simply move the Ajax call to a function so an AR would be created for each call allowing me to use the campus_name variable correctly.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">callFetch</span><span class="p">(</span><span class="nx">campURL</span><span class="p">[],</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">callFetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -729,6 +642,8 @@ head. This will also work with the iPad.</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
+    
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
     
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
@@ -736,8 +651,6 @@ head. This will also work with the iPad.</p>
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
-    
-    <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
   </div>
 </section>

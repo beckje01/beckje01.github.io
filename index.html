@@ -133,6 +133,63 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-07-12T21:29:00-05:00" pubdate class="published updated" >Jul 12<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Now that we have Gradle as our build system we have a whole range of plugins we can use directly in Gradle. For code coverage I am using the JaCoCo plugin. To use it with Grails we just apply the plugin to the build. By default you will get a HTML report, in the <code>build/report/jacoco</code> directory.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">&quot;jacoco&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But Grails 3 has it&rsquo;s test phases split up, out of the box you will have <code>test</code> and <code>integrationTest</code>. Starting with the JaCoCo gradle plugin, you will get coverage for just your <code>test</code> phase.</p>
+
+<p>We can easily fix this by letting JaCoCo know about the phases we want reported on so we just adjust the config for the jacocoTestReport task.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">jacocoTestReport</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">executionData</span> <span class="n">integrationTest</span><span class="o">,</span> <span class="n">test</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-05-17T16:45:08-05:00" pubdate class="published updated" >May 17<span>th</span>, 2015</time>
         
       </p>
@@ -1059,90 +1116,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-03T09:36:21-05:00" pubdate class="published updated" >Jul 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/03/grails-new-relic-detailed-tracing/">Grails New Relic Detailed Tracing</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
-
-<p>This is easily fixed by adding New Relic annotations to services and libraries.</p>
-
-<h3>BuildConfig.groovy Changes</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;com.newrelic.agent.java:newrelic-api:3.4.2&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Service Changes</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.newrelic.api.agent.Trace</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">SubscriptionService</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nd">@Trace</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="nf">save</span><span class="o">(</span><span class="n">Subscription</span> <span class="n">subscription</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">//Work Here</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>At this point your code is ready to give more detailed transactions, but the agent on the server must also be configured to accept custom tracing. The config option for this is not available from the web so you must update the <code>newrelic.yml</code> file. Set <code>enable_custom_tracing</code> to <code>true</code>.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'>  <span class="c1">#enable_custom_tracing is used to allow @Trace on methods</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">enable_custom_tracing</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1174,6 +1147,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
+    
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
     
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
@@ -1181,8 +1156,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
     <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
-    
-    <a class="list-group-item " href="/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">Grails Integration Testing of Complex Transactions</a>
     
   </div>
 </section>

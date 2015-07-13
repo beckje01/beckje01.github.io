@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-05-17T23:39:29-05:00</updated>
+  <updated>2015-07-12T21:30:01-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 3 and JaCoCo]]></title>
+    <link href="http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco/"/>
+    <updated>2015-07-12T21:29:00-05:00</updated>
+    <id>http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco</id>
+    <content type="html"><![CDATA[<p>Now that we have Gradle as our build system we have a whole range of plugins we can use directly in Gradle. For code coverage I am using the JaCoCo plugin. To use it with Grails we just apply the plugin to the build. By default you will get a HTML report, in the <code>build/report/jacoco</code> directory.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">&quot;jacoco&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But Grails 3 has it&rsquo;s test phases split up, out of the box you will have <code>test</code> and <code>integrationTest</code>. Starting with the JaCoCo gradle plugin, you will get coverage for just your <code>test</code> phase.</p>
+
+<p>We can easily fix this by letting JaCoCo know about the phases we want reported on so we just adjust the config for the jacocoTestReport task.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">jacocoTestReport</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">executionData</span> <span class="n">integrationTest</span><span class="o">,</span> <span class="n">test</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vertx3 and Gradle Application Plugin]]></title>
@@ -1214,67 +1243,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 <p>I used <a href="http://documentcloud.github.com/underscore/">Userscore.js</a> to give me a quick foreach style loop and called the unload event on every element that has the class .example which is the default class that jQuery Form Example plugin uses.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java and JavaScript Datetime Fun]]></title>
-    <link href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/"/>
-    <updated>2011-05-08T07:52:26-05:00</updated>
-    <id>http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun</id>
-    <content type="html"><![CDATA[<p>So dealing with Datetime between client and server side can always be fun due to timezones but adding a number of browsers makes it all the more complicated. For our project we are using <a href="http://joda-time.sourceforge.net/">Joda-Time</a> on the Java side and a mix of technologies on the client side (I will be addressing that soon). So we deiced to pass all datetimes via ISO-8601 the problem came when dealing with the different browsers. IE7 and IE8 both output a string that doesn’t have the milliseconds where Chrome and FireFox did.</p>
-
-<p>On the Java side we used <a href="http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()">ISODateTimeFormat.dateTime()</a> to parse the incoming date string so we wanted the milliseconds.</p>
-
-<p>To make this work I made a quick JavaScript utility that I can use to output the correct format in UTC time as we wanted. You can see the code below.</p>
-
-<!-- more -->
-
-
-<p>Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.</p>
-
-<div><script src='https://gist.github.com/961617.js'></script>
-<noscript><pre><code>/* 
- * dateUtils.js
- * 
- * A simple set of utilites for dealing with dates
- * 
- */
-
-
-function toISOFormat(date)
-{
-    var out = &quot;&quot;;
-    out += date.getUTCFullYear() + &quot;-&quot; + padDigit(date.getUTCMonth()+1) + &quot;-&quot; + padDigit(date.getUTCDate()) +&quot;T&quot;+padDigit(date.getUTCHours())+&quot;:&quot;+padDigit(date.getUTCMinutes())+&quot;:&quot;+padDigit(date.getUTCSeconds())+&quot;.&quot;+padMili(date.getUTCMilliseconds())+&quot;Z&quot;;
-    
-    
-    return out;
-}
-
-
-function padDigit(number) 
-{
-    return (number &lt; 10 ? &#39;0&#39; : &#39;&#39;) + number
-}
-
-function padMili(number)
-{
-    if(number&lt;10)
-    {
-        return &quot;00&quot;+number;
-    }
-    else if(number &gt;=10 &amp;&amp; number&lt;100)
-    {
-        return &quot;0&quot;+number;
-    }
-    else
-    {
-        return number;
-    }
-}</code></pre></noscript></div>
-
-
-
 ]]></content>
   </entry>
   
