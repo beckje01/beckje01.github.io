@@ -133,6 +133,43 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T06:32:00-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/12/31/oracle-removing-newline-chars/">Oracle Removing Newline Chars</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>We were trying to trim white space from a column that had some newlines. The problem was the oracle trim() was only removing spaces. We found that we had to do two Replace operations Replace(col,char(10),”) and Replace(col,char(13),”) one for linefeed and one for newline. I switch between many Languages and I found it annoying I couldn’t use \n or \r but all well I don’t use Oracle that often.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
         
       </p>
@@ -654,64 +691,6 @@ Message: AG_E_NETWORK_ERROR</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T13:09:22-06:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/02/26/expressionengine-pagination-and-the-dynamic-parameter/">ExpressionEngine Pagination and the Dynamic Parameter</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>While working with an ExpressionEngine based site I ran across a listing of a weblog that could contain 1000′s of posts yet as it was displayed with the Dynamic Parameter off there was no stock way to support Pagination of the items. I used a simple hack, shown at the end of the post, that allowed me to use the pagination but it shows a bigger issue with ExpresionEngine, while it may not come up that often there still should be pagination for any `<font face="sans-serif">exp:weblog:entries set but it is not. There is no reason that non-dyanmic listings shouldn&rsquo;t be paginated if anything it would be more likely needed as they are likely to be a long list of a whole set.<br /><br />The hack I used to enable pagination while the dynamic=&ldquo;off&rdquo; was available <a target="_blank" href="http://expressionengine.com/wiki/Enable_pagination_with_dynamic_off/">here</a> on the ExpressionEngine Wiki but as it is a wiki I felt that I should give you the basics here as well.</p></p>
-
-<p><p>In </font>`system/modules/weblog/mod.weblog.php find the comment “Parse page number” you need to simply remove the AND $dynamic from the if statment to allow for the pagination use inside a non-dynamic weblog listing.</p>
-
-<p>Start with:</p>
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;#^P(\d+)|/P(\d+)#&quot;</span><span class="p">,</span> <span class="nv">$qstring</span><span class="p">,</span> <span class="nv">$match</span><span class="p">)</span> <span class="k">AND</span> <span class="nv">$dynamic</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="o">&hellip;</span>
-</span></code></pre></td></tr></table></div></figure>
-Change to:</p>
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;#^P(\d+)|/P(\d+)#&quot;</span><span class="p">,</span> <span class="nv">$qstring</span><span class="p">,</span> <span class="nv">$match</span><span class="p">)</span> <span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>    <span class="o">&hellip;</span>
-</span></code></pre></td></tr></table></div></figure></p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -743,6 +722,8 @@ Change to:</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
+    
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
@@ -750,8 +731,6 @@ Change to:</p>
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
     <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
-    
-    <a class="list-group-item " href="/blog/2015/03/12/cassandra-stale-snapshots/">Cassandra Stale Snapshots</a>
     
   </div>
 </section>

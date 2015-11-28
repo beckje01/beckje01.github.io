@@ -4,10 +4,10 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: CQL - Jeff Beck</title>
+  <title>RxJava and Ratpack Testing Gotcha - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
-  <meta name="description" content="Category: CQL">
+  
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.comblog/categories/cql">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -61,13 +61,13 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li >
+                <li class="active">
                     <a href="/">Blog</a>
                 </li>
                 <li >
                     <a href="/about.html">About</a>
                 </li>
-                <li class="active">
+                <li >
                     <a href="/blog/archives">Archives</a>
                 </li>
             </ul>
@@ -111,70 +111,137 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <article role="article">
+    <article class="hentry" role="article">
       
-        <header class="page-header">
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-11-28T09:48:00-06:00" pubdate class="published updated" >Nov 28<span>th</span>, 2015</time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        RxJava and Ratpack Testing Gotcha
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>Ratpack tends to stay out of the way when building out functionality so there are times you may make classes that use RxJava and Guice without anything from Ratpack. But there is one caveat during testing, if you are using RxJava in a unit test without any Ratpack integration that will work just fine. As soon as there is another test in the same execution that uses Ratpacks integration (<code>ratpack.dependency("rx")</code>) with RxJava such as a functional test you will start seeing the following error in the standard out:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>java.lang.IllegalStateException: Cannot install RxJava integration because another execution hook (class rx.plugins.RxJavaObservableExecutionHookDefault) is already installed
+</span><span class='line'>  at ratpack.rx.RxRatpack.initialize(RxRatpack.java:101) ~[ratpack-rx-1.1.0.jar:na]
+</span><span class='line'>  at ratpack.rx.RxRatpack$initialize$0.call(Unknown Source) ~[na:na]
+</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-all-2.4.4.jar:2.4.4]
+</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-all-2.4.4.jar:2.4.4]
+</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-all-2.4.4.jar:2.4.4]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Many of your functional tests will start failing with very unpredictable results. What is happening is any use of RxJava that runs before the Ratpacks integration will set up an execution hook meaning the strong guarantees about execution Ratpack provides will not be available leading to unpredictable behavior. This is an easy fix for the test, we just need Ratpack to setup the hook in these other tests we can simply add the following to a Spock spec:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">ratpack.rx.RxRatpack</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">RxRatpack</span><span class="o">.</span><span class="na">initialize</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The same initialize can be used in your favorite testing tools, it just needs to happen before the tests are run once and thats what <code>setupSpec</code> gives us in Spock.</p>
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
           
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+
           
-            <h1 class="entry-title">
-              Category: CQL
-              
-            </h1>
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-11-28T09:48:00-06:00" pubdate class="published updated" >Nov 28<span>th</span>, 2015</time>
           
-        </header>
-      
-      <div class="entry-content">
-        <div id="blog-archives" class="category">
-
-
-
-  
-  <h2>2014</h2>
-
-<article class="page-header">
-  
-<h1><a href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a></h1>
-<p class="meta text-muted">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
-  
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cql/'>CQL</a>, <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>, <a class='category' href='/blog/categories/java/'>Java</a>
+    <a class='category' href='/blog/categories/ratpack/'>Ratpack</a>, <a class='category' href='/blog/categories/rxjava/'>RxJava</a>
   
 </span>
 
 
-</p>
-
-</article>
-
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/" >Tweet</a>
+  
+  
+  
 </div>
 
-      </div>
-      
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2015/07/12/grails-3-and-jacoco/" title="Previous Post: Grails 3 and JaCoCo">&laquo; Grails 3 and JaCoCo</a></li>
+            
+            
+          </ul>
+        
+      </footer>
     </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
     
   </div>
 
   
-    <aside class="sidebar col-md-3">
+  <aside class="sidebar col-md-3">
+    
       
-        
 <link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
 <section class="panel panel-default clearfix">
 	<span>
@@ -189,7 +256,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
+    <a class="list-group-item active" href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
     
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
@@ -281,8 +348,8 @@
 </section>
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 
@@ -308,7 +375,10 @@
       var disqus_shortname = 'beckje01blog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/';
+        var disqus_url = 'http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
