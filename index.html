@@ -133,6 +133,67 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-06-19T16:10:00-05:00" pubdate class="published updated" >Jun 19<span>th</span>, 2016</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Grails 3 is built on top of SpringBoot on of the key components of SpringBoot is <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator">Actuator</a>. Actuator sets up Metrics and healthchecks all the things modern services are expected to just have. Grails 3 ships with the <code>/metrics</code> endpoint turned on meaning every request gets tracked by default the endpoint will be available to all logged in users assuming you are using some security.</p>
+
+<p>Most of the time this wouldn&rsquo;t be an issue and would be very nice to have those metrics the problem comes to the fact that currently all requests with Path Variables are treated as different endpoints. So requests to <code>/items/$id</code> of <code>/items/123</code> and <code>/items/333</code> will end up listed as two different metrics with the value of the path variable for everyone to see. This exposes more data than intended and doesn&rsquo;t provide really useful metrics. Its due to an issue in Actuator <a href="https://github.com/spring-projects/spring-boot/issues/5875">GH Issue 5875</a>. So until this is fixed I recommend turning off metrics collection all together for Grails 3.</p>
+
+<p>You can do that with the following config in your <code>application.yml</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">metrics</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I just keep the metrics endpoint off since the health-checks are useful and something we depend on others may want to just shut of Actuator fully which can be done with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>   <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks to <a href="https://twitter.com/RyanVanderwerf">Ryan Vanderwerf</a> for help on this issue.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-11-28T09:48:00-06:00" pubdate class="published updated" >Nov 28<span>th</span>, 2015</time>
         
       </p>
@@ -1026,110 +1087,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/13/cassandra-upsert-everything/">Cassandra Upsert Everything</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;table&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;visits&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;MyID&quot;</span><span class="o">));</span>
-</span><span class='line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
-
-<p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">create</span> <span class="n">table</span> <span class="nf">tablex</span><span class="o">(</span>
-</span><span class='line'>     <span class="n">pk1</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">pk2</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">colA</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">PRIMARY</span> <span class="nf">KEY</span><span class="o">(</span><span class="n">pk1</span><span class="o">,</span><span class="n">pk2</span><span class="o">)</span>
-</span><span class='line'><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We can not do the following query:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You will get an <code>InvalidQueryException</code>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">:</span> <span class="n">Missing</span> <span class="n">mandatory</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">part</span> <span class="n">pk2</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">InvalidQueryException</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">35</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">extractCauseFromExecutionException</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">256</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">getUninterruptibly</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">172</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But the following will upsert:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk2&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1161,6 +1118,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
+    
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
     
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
@@ -1168,8 +1127,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
     
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
   </div>
 </section>
@@ -1263,7 +1220,7 @@ We will want to check when these snapshots where created so inside the snapshots
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2015 - Jeff Beck<br>
+  Copyright &copy; 2016 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.

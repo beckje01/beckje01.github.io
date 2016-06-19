@@ -133,6 +133,64 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T18:55:58-06:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/02/26/expressionengine-pagination-and-get-parameters/">ExpressionEngine Pagination and Get Parameters</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>This may not come up that often but if you are using Get parameters such as lets say submitted by a form to filter some weblog entries, these parameters will not be preserved while using the built in pagination. This can be a real issue if you are trying to filter results and let users page through them but we can add a touch of PHP and fix this issue. In your paginate tags we just need to add the query string to the page link. You’ll notice in the sample we use the server parameter ‘query_string’ along with the question mark which will produce our correct links.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="p">{</span><span class="nx">paginate</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">{</span><span class="k">if</span> <span class="nx">previous_page</span><span class="p">}</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;{auto_path}&lt;?php echo &quot;</span><span class="o">?</span><span class="s2">&quot;.</span><span class="si">$_SERVER[&#39;QUERY_STRING&#39;]</span><span class="s2">; ?&gt;&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s1">&#39;paginate-previous&#39;</span><span class="o">&gt;</span><span class="nx">Previous</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">/</span><span class="k">if</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">{</span><span class="k">if</span> <span class="nx">next_page</span><span class="p">}</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;{auto_path}&lt;?php echo &quot;</span><span class="o">?</span><span class="s2">&quot;.</span><span class="si">$_SERVER[&#39;QUERY_STRING&#39;]</span><span class="s2">; ?&gt;&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s1">&#39;paginate-next&#39;</span><span class="o">&gt;</span><span class="nx">Next</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">/</span><span class="k">if</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">/</span><span class="nx">paginate</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T13:09:22-06:00" pubdate class="published updated" >Feb 26<span>th</span>, 2009</time>
         
       </p>
@@ -542,74 +600,11 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2007-11-08T04:34:28-06:00" pubdate class="published updated" >Nov 8<span>th</span>, 2007</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2007/11/08/broken-dynamic-tables/">Broken Dynamic Tables</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>I’ve been building a web based application that uses Ajax and other JavaScript extensively. While working with adding rows to tables dynamically I’ve found the wrong way to do it and thought I should share. When adding rows to tables if the rows are simply data this method will work fine, but when the rows contain form inputs there is a problem.</p>
-
-<p>This will add a new row no problem.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;tableone&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">old</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span>
-</span><span class='line'><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="s2">&quot;&lt;tr&gt;&lt;td&gt;Sample&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But if we add some inputs we start getting problems.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;tableone&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">old</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span>
-</span><span class='line'><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="s2">&quot;&lt;tr&gt;&lt;td&gt;&lt;input type=&#39;text&#39; name=&#39;test&quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot;&#39; id=&#39;text&quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot;&#39; /&gt;&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When we add one row then enter a value in the input then, the user hit a plus button to add another row the data that was entered is lost. So this is how not to do dynamic tables with inputs, more to follow on how to fix this problem.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
       
-        <li class="previous disabled"><a href="#">&larr;&nbsp;Older</a></li>
+        <li class="previous"><a href="/blog/page/6/">&larr;&nbsp;Older</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
       
@@ -636,6 +631,8 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
+    
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
     
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
@@ -643,8 +640,6 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
     
     <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/">SpringSecurity Impersonate Users Custom Roles</a>
     
   </div>
 </section>
@@ -738,7 +733,7 @@ View a workaround <a href="http://blog.jeffbeck.info/?p=16">here</a></p>
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2015 - Jeff Beck<br>
+  Copyright &copy; 2016 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.

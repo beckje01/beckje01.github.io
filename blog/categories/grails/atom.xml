@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Grails | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/grails/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-11-28T09:49:21-06:00</updated>
+  <updated>2016-06-19T16:13:15-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 3 Metrics and Path Variables]]></title>
+    <link href="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/"/>
+    <updated>2016-06-19T16:10:00-05:00</updated>
+    <id>http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens</id>
+    <content type="html"><![CDATA[<p>Grails 3 is built on top of SpringBoot on of the key components of SpringBoot is <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator">Actuator</a>. Actuator sets up Metrics and healthchecks all the things modern services are expected to just have. Grails 3 ships with the <code>/metrics</code> endpoint turned on meaning every request gets tracked by default the endpoint will be available to all logged in users assuming you are using some security.</p>
+
+<p>Most of the time this wouldn&rsquo;t be an issue and would be very nice to have those metrics the problem comes to the fact that currently all requests with Path Variables are treated as different endpoints. So requests to <code>/items/$id</code> of <code>/items/123</code> and <code>/items/333</code> will end up listed as two different metrics with the value of the path variable for everyone to see. This exposes more data than intended and doesn&rsquo;t provide really useful metrics. Its due to an issue in Actuator <a href="https://github.com/spring-projects/spring-boot/issues/5875">GH Issue 5875</a>. So until this is fixed I recommend turning off metrics collection all together for Grails 3.</p>
+
+<p>You can do that with the following config in your <code>application.yml</code></p>
+
+<p>```yaml
+endpoints:
+  metrics:</p>
+
+<pre><code>enabled: false
+</code></pre>
+
+<p>```</p>
+
+<p>I just keep the metrics endpoint off since the health-checks are useful and something we depend on others may want to just shut of Actuator fully which can be done with:</p>
+
+<p><code>yaml
+endpoints:
+   enabled: false
+</code></p>
+
+<p>Thanks to <a href="https://twitter.com/RyanVanderwerf">Ryan Vanderwerf</a> for help on this issue.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails 3 and JaCoCo]]></title>
@@ -224,31 +255,6 @@ You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anythi
 <p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
 
 <p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
-    <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
-    <updated>2015-01-14T20:46:00-06:00</updated>
-    <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
-    <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
-
-<p>We found an issue while running both of these in production. Over time the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
-
-<p>So at this time we can&rsquo;t use the App Info plugin session tracking with the Memcached Session Manager, since it leads to a memory leak as all those sessions have references inside the plugin and can never be garbage collected.</p>
-
-<p>We can simply turn off the session tracking with the following code:</p>
-
-<p><code>groovy
-grails.plugins.appinfo.useContextListener = false
-</code></p>
-
-<p>But note this config change effect will effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
-
-<p>Below is our memory graph before and after the change:</p>
-
-<p><img src="/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
 ]]></content>
   </entry>
   

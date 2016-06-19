@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>pptx mime type - Jeff Beck</title>
+  <title>Grails 3 Metrics and Path Variables - Jeff Beck</title>
   <meta name="author" content="Jeff Beck">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2010/01/17/pptx-mime-type">
+  <link rel="canonical" href="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -129,28 +129,44 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-17T04:48:16-06:00" pubdate class="published updated" >Jan 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-06-19T16:10:00-05:00" pubdate class="published updated" >Jun 19<span>th</span>, 2016</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        Pptx Mime Type
+        Grails 3 Metrics and Path Variables
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>I was working with a CMS and found that one file was not downloading correctly people were saying that the file was being zipped up by the CMS. Well it turns out it was the issue with IE6 and a bad MIME Type. The fix is simple for pptx you need the mime type <em>application/vnd.openxmlformats-officedocument.presentationml.presentation</em> once that was added everything was working correctly. With out this a PPTX file will download as a zip.</p>
+<div class="entry-content clearfix"><p>Grails 3 is built on top of SpringBoot on of the key components of SpringBoot is <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator">Actuator</a>. Actuator sets up Metrics and healthchecks all the things modern services are expected to just have. Grails 3 ships with the <code>/metrics</code> endpoint turned on meaning every request gets tracked by default the endpoint will be available to all logged in users assuming you are using some security.</p>
 
-<p>A few links on the subject:</p>
+<p>Most of the time this wouldn&rsquo;t be an issue and would be very nice to have those metrics the problem comes to the fact that currently all requests with Path Variables are treated as different endpoints. So requests to <code>/items/$id</code> of <code>/items/123</code> and <code>/items/333</code> will end up listed as two different metrics with the value of the path variable for everyone to see. This exposes more data than intended and doesn&rsquo;t provide really useful metrics. Its due to an issue in Actuator <a href="https://github.com/spring-projects/spring-boot/issues/5875">GH Issue 5875</a>. So until this is fixed I recommend turning off metrics collection all together for Grails 3.</p>
 
-<ul>
-<li><a href="http://blogs.msdn.com/dmahugh/archive/2006/08/08/692600.aspx">Office 2007 Mime Types</a></li>
-<li><a href="http://serverfault.com/questions/19060/why-are-docx-xlsx-pptx-downloading-from-webserver-as-zip-files">How to fix in Apache</a></li>
-</ul>
+<p>You can do that with the following config in your <code>application.yml</code></p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">metrics</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I just keep the metrics endpoint off since the health-checks are useful and something we depend on others may want to just shut of Actuator fully which can be done with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>   <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks to <a href="https://twitter.com/RyanVanderwerf">Ryan Vanderwerf</a> for help on this issue.</p>
 </div>
 
 
@@ -159,7 +175,7 @@
           
   
 
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
 
           
 
@@ -174,13 +190,13 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-17T04:48:16-06:00" pubdate class="published updated" >Jan 17<span>th</span>, 2010</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-06-19T16:10:00-05:00" pubdate class="published updated" >Jun 19<span>th</span>, 2016</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>
   
 </span>
 
@@ -189,7 +205,7 @@
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2010/01/17/pptx-mime-type/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2010/01/17/pptx-mime-type/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/" data-via="beckje01" data-counturl="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/" >Tweet</a>
   
   
   
@@ -199,10 +215,8 @@
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2009/12/31/oracle-removing-newline-chars/" title="Previous Post: Oracle Removing Newline Chars">&laquo; Oracle Removing Newline Chars</a></li>
+            <li class="previous"><a href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/" title="Previous Post: RxJava and Ratpack Testing Gotcha">&laquo; RxJava and Ratpack Testing Gotcha</a></li>
             
-            
-            <li class="next"><a href="/blog/2010/01/28/filling-an-array-with-objects-in-php/" title="Next Post: Filling an Array with Objects in PHP">Filling an Array with Objects in PHP &raquo;</a></li>
             
           </ul>
         
@@ -235,7 +249,7 @@
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
+    <a class="list-group-item active" href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
     
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
     
@@ -355,8 +369,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://beckje01.com/blog/2010/01/17/pptx-mime-type/';
-        var disqus_url = 'http://beckje01.com/blog/2010/01/17/pptx-mime-type/';
+        var disqus_identifier = 'http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/';
+        var disqus_url = 'http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/';
         var disqus_script = 'embed.js';
       
     (function () {

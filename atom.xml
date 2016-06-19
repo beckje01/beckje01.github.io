@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2015-11-28T09:49:21-06:00</updated>
+  <updated>2016-06-19T16:13:15-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 3 Metrics and Path Variables]]></title>
+    <link href="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/"/>
+    <updated>2016-06-19T16:10:00-05:00</updated>
+    <id>http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens</id>
+    <content type="html"><![CDATA[<p>Grails 3 is built on top of SpringBoot on of the key components of SpringBoot is <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator">Actuator</a>. Actuator sets up Metrics and healthchecks all the things modern services are expected to just have. Grails 3 ships with the <code>/metrics</code> endpoint turned on meaning every request gets tracked by default the endpoint will be available to all logged in users assuming you are using some security.</p>
+
+<p>Most of the time this wouldn&rsquo;t be an issue and would be very nice to have those metrics the problem comes to the fact that currently all requests with Path Variables are treated as different endpoints. So requests to <code>/items/$id</code> of <code>/items/123</code> and <code>/items/333</code> will end up listed as two different metrics with the value of the path variable for everyone to see. This exposes more data than intended and doesn&rsquo;t provide really useful metrics. Its due to an issue in Actuator <a href="https://github.com/spring-projects/spring-boot/issues/5875">GH Issue 5875</a>. So until this is fixed I recommend turning off metrics collection all together for Grails 3.</p>
+
+<p>You can do that with the following config in your <code>application.yml</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">metrics</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I just keep the metrics endpoint off since the health-checks are useful and something we depend on others may want to just shut of Actuator fully which can be done with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
+</span><span class='line'>   <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks to <a href="https://twitter.com/RyanVanderwerf">Ryan Vanderwerf</a> for help on this issue.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RxJava and Ratpack Testing Gotcha]]></title>
@@ -1249,17 +1282,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
 
 <p>Grab the <a href="http://bit.ly/QAyVhR">gist</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails Redirect Leaving %2F in URL]]></title>
-    <link href="http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url/"/>
-    <updated>2012-04-03T04:56:37-05:00</updated>
-    <id>http://beckje01.com/blog/2012/04/03/grails-redirect-leaving-in-url</id>
-    <content type="html"><![CDATA[<p>I am using a simple redirect after a user logs in so they can get to the page they were heading too the URLs were ending up with %2F in the url which caused a 404 error. The problem wasn’t actually in Grails at all but in the mod_rewrite rule being used to force HTTPS connection the rule was set up to end with [L,R] when to correctly deal with the url encoding we were already doing it needed to be [NE,L,R]</p>
-
-<p>Reference: <a href="http://www.webmasterworld.com/apache/3279075.htm">http://www.webmasterworld.com/apache/3279075.htm</a></p>
 ]]></content>
   </entry>
   
