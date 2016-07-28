@@ -116,9 +116,13 @@
       <div class="entry-content">
         <h1>$ whoami</h1>
 
-<p>I am an Engineer at SmartThings, based in Minneapolis, Minnesota. I have been doing Grails since 2010.</p>
+<p>I am an Engineer at SmartThings, based in Minneapolis, Minnesota.</p>
 
-<p>I try to be an active member of the local Groovy community as well as an open source contributor, contributing to Grails plugins and <a href="http://ratpack.io">Ratpack</a> in my free time. I am very interested in creating code that is easy to maintain and share not only within a team but in the broader community as well.</p>
+<p>I try to be an active member of the local development community as well as an open source contributor. I am very interested in creating code that is easy to maintain and share not only within a team but in the broader community as well.</p>
+
+<p>I run the local <a href="http://www.meetup.com/Minneapolis-St-Paul-Cassandra-Meetup/">Cassandra user group</a> and help with the <a href="http://www.meetup.com/groovymn/">Groovy Users of Minnesota</a>.</p>
+
+<p>I am a <a href="http://ratpack.io">Ratpack</a> core team member.</p>
 
 <p>Feel free to reach out to me on Twitter <a href="https://twitter.com/beckje01">@beckje01</a></p>
 
@@ -146,6 +150,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a>
+    
     <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
     
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
@@ -153,8 +159,6 @@
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
   </div>
 </section>
@@ -211,7 +215,7 @@
             , dataType: 'jsonp'
             , error: function (err) { $(options.target + ' li.loading').addClass('error').text("Error loading feed"); }
             , success: function(res) {
-                render(options, res.data.badges);
+                render(options, res.user.badges);
             }
           });
         }

@@ -251,6 +251,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a>
+    
     <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
     
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
@@ -258,8 +260,6 @@
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
   </div>
 </section>
@@ -316,7 +316,7 @@
             , dataType: 'jsonp'
             , error: function (err) { $(options.target + ' li.loading').addClass('error').text("Error loading feed"); }
             , success: function(res) {
-                render(options, res.data.badges);
+                render(options, res.user.badges);
             }
           });
         }

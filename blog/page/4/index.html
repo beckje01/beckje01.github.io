@@ -133,6 +133,69 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-28T01:29:45-06:00" pubdate class="published updated" >Jan 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2010/01/28/filling-an-array-with-objects-in-php/">Filling an Array With Objects in PHP</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working in PHP I found the need to fill an array with new objects on the fly. So at first I tried the array_fill function that worked fine for values but when I tried an object I found it was the same object in every position meaning if I modified one they all changed. What I needed was a new object in each. The easiest way I found to do that was a for loop.</p>
+
+<p>The following doesn’t work correctly</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="nb">array_fill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So to accomplish the same idea I did the following</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'> <span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'> <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;=</span><span class="mi">12</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Fill Array with new object</span>
+</span><span class='line'>      <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="nx">MyObject</span><span class="p">();</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2010-01-17T04:48:16-06:00" pubdate class="published updated" >Jan 17<span>th</span>, 2010</time>
         
       </p>
@@ -641,43 +704,6 @@ Message: AG_E_NETWORK_ERROR</p>
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-02T14:41:56-06:00" pubdate class="published updated" >Mar 2<span>nd</span>, 2009</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2009/03/02/quick-gwt-note/">Quick GWT Note</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>While working on a small GWT project with two other developers I ran into an odd runtime exception “com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException” as I was testing my app in the hosted mode I’m not sure how to refresh that built in browser which is the listed fix. What I ended up doing was a simple clean of the project which solved my problem, I think it relates to how I’m using SVN not integrated into Eclipse with the project yet its hard to tell. But if you run accross this expection try a simple clean before pulling too much hair out.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -709,6 +735,8 @@ Message: AG_E_NETWORK_ERROR</p>
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a>
+    
     <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
     
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
@@ -716,8 +744,6 @@ Message: AG_E_NETWORK_ERROR</p>
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
   </div>
 </section>
@@ -774,7 +800,7 @@ Message: AG_E_NETWORK_ERROR</p>
             , dataType: 'jsonp'
             , error: function (err) { $(options.target + ' li.loading').addClass('error').text("Error loading feed"); }
             , success: function(res) {
-                render(options, res.data.badges);
+                render(options, res.user.badges);
             }
           });
         }

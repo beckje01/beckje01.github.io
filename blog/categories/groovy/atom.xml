@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Groovy | Jeff Beck]]></title>
   <link href="http://beckje01.com/blog/categories/groovy/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2016-06-19T16:13:15-05:00</updated>
+  <updated>2016-07-28T15:31:21-05:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Grails 3.1.9 Functional Test Port]]></title>
+    <link href="http://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests/"/>
+    <updated>2016-07-28T14:31:24-05:00</updated>
+    <id>http://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests</id>
+    <content type="html"><![CDATA[<p>With Grails 3.1.9 and above we now get a default port for Functional tests that is randomly assigned. This is a great feature that was added in with this <a href="https://github.com/grails/grails-core/commit/0532f0cef10990c651c01300007458cba9efff86">commit</a>.</p>
+
+<p>While this is a nice addition our tests which were not using Geb were left broken this is due to the fact we now need to know what port was selected for a given run of the tests. So our old test:</p>
+
+<p>```groovy
+@Integration
+class UserEndpointSpec extends Specification {<br/>
+  def &ldquo;POST new user&rdquo;() {</p>
+
+<pre><code>given:
+ResponseEntity&lt;Map&gt; resp
+RestTemplate restTemplate = new RestTemplate()
+def requestBody = [
+    email: 'phil@aol.com',
+    fullName: 'Phil',
+    password: 'password',
+    username: 'phil'
+]
+
+when:
+resp = restTemplate.postForEntity("http://localhost:8080/users", requestBody, Map)
+
+then:
+resp.statusCode == HttpStatus.NO_CONTENT
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Was broken since the app no longer started on 8080, but we can fix that with a new property that the <code>@Integration</code> annotation adds which is <code>serverPort</code> so the test becomes:</p>
+
+<p>```groovy
+@Integration
+class UserEndpointSpec extends Specification {<br/>
+  def &ldquo;POST new user&rdquo;() {</p>
+
+<pre><code>given:
+ResponseEntity&lt;Map&gt; resp
+RestTemplate restTemplate = new RestTemplate()
+def requestBody = [
+    email: 'phil@aol.com',
+    fullName: 'Phil',
+    password: 'password',
+    username: 'phil'
+]
+
+when:
+resp = restTemplate.postForEntity("http://localhost:${serverPort}/users", requestBody, Map)
+
+then:
+resp.statusCode == HttpStatus.NO_CONTENT
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>If you are wondering how <code>serverPort</code> is actually set you can see it happening inside <a href="https://github.com/grails/grails-core/blob/bf2b027b59890446844756ca3d3124d3d033ea8e/grails-plugin-testing/src/main/groovy/org/grails/compiler/injection/test/IntegrationTestMixinTransformation.groovy#L138">IntegrationTestMixinTransformation</a>. It will add a property to the test class with the port.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Grails 3 Metrics and Path Variables]]></title>
@@ -171,90 +238,6 @@ switchUserProcessingFilter.setSwitchUserAuthorityChanger(switchUserAuthorityChan
 <p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
 
 <p>There are many other options to think about when allowing impersonation of users, it may even make sense to remove some roles from an impersonated user. That is easily done by simply removing roles from the list retuned from the authority changer.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
-    <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
-    <updated>2015-02-14T15:41:00-06:00</updated>
-    <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
-    <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
-
-<p>The simple solution is to simply turn off transactions for integration tests, that solution will work but tends to lead to data pollution in downstream tests. Burt Beckwith has a solution in his post <a href="http://burtbeckwith.com/blog/?p=82">An Alternative Approach for Grails Integration Tests</a>. Using this solution we can rebuild the database for each test.</p>
-
-<p>In general most of the time you can use the default transactional testing behavior, therefore we want to only use this method some of the time. To achieve this effect we will modify Burt&rsquo;s original solution slightly.</p>
-
-<ul>
-<li>Rebuild the database <em>after</em> each test</li>
-<li>Depend on the configured data source</li>
-<li>Update to Spock</li>
-</ul>
-
-
-<h2>Updated Solution</h2>
-
-<p>```groovy NonTransactionalIntegrationSpec.groovy
-import org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration
-import org.hibernate.SessionFactory
-import org.hibernate.cfg.Configuration
-import org.hibernate.tool.hbm2ddl.SchemaExport</p>
-
-<p>class NonTransactionalIntegrationSpec extends company.IntegrationSpec {</p>
-
-<pre><code>@Shared
-private static Configuration _configuration
-
-@Shared
-def grailsApplication
-
-static transactional = false
-
-def setupSpec() {
-    if (!_configuration) {
-        // 1-time creation of the configuration
-        Properties properties = new Properties()
-        properties.setProperty 'hibernate.connection.driver_class', grailsApplication.config.dataSource.driverClassName
-        properties.setProperty 'hibernate.connection.username', grailsApplication.config.dataSource.username
-        properties.setProperty 'hibernate.connection.password', grailsApplication.config.dataSource.password
-        properties.setProperty 'hibernate.connection.url', grailsApplication.config.dataSource.url
-        properties.setProperty 'hibernate.dialect', 'org.hibernate.dialect.H2Dialect'
-
-        _configuration = new DefaultGrailsDomainConfiguration(grailsApplication: grailsApplication, properties: properties)
-    }
-}
-
-def cleanupSpec() {
-  //After spec nuke and pave the test db
-  new SchemaExport(_configuration).create(false, true)
-
-  //Clear the sessions
-  SessionFactory sf = grailsApplication.getMainContext().getBean('sessionFactory')
-  sf.getCurrentSession().clear()
-}
-</code></pre>
-
-<p>}
-```
-You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
-
-<h2>When to Use</h2>
-
-<p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
-
-<p>```groovy
-  @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-  def getSomething(){</p>
-
-<pre><code>//Do some read only operation.
-</code></pre>
-
-<p>  }
-```</p>
-
-<p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
-
-<p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
 ]]></content>
   </entry>
   

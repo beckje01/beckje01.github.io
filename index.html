@@ -133,6 +133,135 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-07-28T14:31:24-05:00" pubdate class="published updated" >Jul 28<span>th</span>, 2016</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>With Grails 3.1.9 and above we now get a default port for Functional tests that is randomly assigned. This is a great feature that was added in with this <a href="https://github.com/grails/grails-core/commit/0532f0cef10990c651c01300007458cba9efff86">commit</a>.</p>
+
+<p>While this is a nice addition our tests which were not using Geb were left broken this is due to the fact we now need to know what port was selected for a given run of the tests. So our old test:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@Integration</span>
+</span><span class='line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="s2">&quot;POST new user&quot;</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nl">given:</span>
+</span><span class='line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
+</span><span class='line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
+</span><span class='line'>        <span class="nl">email:</span> <span class="s1">&#39;phil@aol.com&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">fullName:</span> <span class="s1">&#39;Phil&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">password:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">username:</span> <span class="s1">&#39;phil&#39;</span>
+</span><span class='line'>    <span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">when:</span>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&quot;http://localhost:8080/users&quot;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">then:</span>
+</span><span class='line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Was broken since the app no longer started on 8080, but we can fix that with a new property that the <code>@Integration</code> annotation adds which is <code>serverPort</code> so the test becomes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@Integration</span>
+</span><span class='line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">def</span> <span class="s2">&quot;POST new user&quot;</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nl">given:</span>
+</span><span class='line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
+</span><span class='line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
+</span><span class='line'>        <span class="nl">email:</span> <span class="s1">&#39;phil@aol.com&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">fullName:</span> <span class="s1">&#39;Phil&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">password:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
+</span><span class='line'>        <span class="nl">username:</span> <span class="s1">&#39;phil&#39;</span>
+</span><span class='line'>    <span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">when:</span>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&quot;http://localhost:${serverPort}/users&quot;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">then:</span>
+</span><span class='line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you are wondering how <code>serverPort</code> is actually set you can see it happening inside <a href="https://github.com/grails/grails-core/blob/bf2b027b59890446844756ca3d3124d3d033ea8e/grails-plugin-testing/src/main/groovy/org/grails/compiler/injection/test/IntegrationTestMixinTransformation.groovy#L138">IntegrationTestMixinTransformation</a>. It will add a property to the test class with the port.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-06-19T16:10:00-05:00" pubdate class="published updated" >Jun 19<span>th</span>, 2016</time>
         
       </p>
@@ -931,162 +1060,6 @@ We will want to check when these snapshots where created so inside the snapshots
 
         </article>
       
-      
-        <article class="post">
-          
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/10/ratpack-promise/">Ratpack Promise</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
-
-<p>Ratpack Promises are very easy to work with, there are just a few key points:</p>
-
-<ul>
-<li>Only attach to a promise one time</li>
-<li>If dealing with the error case it must be done before the success case</li>
-<li>They are Lazy</li>
-<li>In Groovy we depend on <a href="http://mrhaki.blogspot.com/2013/11/groovy-goodness-implicit-closure.html">Implicit Closure Coercion</a> to change our closures to an Action.</li>
-</ul>
-
-
-<h2>Happy Path</h2>
-
-<figure class='code'><figcaption><span>Consuming Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.</p>
-
-<figure class='code'><figcaption><span>Explicit Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If some error occurs while trying to get the value for the <code>then</code> block the exception will be thrown. Which can be picked up by some error handler down the chain.</p>
-
-<h2>Error Callback</h2>
-
-<p>So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with <code>onError</code> instead of <code>then</code>.</p>
-
-<figure class='code'><figcaption><span>Ratpack Promise with Failure Path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span> <span class="n">onError</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span> <span class="s2">&quot;Something when wrong: ${it.message}&quot;</span>
-</span><span class='line'><span class="o">}</span> <span class="n">then</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">render</span> <span class="s2">&quot;Got a ${it.statusCode} status with body of:\n\n${it.body.text}&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>onError</code> will pass in a throwable to the closure that you can log or do whatever work you would like in the case of a failure.</p>
-
-<h2>Lazy Promises</h2>
-
-<p>Ratpack promises won&rsquo;t actually try to generate the value until the <code>then</code> block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.</p>
-
-<figure class='code'><figcaption><span>Deterministic Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}.</span><span class="na">then</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
-</span><span class='line'>  <span class="n">sleep</span> <span class="mi">5000</span>
-</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&quot;bang!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What will happen in Ratpack is we will always get the exception &ldquo;bang!&rdquo;, because the get request will not even get started until the <code>doWork</code> block of execution is finished. Once finished having a <code>then{}</code> will trigger a background thread to start generating the value.</p>
-
-<h2>What not to do</h2>
-
-<p>You shouldn&rsquo;t try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don&rsquo;t do the following:</p>
-
-<figure class='code'><figcaption><span>Don&#8217;t do this</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Starting in Ratpack 0.9.9 the above code should actually throw an error.</p>
-</div>
-  
-  
-
-
-        </article>
-      
     </div>
 
     <ul class="pager">
@@ -1118,6 +1091,8 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a>
+    
     <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
     
     <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
@@ -1125,8 +1100,6 @@ We will want to check when these snapshots where created so inside the snapshots
     <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
     
     <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
-    
-    <a class="list-group-item " href="/blog/2015/04/24/grails-3-and-spring-java-config/">Grails 3 and Spring Java Config</a>
     
   </div>
 </section>
@@ -1183,7 +1156,7 @@ We will want to check when these snapshots where created so inside the snapshots
             , dataType: 'jsonp'
             , error: function (err) { $(options.target + ' li.loading').addClass('error').text("Error loading feed"); }
             , success: function(res) {
-                render(options, res.data.badges);
+                render(options, res.user.badges);
             }
           });
         }
