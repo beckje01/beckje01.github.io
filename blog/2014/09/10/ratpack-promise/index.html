@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2014/09/10/ratpack-promise">
+  <link rel="canonical" href="http://beckje01.com/blog/2014/09/10/ratpack-promise/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10, 2014</time>
         
       </p>
     
@@ -156,37 +135,21 @@
 
 <h2>Happy Path</h2>
 
-<figure class='code'><figcaption><span>Consuming Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Consuming Value from Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.</p>
 
-<figure class='code'><figcaption><span>Explicit Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Explicit Value from Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>If some error occurs while trying to get the value for the <code>then</code> block the exception will be thrown. Which can be picked up by some error handler down the chain.</p>
 
@@ -194,22 +157,14 @@
 
 <p>So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with <code>onError</code> instead of <code>then</code>.</p>
 
-<figure class='code'><figcaption><span>Ratpack Promise with Failure Path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span> <span class="n">onError</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span> <span class="s2">&quot;Something when wrong: ${it.message}&quot;</span>
-</span><span class='line'><span class="o">}</span> <span class="n">then</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">render</span> <span class="s2">&quot;Got a ${it.statusCode} status with body of:\n\n${it.body.text}&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Ratpack Promise with Failure Path</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span> <span class="n">onError</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">println</span> <span class="s2">&ldquo;Something when wrong: $&#x7b;it.message&#x7d;&rdquo;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span> <span class="n">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">render</span> <span class="s2">&ldquo;Got a $&#x7b;it.statusCode&#x7d; status with body of:\n\n$&#x7b;it.body.text&#x7d;&rdquo;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p><code>onError</code> will pass in a throwable to the closure that you can log or do whatever work you would like in the case of a failure.</p>
 
@@ -217,18 +172,12 @@
 
 <p>Ratpack promises won&rsquo;t actually try to generate the value until the <code>then</code> block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.</p>
 
-<figure class='code'><figcaption><span>Deterministic Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}.</span><span class="na">then</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
-</span><span class='line'>  <span class="n">sleep</span> <span class="mi">5000</span>
-</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&quot;bang!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Deterministic Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span> <span class="err">…</span> <span class="o">&#x7d;.</span><span class="na">then</span> <span class="o">&#x7b;</span> <span class="err">…</span> <span class="o">&#x7d;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">sleep</span> <span class="mi">5000</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&ldquo;bang!&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>What will happen in Ratpack is we will always get the exception &ldquo;bang!&rdquo;, because the get request will not even get started until the <code>doWork</code> block of execution is finished. Once finished having a <code>then{}</code> will trigger a background thread to start generating the value.</p>
 
@@ -236,66 +185,29 @@
 
 <p>You shouldn&rsquo;t try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don&rsquo;t do the following:</p>
 
-<figure class='code'><figcaption><span>Don&#8217;t do this</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Don&rsquo;t do this</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>Starting in Ratpack 0.9.9 the above code should actually throw an error.</p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10<span>th</span>, 2014</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-10T15:33:46-05:00" pubdate class="published updated" >Sep 10, 2014</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/groovy/'>Groovy</a>, <a class='category' href='/blog/categories/ratpack/'>Ratpack</a>
+    RatpackGroovy
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -305,7 +217,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -322,8 +233,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -359,7 +269,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -371,13 +281,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -448,19 +351,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -478,12 +377,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -492,10 +386,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

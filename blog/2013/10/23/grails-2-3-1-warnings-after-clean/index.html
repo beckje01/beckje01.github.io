@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean">
+  <link rel="canonical" href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23, 2013</time>
         
       </p>
     
@@ -144,87 +123,40 @@
 
 <div class="entry-content clearfix"><p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Warning No config found <span class="k">for </span>the application.
-</span><span class='line'>| Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails clean
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Application cleaned.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails test-app
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Environment <span class="nb">set </span>to test&hellip;..
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Warning No config found <span class="k">for </span>the application.
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
+</div></div></pre></div></figure></p>
 
 <p>Start using package in between and the problem will go away.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'><span class="nv">$ </span>grails package
-</span><span class='line'>| Compiling 10 <span class="nb">source </span>files
-</span><span class='line'>| Compiling 12 <span class="nb">source </span>files.....
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Server running. Browse to http://localhost:8080/api
-</span><span class='line'>| Running 6 cucumber tests...
-</span><span class='line'>| Completed 6 cucumber tests, 0 failed in 0m 3s
-</span><span class='line'>| Server stopped
-</span><span class='line'>| Tests PASSED
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails clean
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Application cleaned.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails package
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Compiling 10 <span class="nb">source </span>files
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Compiling 12 <span class="nb">source </span>files&hellip;..
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails test-app
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Environment <span class="nb">set </span>to test&hellip;..
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Server running. Browse to <a href="http://localhost:8080/api">http://localhost:8080/api</a>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Running 6 cucumber tests&hellip;
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Completed 6 cucumber tests, 0 failed <span class="k">in </span>0m 3s
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Server stopped
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Tests PASSED
+</div></div></pre></div></figure></p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23<span>rd</span>, 2013</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-10-23T04:02:02-05:00" pubdate class="published updated" >Oct 23, 2013</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/software-engineering/'>Software Engineering</a>
+    GrailsSoftware Engineering
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -234,7 +166,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -251,8 +182,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -288,7 +218,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -300,13 +230,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -377,19 +300,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -407,12 +326,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -421,10 +335,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14, 2015</time>
         
       </p>
     
@@ -157,86 +136,37 @@
 
 <h2>Updated Solution</h2>
 
-<figure class='code'><figcaption><span>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Shared</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n">_configuration</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Shared</span>
-</span><span class='line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(!</span><span class="n">_configuration</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="c1">// 1-time creation of the configuration</span>
-</span><span class='line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.driver_class&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.username&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.password&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.url&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.dialect&#39;</span><span class="o">,</span> <span class="s1">&#39;org.hibernate.dialect.H2Dialect&#39;</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">_configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">//After spec nuke and pave the test db</span>
-</span><span class='line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n">_configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">//Clear the sessions</span>
-</span><span class='line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;sessionFactory&#39;</span><span class="o">)</span>
-</span><span class='line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nd">@Shared</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n"><em>configuration</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nd">@Shared</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="k">if</span> <span class="o">(!</span><span class="n"></em>configuration</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="c1">// 1-time creation of the configuration</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.driver_class&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.username&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.password&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.url&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.dialect&rsquo;</span><span class="o">,</span> <span class="s1">&lsquo;org.hibernate.dialect.H2Dialect&rsquo;</span>
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n"><em>configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
+</div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">&#x7d;</span>
+</div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="c1">//After spec nuke and pave the test db</span>
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n"></em>configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="c1">//Clear the sessions</span>
+</div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&lsquo;sessionFactory&rsquo;</span><span class="o">)</span>
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
+</div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='39' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
 
@@ -244,54 +174,26 @@
 
 <p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">(){</span>
-</span><span class='line'>    <span class="c1">//Do some read only operation.</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">()&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="c1">//Do some read only operation.</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
 
 <p>In general anytime you are working directly with transaction rollbacks or propagation it best to test those things directly without having Grails inject an extra transaction in there for you.</p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14<span>th</span>, 2015</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-14T15:41:00-06:00" pubdate class="published updated" >Feb 14, 2015</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>
+    GroovyGrails
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -301,7 +203,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -318,8 +219,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -355,7 +255,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -367,13 +267,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -444,19 +337,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -474,12 +363,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -488,10 +372,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

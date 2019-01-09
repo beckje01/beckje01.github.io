@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T21:52:53-05:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T21:52:53-05:00" pubdate class="published updated" >Apr 24, 2015</time>
         
       </p>
     
@@ -146,24 +125,15 @@
 
 <p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
 
-<figure class='code'><figcaption><span>application.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">grails</span><span class="p-Indicator">:</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">profile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">codegen</span><span class="p-Indicator">:</span>
-</span><span class='line'>        <span class="l-Scalar-Plain">defaultPackage</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">example</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">spring</span><span class="p-Indicator">:</span>
-</span><span class='line'>        <span class="l-Scalar-Plain">bean</span><span class="p-Indicator">:</span>
-</span><span class='line'>            <span class="l-Scalar-Plain">packages</span><span class="p-Indicator">:</span>
-</span><span class='line'>                <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">example.config</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>application.yml</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="na">grails</span><span class="pi">:</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">profile</span><span class="pi">:</span> <span class="s">web</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">codegen</span><span class="pi">:</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">defaultPackage</span><span class="pi">:</span> <span class="s">example</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">spring</span><span class="pi">:</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">bean</span><span class="pi">:</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">packages</span><span class="pi">:</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="pi">-</span> <span class="s">example.config</span>
+</div></div></pre></div></figure></p>
 
 <p>I found that while the beans were all wired correctly and <code>@Autowired</code> all worked correctly, but any mappings with <code>@RequestMapping</code> where always returning a 404. Everything looked wired correctly but Grails wasn&rsquo;t letting any requests through.</p>
 
@@ -171,54 +141,26 @@
 
 <p>Using ComponentScan with Grails 3 is very easy:</p>
 
-<figure class='code'><figcaption><span>Application.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&quot;example.config&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Application.groovy</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&ldquo;example.config&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="c1">//&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>This will scan the package of <code>example.config</code> for any Spring components so your Spring Java configs can all live in this package and easily get picked up.</p>
 
 <p>This post is the blog form of this <a href="http://stackoverflow.com/questions/29736850/grails-3-and-spring-requestmapping">SO Question</a>.</p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T21:52:53-05:00" pubdate class="published updated" >Apr 24<span>th</span>, 2015</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-04-24T21:52:53-05:00" pubdate class="published updated" >Apr 24, 2015</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/grails/'>Grails</a>, <a class='category' href='/blog/categories/groovy/'>Groovy</a>
+    GroovyGrails
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -228,7 +170,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -245,8 +186,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -282,7 +222,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -294,13 +234,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -371,19 +304,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -401,12 +330,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -415,10 +339,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

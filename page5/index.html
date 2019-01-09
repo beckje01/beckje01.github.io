@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Jeff Beck</title>
+  <meta name="author" content="Jeff Beck">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://beckje01.com/page5/">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/assets/css/screen.css" />
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41150211-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Jeff Beck</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/about">About</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <a href="https://twitter.com/beckje01"  class="icon-link" title="Twitter Profile">
+                    <span class="visible-xs">Twitter Profile</span>
+                    <span class="hidden-xs"><i class="fa fa-twitter fa-jeff175"></i></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/beckje01"  class="icon-link" title="GitHub Profile">
+                    <span class="visible-xs">GitHub Profile</span>
+                    <span class="hidden-xs"><i class="fa fa-github fa-jeff175"></i></span>
+
+                  </a>
+                </li>
+                <li>
+                    <a class="subscribe-rss icon-link" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <span class="hidden-xs"><i class="fa fa-rss fa-jeff175"></i></span>
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <div class="blog-index">
+      
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-03-02T14:41:56-06:00" pubdate class="published updated" >Mar 02, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/03/02/quick-gwt-note/">Quick GWT Note</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working on a small GWT project with two other developers I ran into an odd runtime exception “com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException” as I was testing my app in the hosted mode I’m not sure how to refresh that built in browser which is the listed fix. What I ended up doing was a simple clean of the project which solved my problem, I think it relates to how I’m using SVN not integrated into Eclipse with the project yet its hard to tell. But if you run accross this expection try a simple clean before pulling too much hair out.</p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T18:55:58-06:00" pubdate class="published updated" >Feb 26, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/02/26/expressionengine-pagination-and-get-parameters/">ExpressionEngine Pagination and Get Parameters</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>This may not come up that often but if you are using Get parameters such as lets say submitted by a form to filter some weblog entries, these parameters will not be preserved while using the built in pagination. This can be a real issue if you are trying to filter results and let users page through them but we can add a touch of PHP and fix this issue. In your paginate tags we just need to add the query string to the page link. You’ll notice in the sample we use the server parameter ‘query_string’ along with the question mark which will produce our correct links.</p>
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    &#x7b;paginate&#x7d;
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>      &#x7b;if previous_page&#x7d;
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&ldquo;&#x7b;auto_path&#x7d;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="s2">&rdquo;?&ldquo;</span><span class="o">.</span><span class="nv">$<em>SERVER</span><span class="p">[</span><span class="s1">&lsquo;QUERY_STRING&rsquo;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="s">&rdquo;</span> <span class="na">class=</span><span class="s">&lsquo;paginate-previous&rsquo;</span><span class="nt">&gt;</span>Previous<span class="nt">&lt;/a&gt;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>      &#x7b;/if&#x7d;
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>      &#x7b;if next_page&#x7d;
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&ldquo;&#x7b;auto_path&#x7d;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="s2">&rdquo;?&ldquo;</span><span class="o">.</span><span class="nv">$</em>SERVER</span><span class="p">[</span><span class="s1">&lsquo;QUERY_STRING&rsquo;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="s">&rdquo;</span> <span class="na">class=</span><span class="s">&lsquo;paginate-next&rsquo;</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/a&gt;</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>      &#x7b;/if&#x7d;
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    &#x7b;/paginate&#x7d;
+</div></div></pre></div></figure></p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-02-26T13:09:22-06:00" pubdate class="published updated" >Feb 26, 2009</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2009/02/26/expressionengine-pagination-and-the-dynamic-parameter/">ExpressionEngine Pagination and the Dynamic Parameter</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While working with an ExpressionEngine based site I ran across a listing of a weblog that could contain 1000′s of posts yet as it was displayed with the Dynamic Parameter off there was no stock way to support Pagination of the items. I used a simple hack, shown at the end of the post, that allowed me to use the pagination but it shows a bigger issue with ExpresionEngine, while it may not come up that often there still should be pagination for any `<font face="sans-serif">exp:weblog:entries set but it is not. There is no reason that non-dyanmic listings shouldn&rsquo;t be paginated if anything it would be more likely needed as they are likely to be a long list of a whole set.<br /><br />The hack I used to enable pagination while the dynamic=&ldquo;off&rdquo; was available <a target="_blank" href="http://expressionengine.com/wiki/Enable_pagination_with_dynamic_off/">here</a> on the ExpressionEngine Wiki but as it is a wiki I felt that I should give you the basics here as well.</p></p>
+
+<p><p>In </font>`system/modules/weblog/mod.weblog.php find the comment “Parse page number” you need to simply remove the AND $dynamic from the if statment to allow for the pagination use inside a non-dynamic weblog listing.</p>
+
+<p>Start with:</p>
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&ldquo;#^P(\d+)|/P(\d+)#&rdquo;</span><span class="p">,</span> <span class="nv">$qstring</span><span class="p">,</span> <span class="nv">$match</span><span class="p">)</span> <span class="nx">AND</span> <span class="nv">$dynamic</span><span class="p">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&hellip;</span>
+</div></div></pre></div></figure></p>
+
+<p>Change to:</p>
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&ldquo;#^P(\d+)|/P(\d+)#&rdquo;</span><span class="p">,</span> <span class="nv">$qstring</span><span class="p">,</span> <span class="nv">$match</span><span class="p">)</span> <span class="p">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&hellip;</span>
+</div></div></pre></div></figure></p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-23T19:36:15-06:00" pubdate class="published updated" >Nov 23, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/23/wget-and-special-characters/">Wget and Special Characters</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While using wget with authorization to download some data you may run into the problem of having a special character such as ‘>’ in your password. It’s a simple fix of wrapping your password in quotes. But the only error message that this problem will give is an authentication failure.</p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-17T16:30:08-06:00" pubdate class="published updated" >Nov 17, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/17/javascript-flash-chart-alternative/">JavaScript / Flash Chart Alternative</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>So many times it is nice to add a dynamic graph to a web page. I’ve personally done this with JavaScript libraries like <a href="http://www.liquidx.net/plotkit/">PlotKit </a>or <a href="http://solutoire.com/plotr/">Plotr</a>. Also there is the use of Flash with PHP or ASP.Net in <a href="http://www.amcharts.com/">amCharts</a>. But if the user doesn’t have Flash or JavaScript turned off these tools fail. While this doesn’t happen too often any more it still may be an issue. But one issue I’ve noticed is that these charts do take a lot of resources to run so if you have visitors with slower computers that may be a real issue.</p>
+
+<p>So we need a simple alternative, such as generating an image server side and serving that up. While this isn’t too difficult you may not have an imaging library available or the resources to spare. That is where <a href="http://code.google.com/apis/chart/">Google Charts</a> comes in with their simple API you can quickly add graphs to your web page. It’s really simple just embed a special URL in an image tag which you can easily make dynamic with PHP, ASP, or any dynamic system you’re using. See the example below. It works very well, with minimal setup and no added software for clients is needed.</p>
+
+<!-- more -->
+
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&ldquo;<a href="http://chart.apis.google.com/chart?">http://chart.apis.google.com/chart?</a></span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="s">    chs=250x100</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="s">    &amp;amp;chd=t:60,40</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="s">    &amp;amp;cht=p3</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="s">    &amp;amp;chl=Hello|World&rdquo;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">alt=</span><span class="s">&ldquo;Sample chart&rdquo;</span> <span class="nt">/&gt;</span>
+</div></div></pre></div></figure></p>
+
+<p><img src="http://chart.apis.google.com/chart?chs=250x100&amp;chd=t:60,40&amp;cht=p3&amp;chl=Hello|World" alt="Sample chart" /></p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-11-05T03:16:36-06:00" pubdate class="published updated" >Nov 05, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/05/read-only-tables-with-ie6ie7-workaround/">Read Only Tables With IE6/IE7 Workaround</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>In an earlier post, I reported that the TR element in IE6/IE7 had a read only innerhtml. I have found a way to get around this while not perfect it works. It turns out while the TR’s innnerhtml is read only a TD is not. So you can add a TD with a column span equal to the total column in the table. Then you can add what you wanted to the TD’s innerhtml. Check out the example code below.</p>
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">function</span> <span class="nx">addrow</span><span class="p">(</span><span class="nx">http_request</span><span class="p">,</span><span class="nx">elm</span><span class="p">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="kd">var</span> <span class="nx">temp</span><span class="o">=</span> <span class="nx">http_request</span><span class="p">;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="kd">var</span> <span class="nx">tablebody</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">tBodies</span><span class="p">[];</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>              <span class="k">try</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>              <span class="p">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="kd">var</span> <span class="nx">cell</span> <span class="o">=</span> <span class="nx">row</span><span class="p">.</span><span class="nx">insertCell</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">colSpan</span> <span class="o">=</span> <span class="s2">&ldquo;6&rdquo;</span><span class="p">;</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s2">&ldquo;nopadding&rdquo;</span><span class="p">;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="nx">cell</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&ldquo;&lt;table style=&lsquo;margin:0; padding:0; width:100%&rsquo; border=&lsquo;1&rsquo;&gt;&lt;tr&gt;&rdquo;</span><span class="o">+</span><span class="nx">temp</span><span class="o">+</span><span class="s2">&ldquo;&lt;/tr&gt;&lt;/table&gt;&rdquo;</span><span class="p">;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>              <span class="p">&#x7d;</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>              <span class="p">&#x7b;</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">tablebody</span><span class="p">.</span><span class="nx">insertRow</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span><span class="s2">&ldquo;sctablerow&rdquo;</span><span class="o">+</span><span class="nx">nextelm</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="nx">row</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>              <span class="p">&#x7d;</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div></pre></div></figure></p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-09-24T08:13:38-05:00" pubdate class="published updated" >Sep 24, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/24/javalangincompatibleclasschangeerror/">java.lang.IncompatibleClassChangeError</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>So I encountered this odd error while working with the Crystal Reports XI Java Report Viewer. It showed up as “java.lang.IncompatibleClassChangeError: Implementing class” this has been one of the more cryptic messages from Java that I’ve had in a while. So a quick search turned up that this error can occur when parts of the Java Project have been compiled at separate times. So I did a quick clean build, well not that quick. Unfortunately I still got the error at run time. It was only happening with Crystal Reports so with some more digging I finally found that ReportViewer.jar and jrcerom.jar must be the first two jars in the class path to work. While I this is the first time in Java I’ve seen this it wasn’t too hard to fix. While using NetBeans in the library tab there are buttons to change the order of the files, unfortunately if you aren’t using NetBeans you will have go in and change the class path files by hand.</p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-28T18:45:09-06:00" pubdate class="published updated" >Feb 28, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/28/forms-submitted-by-javascript/">Forms Submitted by JavaScript</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>While building a simple shopping cart I was adding an update link so customers could easily update the cart quantities I would have done Ajax but we are on a time crunch and it would be more billable so get this much working now add the rest in the second phase. So I have my normal submit button, called submit and I wanted a simple link that said update that would submit the form to another page. Well thats not hard so I simply changed the action of the form and called the submit function, as seen below.</p>
+
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&ldquo;cartform&rdquo;</span><span class="p">).</span><span class="nx">action</span> <span class="o">=</span> <span class="s1">&lsquo;cart.php?action=update&rsquo;</span><span class="p">;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nb">document</span><span class="p">.</span><span class="nx">mycart</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</div></div></pre></div></figure></p>
+
+<p>Well that should work fine, oh but no it doesn’t nothing at all was happening it was very odd. So I got out the error console and find that submit is not a function. Well thats odd. So I assume that I have and outdated reference for JavaScript so I dig around and all the example I see work just fine. After staring at it for what seemed hours I thought it better not be over writing the submit function for the form with the button named submit. Well it was, SOB. So if you make sure to not overwrite functions of forms with your field names, its just a big headache.</p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-21T12:49:42-06:00" pubdate class="published updated" >Feb 21, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/21/amazon-fps-vs-google-checkout/">Amazon FPS vs Google Checkout</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>So working with these two relatively new systems I’ve come to the surprising conclusion that I like Amazon’s better. I find it odd because I’m normally a bit of a Google fanboy. I should explain more this conclusion is not for all cases there are many thing you can do with one you can’t with the other, but for the basic case I was trying to set up Amazon FPS worked much better. I wanted to create a simple checkout that allowed me to generate accounts after the payment was processed. Sounds pretty simple I did something like this with 1Shoppingcart.com and if they made it easy Google and Amazon should make it a snap.</p>
+
+<p>So reading up on Google Checkout I found one surprising thing, I have to have some sort of certificate, well I think the documentation was a bit confusing. That is for the level 2 API integration and that seems to be what I wanted so I could process the information after they paid. Well I don’t want to get the secure stuff setup don’t want the bother or the cost of it, I would if this was going to be a real big deal site but its just a small project that at this point needs low costs and quick implementation more then keeping 1 or 2 people from creating a bogus login.</p>
+
+<p>So I started looking at Amazon FPS and to start the documentation was much more approachable not sure if it was the content or the general layout but I found what I wanted in about 1/10th of the time. They have a nice section explaining how to make a dynamic button which is perfect and then describe how to sign the button when code samples, and the best part is they have many languages Java, PHP, and Perl to name the once I quick saw. The best part is that the callback URL can just be any URL no need for https so this makes it fit right into my current system.</p>
+
+<p>Overall I found Amazon FPS quick and easy to implement a system with that interacted back with my site while with Google you can make quick Buy It Now buttons the integration back into the my system was not as easy and Google Checkout is very geared towards physical items that you ship while Amazon FPS doesn’t seem to really tie me into that. Maybe someone trying to sell physical items on Amazon FPS will have issues I’m not sure but I would love to hear any experiences.</p>
+</div>
+        </article>
+      
+      
+        <article class="post">
+          <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-01-09T03:30:16-06:00" pubdate class="published updated" >Jan 09, 2008</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/09/python-cgi-ftp-headache/">Python CGI + FTP = Headache</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>I have taken over support of a Python CGI application, no big deal seems like an ok code base and the fixes seem simple. The first fix that needed to be done was a very simple change to some wording which required me to change a cgi file so I made the change tested it and it all worked on my dev system so I then uploaded the file over FTP to the server and nothing worked. So after lots of debugging trying all sorts of things, I remembered something about the binary and ASCII transfer settings for FTP. Mine was set to binary so I switched it over to ASCII uploaded the file again and sure enough everything worked again.</p>
+
+<p>So as a word of advice when working with CGI and FTP always check your transfer settings, had I done this when I started I wouldn’t have wasted hours of my night.</p>
+</div>
+        </article>
+      
+    </div>
+
+    <ul class="pager">
+      
+        <li class="previous"><a href="6">&larr;&nbsp;Older</a></li>
+      
+      <li><a href="/blog/archives/">Blog Archives</a></li>
+      
+        <li class="next"><a href="4">Newer&nbsp;&rarr;</a></li>
+      
+    </ul>
+  </div>
+
+  
+    <aside class="sidebar col-md-3">
+      
+        
+<link rel="stylesheet" type="text/css" href="http://s.gravatar.com/css/hovercard.css">
+<section class="panel panel-default clearfix">
+	<span>
+		<div class='gcard grofile' style='position: relative; min-width:210px; margin: 0px auto;'><div class='grav-inner gcard-about'><div class='grav-grav' style='width: 100px; margin: 0px auto 10px; float: none;'><a href='http://gravatar.com/beckje01' target='_blank'><img src='http://www.gravatar.com/avatar/83e830833b762cc8c5c46867104ebdb9' width='100' height='100' style='border: none'></a></div><div class='grav-info' style='float: none; margin: 0px auto; style: auto;'><h4><a href=http://gravatar.com/beckje01' target='_blank'>Jeff Beck</a></h4><p class='grav-loc'>Minneapolis</p><p class='grav-about'></p><div class='grav-view-complete-button'><a href='http://gravatar.com/beckje01' target='_blank' class='grav-view-complete'>View Compelete Profile</a></div></div><div style='clear:both'></div></div><div class='grav-cardarrow'></div><div class='grav-tag'><a href='http://gravatar.com' title='Powered by Gravatar.com'target='_blank'>&nbsp;</a></div>
+	</span>
+</section>
+
+<section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2016/07/28/grails-3-dot-1-9-functional-tests/">Grails 3.1.9 Functional Test Port</a>
+    
+    <a class="list-group-item " href="/blog/2016/06/19/grails-3-metrics-and-pathtokens/">Grails 3 Metrics and Path Variables</a>
+    
+    <a class="list-group-item " href="/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/">RxJava and Ratpack Testing Gotcha</a>
+    
+    <a class="list-group-item " href="/blog/2015/07/12/grails-3-and-jacoco/">Grails 3 and JaCoCo</a>
+    
+    <a class="list-group-item " href="/blog/2015/05/17/vertx3-and-gradle-application-plugin/">Vertx3 and Gradle Application Plugin</a>
+    
+  </div>
+</section>
+
+<section class='googleplus googleplus-hidden panel panel-default'>
+  <div class="panel-body">
+    <h1>
+      <a href="https://plus.google.com/109464939117502989633?rel=author">
+        <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+        Google+
+      </a>
+    </h1>
+  </div>
+</section>
+
+
+
+<section class="panel panel-default clearfix">
+<div class="panel-heading">
+  <h3 class="panel-title">Coderwall</h3>
+</div>
+  <ul id="cw_badges">
+    <li class="loading">Status updating...</li>
+  </ul>
+
+  <script type="text/javascript">
+    var coderwall = (function(){
+      function render(options, badges){
+        var fragment = '',
+            t = $(options.target),
+            height = 65,
+            width = 65,
+            index;
+
+        for (index in badges) {
+          fragment += '<a class="cw_badge"title="' + badges[index].description + '" href="http://coderwall.com/' + options.user + '">';
+          fragment +=   '<img alt="' + badges[index].description + '" height="' + width + '" width="' + height + '" src="' + badges[index].badge + '"/>';
+          fragment += '</a>';
+        }
+
+        t.html(fragment);
+      }
+      return {
+        showBadges: function(options){
+          $.ajax({
+              url: 'http://coderwall.com/' + options.user + '.json?callback=?'
+            , dataType: 'jsonp'
+            , error: function (err) { $(options.target + ' li.loading').addClass('error').text("Error loading feed"); }
+            , success: function(res) {
+                render(options, res.user.badges);
+            }
+          });
+        }
+      };
+    })();
+
+    $(document).ready(function(){
+      coderwall.showBadges({
+        user: 'beckje01',
+        target: '#cw_badges'
+      });
+    });
+  </script>
+  <style type="text/css">
+    .cw_badge img {
+      padding: 5px;
+      border: 0 none !important;
+      -moz-box-shadow: none !important;
+      -webkit-box-shadow: none !important;
+      -o-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+  </style>
+</section>
+
+
+      
+    </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2019 - Jeff Beck<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+</div></footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+<script type="text/javascript">
+      var disqus_shortname = 'beckje01blog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+  </body>
+</html>

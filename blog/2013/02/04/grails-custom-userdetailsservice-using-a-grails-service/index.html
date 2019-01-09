@@ -17,7 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service">
+  <link rel="canonical" href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -26,11 +26,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -42,10 +40,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -62,11 +57,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -96,7 +91,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -105,32 +100,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 04, 2013</time>
         
       </p>
     
@@ -149,97 +128,45 @@
 
 <p><strong>My <em>resources.groovy</em></strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">beans</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>       <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;grailsApplication&#39;</span><span class="o">)</span>
-</span><span class='line'>       <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;myService&#39;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
-</span><span class='line'>       <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
-</span><span class='line'>       <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
-</span><span class='line'>       <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
-</span><span class='line'>       <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
-</span><span class='line'>       <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
-</span><span class='line'>       <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
-</span><span class='line'>       <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
-</span><span class='line'>       <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
-</span><span class='line'>       <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
-</span><span class='line'>   <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">beans</span> <span class="o">=</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&lsquo;grailsApplication&rsquo;</span><span class="o">)</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&lsquo;myService&rsquo;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">&#x7d;</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">myService</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="kt">def</span> <span class="n">myService</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 4<span>th</span>, 2013</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2013-02-04T08:27:27-06:00" pubdate class="published updated" >Feb 04, 2013</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/grails/'>Grails</a>
+    Grails
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -249,7 +176,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -266,8 +192,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -303,7 +228,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -315,13 +240,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -392,19 +310,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -422,12 +336,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -436,10 +345,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

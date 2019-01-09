@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything">
+  <link rel="canonical" href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13, 2014</time>
         
       </p>
     
@@ -144,106 +123,57 @@
 
 <div class="entry-content clearfix"><p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;table&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;visits&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;MyID&quot;</span><span class="o">));</span>
-</span><span class='line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;table&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&ldquo;visits&rdquo;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;id&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;MyID&rdquo;</span><span class="o">));</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
+</div></div></pre></div></figure></p>
 
 <p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
 
 <p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">create</span> <span class="n">table</span> <span class="nf">tablex</span><span class="o">(</span>
-</span><span class='line'>     <span class="n">pk1</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">pk2</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">colA</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">PRIMARY</span> <span class="nf">KEY</span><span class="o">(</span><span class="n">pk1</span><span class="o">,</span><span class="n">pk2</span><span class="o">)</span>
-</span><span class='line'><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>create table tablex(
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>     pk1 varchar,
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>     pk2 varchar,
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>     colA varchar,
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>     PRIMARY KEY(pk1,pk2)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>);
+</div></div></pre></div></figure></p>
 
 <p>We can not do the following query:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;tablex&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&ldquo;colA&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk1&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;1&rdquo;</span><span class="o">));</span>
+</div></div></pre></div></figure></p>
 
 <p>You will get an <code>InvalidQueryException</code>:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">:</span> <span class="n">Missing</span> <span class="n">mandatory</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">part</span> <span class="n">pk2</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">InvalidQueryException</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">35</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">extractCauseFromExecutionException</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">256</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">getUninterruptibly</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">172</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>com.datastax.driver.core.exceptions.InvalidQueryException: Missing mandatory PRIMARY KEY part pk2
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.exceptions.InvalidQueryException.copy(InvalidQueryException.java:35)
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.DefaultResultSetFuture.extractCauseFromExecutionException(DefaultResultSetFuture.java:256)
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.DefaultResultSetFuture.getUninterruptibly(DefaultResultSetFuture.java:172)
+</div></div></pre></div></figure></p>
 
 <p>But the following will upsert:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk2&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;tablex&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&ldquo;colA&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk1&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;1&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk2&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">));</span>
+</div></div></pre></div></figure></p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13<span>th</span>, 2014</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-13T18:16:00-05:00" pubdate class="published updated" >Aug 13, 2014</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cql/'>CQL</a>, <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>, <a class='category' href='/blog/categories/java/'>Java</a>
+    CassandraJavaCQL
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -253,7 +183,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -270,8 +199,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -307,7 +235,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -319,13 +247,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -396,19 +317,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -426,12 +343,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -440,10 +352,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun">
+  <link rel="canonical" href="http://beckje01.com/blog/2011/05/08/java-and-javascript-datetime-fun/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 08, 2011</time>
         
       </p>
     
@@ -153,82 +132,49 @@
 
 <p>Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.</p>
 
-<div><script src='https://gist.github.com/961617.js'></script>
-<noscript><pre><code>/* 
- * dateUtils.js
- * 
- * A simple set of utilites for dealing with dates
- * 
- */
-
-
-function toISOFormat(date)
-{
-    var out = &quot;&quot;;
-    out += date.getUTCFullYear() + &quot;-&quot; + padDigit(date.getUTCMonth()+1) + &quot;-&quot; + padDigit(date.getUTCDate()) +&quot;T&quot;+padDigit(date.getUTCHours())+&quot;:&quot;+padDigit(date.getUTCMinutes())+&quot;:&quot;+padDigit(date.getUTCSeconds())+&quot;.&quot;+padMili(date.getUTCMilliseconds())+&quot;Z&quot;;
-    
-    
-    return out;
-}
-
-
-function padDigit(number) 
-{
-    return (number &lt; 10 ? &#39;0&#39; : &#39;&#39;) + number
-}
-
-function padMili(number)
-{
-    if(number&lt;10)
-    {
-        return &quot;00&quot;+number;
-    }
-    else if(number &gt;=10 &amp;&amp; number&lt;100)
-    {
-        return &quot;0&quot;+number;
-    }
-    else
-    {
-        return number;
-    }
-}</code></pre></noscript></div>
-
-
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>dateUtils.js</span><a class='code-highlight-caption-link' href='https://gist.github.com/961617'>link</a></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm">/<em> </span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm"> * dateUtils.js</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm"> * </span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm"> * A simple set of utilites for dealing with dates</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm"> * </span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="cm"> </em>/</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">function</span> <span class="nx">toISOFormat</span><span class="p">(</span><span class="nx">date</span><span class="p">)</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7b;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="s2">&ldquo;&rdquo;</span><span class="p">;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nx">out</span> <span class="o">+=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getUTCFullYear</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&ldquo;-&rdquo;</span> <span class="o">+</span> <span class="nx">padDigit</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCMonth</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&ldquo;-&rdquo;</span> <span class="o">+</span> <span class="nx">padDigit</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCDate</span><span class="p">())</span> <span class="o">+</span><span class="s2">&ldquo;T&rdquo;</span><span class="o">+</span><span class="nx">padDigit</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCHours</span><span class="p">())</span><span class="o">+</span><span class="s2">&ldquo;:&rdquo;</span><span class="o">+</span><span class="nx">padDigit</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCMinutes</span><span class="p">())</span><span class="o">+</span><span class="s2">&ldquo;:&rdquo;</span><span class="o">+</span><span class="nx">padDigit</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCSeconds</span><span class="p">())</span><span class="o">+</span><span class="s2">&ldquo;.&rdquo;</span><span class="o">+</span><span class="nx">padMili</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getUTCMilliseconds</span><span class="p">())</span><span class="o">+</span><span class="s2">&ldquo;Z&rdquo;</span><span class="p">;</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">return</span> <span class="nx">out</span><span class="p">;</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7d;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">function</span> <span class="nx">padDigit</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7b;</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">return</span> <span class="p">(</span><span class="nx">number</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">?</span> <span class="s1">&lsquo;0&rsquo;</span> <span class="p">:</span> <span class="s1">&lsquo;&rsquo;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">number</span>
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7d;</span>
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">function</span> <span class="nx">padMili</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span>
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7b;</span>
+</div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">if</span><span class="p">(</span><span class="nx">number</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">)</span>
+</div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="k">return</span> <span class="s2">&ldquo;00&rdquo;</span><span class="o">+</span><span class="nx">number</span><span class="p">;</span>
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">number</span> <span class="o">&gt;=</span><span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="nx">number</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">)</span>
+</div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="k">return</span> <span class="s2">&ldquo;0&rdquo;</span><span class="o">+</span><span class="nx">number</span><span class="p">;</span>
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">else</span>
+</div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="k">return</span> <span class="nx">number</span><span class="p">;</span>
+</div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="p">&#x7d;</span>
+</div></div></pre></div></figure></p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 8<span>th</span>, 2011</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2011-05-08T07:52:26-05:00" pubdate class="published updated" >May 08, 2011</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    JavaJavaScriptWeb Development
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -238,7 +184,6 @@ function padMili(number)
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -257,8 +202,7 @@ function padMili(number)
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -294,7 +238,7 @@ function padMili(number)
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -306,13 +250,6 @@ function padMili(number)
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -383,19 +320,15 @@ function padMili(number)
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -413,12 +346,7 @@ function padMili(number)
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -427,10 +355,5 @@ function padMili(number)
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

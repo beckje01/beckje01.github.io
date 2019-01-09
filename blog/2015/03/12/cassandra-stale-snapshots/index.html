@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots">
+  <link rel="canonical" href="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -25,11 +25,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -41,10 +39,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -61,11 +56,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -95,7 +90,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -104,32 +99,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12, 2015</time>
         
       </p>
     
@@ -144,102 +123,54 @@
 
 <div class="entry-content clearfix"><p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
-</span><span class='line'><span class="nv">$ </span>du -h
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">du</span> <span class="nt">-h</span>
+</div></div></pre></div></figure></p>
 
 <p>If you see large or multiple directories under columnFamily/snapshots/ that may indicate there are stale snapshots that can be cleaned up.
 We will want to check when these snapshots where created so inside the snapshots directory of the column family run</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ls -lah
-</span><span class='line'>total 3.3M
-</span><span class='line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 .
-</span><span class='line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
-</span></code></pre></td></tr></table></div></figure>
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-lah</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>total 3.3M
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 <span class="nb">.</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
+</div></div></pre></div></figure></p>
 
-
-<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
-</span></code></pre></td></tr></table></div></figure>
-
+<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.
+<figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</div></div></pre></div></figure></p>
 
 <p>That will take care of removing the stale snapshot you should see disk space recovered immediately.</p>
 
 <p>You can also look in the logs for failed repairs we see something like the following:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>2015-02-20 23:37:52,220 RepairSession.java <span class="o">(</span>line 288<span class="o">)</span> <span class="o">[</span>repair <span class="c">#72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error</span>
-</span><span class='line'>system.log.10-java.io.IOException: Failed during snapshot creation.
-</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot<span class="o">(</span>RepairSession.java:323<span class="o">)</span>
-</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairJob<span class="nv">$2</span>.onFailure<span class="o">(</span>RepairJob.java:126<span class="o">)</span>
-</span><span class='line'>system.log.10- at com.google.common.util.concurrent.Futures<span class="nv">$4</span>.run<span class="o">(</span>Futures.java:1160<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker<span class="o">(</span>ThreadPoolExecutor.java:1145<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor<span class="nv">$Worker</span>.run<span class="o">(</span>ThreadPoolExecutor.java:615<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>2015-02-20 23:37:52,220 RepairSession.java (line 288) [repair #72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10-java.io.IOException: Failed during snapshot creation.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot(RepairSession.java:323)
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at org.apache.cassandra.repair.RepairJob$2.onFailure(RepairJob.java:126)
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at com.google.common.util.concurrent.Futures$4.run(Futures.java:1160)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.lang.Thread.run(Thread.java:745)
+</div></div></pre></div></figure></p>
 
 <p>In that case the bad snapshot would be <em>72e69720-b959-11e4-9b55-39152d07d3bf</em>.</p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12<span>th</span>, 2015</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff Beck</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-03-12T09:47:19-05:00" pubdate class="published updated" >Mar 12, 2015</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cassandra/'>Cassandra</a>
+    Cassandra
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -249,7 +180,6 @@ We will want to check when these snapshots where created so inside the snapshots
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -266,8 +196,7 @@ We will want to check when these snapshots where created so inside the snapshots
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -303,7 +232,7 @@ We will want to check when these snapshots where created so inside the snapshots
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -315,13 +244,6 @@ We will want to check when these snapshots where created so inside the snapshots
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -392,19 +314,15 @@ We will want to check when these snapshots where created so inside the snapshots
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -422,12 +340,7 @@ We will want to check when these snapshots where created so inside the snapshots
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -436,10 +349,5 @@ We will want to check when these snapshots where created so inside the snapshots
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>

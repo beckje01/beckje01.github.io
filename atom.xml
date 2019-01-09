@@ -4,7 +4,7 @@
   <title><![CDATA[Jeff Beck]]></title>
   <link href="http://beckje01.com/atom.xml" rel="self"/>
   <link href="http://beckje01.com/"/>
-  <updated>2016-07-28T15:31:21-05:00</updated>
+  <updated>2019-01-09T15:28:20-06:00</updated>
   <id>http://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
@@ -22,93 +22,47 @@
 
 <p>While this is a nice addition our tests which were not using Geb were left broken this is due to the fact we now need to know what port was selected for a given run of the tests. So our old test:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@Integration</span>
-</span><span class='line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="s2">&quot;POST new user&quot;</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nl">given:</span>
-</span><span class='line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
-</span><span class='line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
-</span><span class='line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
-</span><span class='line'>        <span class="nl">email:</span> <span class="s1">&#39;phil@aol.com&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">fullName:</span> <span class="s1">&#39;Phil&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">password:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">username:</span> <span class="s1">&#39;phil&#39;</span>
-</span><span class='line'>    <span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nl">when:</span>
-</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&quot;http://localhost:8080/users&quot;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nl">then:</span>
-</span><span class='line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nd">@Integration</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">&#x7b;</span><br/>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="kt">def</span> <span class="s2">&ldquo;POST new user&rdquo;</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">given:</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#112;&#104;&#105;&#x6c;&#x40;&#x61;&#111;&#108;&#46;&#x63;&#111;&#x6d;">&#112;&#104;&#105;&#x6c;&#64;&#x61;&#111;&#108;&#46;&#x63;&#111;&#x6d;</a>&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">fullName:</span> <span class="s1">&lsquo;Phil&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">password:</span> <span class="s1">&lsquo;password&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">username:</span> <span class="s1">&lsquo;phil&rsquo;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">]</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">when:</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://localhost:8080/users">http://localhost:8080/users</a>&rdquo;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">then:</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>Was broken since the app no longer started on 8080, but we can fix that with a new property that the <code>@Integration</code> annotation adds which is <code>serverPort</code> so the test becomes:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@Integration</span>
-</span><span class='line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="s2">&quot;POST new user&quot;</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nl">given:</span>
-</span><span class='line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
-</span><span class='line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
-</span><span class='line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
-</span><span class='line'>        <span class="nl">email:</span> <span class="s1">&#39;phil@aol.com&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">fullName:</span> <span class="s1">&#39;Phil&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">password:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
-</span><span class='line'>        <span class="nl">username:</span> <span class="s1">&#39;phil&#39;</span>
-</span><span class='line'>    <span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nl">when:</span>
-</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&quot;http://localhost:${serverPort}/users&quot;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nl">then:</span>
-</span><span class='line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nd">@Integration</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">UserEndpointSpec</span> <span class="kd">extends</span> <span class="n">Specification</span> <span class="o">&#x7b;</span><br/>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="kt">def</span> <span class="s2">&ldquo;POST new user&rdquo;</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">given:</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x70;&#104;&#105;&#108;&#64;&#97;&#111;&#108;&#46;&#99;&#x6f;&#x6d;">&#112;&#x68;&#105;&#x6c;&#x40;&#x61;&#x6f;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">fullName:</span> <span class="s1">&lsquo;Phil&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">password:</span> <span class="s1">&lsquo;password&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">username:</span> <span class="s1">&lsquo;phil&rsquo;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">]</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">when:</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://localhost:$&amp;#x7b;serverPort&amp;#x7d;/users">http://localhost:$&amp;#x7b;serverPort&amp;#x7d;/users</a>&rdquo;</span><span class="o">,</span> <span class="n">requestBody</span><span class="o">,</span> <span class="n">Map</span><span class="o">)</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nl">then:</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">resp</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>If you are wondering how <code>serverPort</code> is actually set you can see it happening inside <a href="https://github.com/grails/grails-core/blob/bf2b027b59890446844756ca3d3124d3d033ea8e/grails-plugin-testing/src/main/groovy/org/grails/compiler/injection/test/IntegrationTestMixinTransformation.groovy#L138">IntegrationTestMixinTransformation</a>. It will add a property to the test class with the port.</p>
 ]]></content>
@@ -125,23 +79,16 @@
 
 <p>You can do that with the following config in your <code>application.yml</code></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">metrics</span><span class="p-Indicator">:</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="na">endpoints</span><span class="pi">:</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="na">metrics</span><span class="pi">:</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
+</div></div></pre></div></figure></p>
 
 <p>I just keep the metrics endpoint off since the health-checks are useful and something we depend on others may want to just shut of Actuator fully which can be done with:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">endpoints</span><span class="p-Indicator">:</span>
-</span><span class='line'>   <span class="l-Scalar-Plain">enabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="na">endpoints</span><span class="pi">:</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
+</div></div></pre></div></figure></p>
 
 <p>Thanks to <a href="https://twitter.com/RyanVanderwerf">Ryan Vanderwerf</a> for help on this issue.</p>
 ]]></content>
@@ -154,34 +101,21 @@
     <id>http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha</id>
     <content type="html"><![CDATA[<p>Ratpack tends to stay out of the way when building out functionality so there are times you may make classes that use RxJava and Guice without anything from Ratpack. But there is one caveat during testing, if you are using RxJava in a unit test without any Ratpack integration that will work just fine. As soon as there is another test in the same execution that uses Ratpacks integration (<code>ratpack.dependency("rx")</code>) with RxJava such as a functional test you will start seeing the following error in the standard out:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>java.lang.IllegalStateException: Cannot install RxJava integration because another execution hook (class rx.plugins.RxJavaObservableExecutionHookDefault) is already installed
-</span><span class='line'>  at ratpack.rx.RxRatpack.initialize(RxRatpack.java:101) ~[ratpack-rx-1.1.0.jar:na]
-</span><span class='line'>  at ratpack.rx.RxRatpack$initialize$0.call(Unknown Source) ~[na:na]
-</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-all-2.4.4.jar:2.4.4]
-</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-all-2.4.4.jar:2.4.4]
-</span><span class='line'>  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-all-2.4.4.jar:2.4.4]</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>java.lang.IllegalStateException: Cannot install RxJava integration because another execution hook (class rx.plugins.RxJavaObservableExecutionHookDefault) is already installed
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    at ratpack.rx.RxRatpack.initialize(RxRatpack.java:101) ~[ratpack-rx-1.1.0.jar:na]
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    at ratpack.rx.RxRatpack$initialize$0.call(Unknown Source) ~[na:na]
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-all-2.4.4.jar:2.4.4]
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-all-2.4.4.jar:2.4.4]
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-all-2.4.4.jar:2.4.4]
+</div></div></pre></div></figure></p>
 
 <p>Many of your functional tests will start failing with very unpredictable results. What is happening is any use of RxJava that runs before the Ratpacks integration will set up an execution hook meaning the strong guarantees about execution Ratpack provides will not be available leading to unpredictable behavior. This is an easy fix for the test, we just need Ratpack to setup the hook in these other tests we can simply add the following to a Spock spec:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">ratpack.rx.RxRatpack</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">RxRatpack</span><span class="o">.</span><span class="na">initialize</span><span class="o">()</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">ratpack.rx.RxRatpack</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">RxRatpack</span><span class="o">.</span><span class="na">initialize</span><span class="o">()</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>The same initialize can be used in your favorite testing tools, it just needs to happen before the tests are run once and thats what <code>setupSpec</code> gives us in Spock.</p>
 ]]></content>
@@ -194,25 +128,18 @@
     <id>http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco</id>
     <content type="html"><![CDATA[<p>Now that we have Gradle as our build system we have a whole range of plugins we can use directly in Gradle. For code coverage I am using the JaCoCo plugin. To use it with Grails we just apply the plugin to the build. By default you will get a HTML report, in the <code>build/report/jacoco</code> directory.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">&quot;jacoco&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">&ldquo;jacoco&rdquo;</span>
+</div></div></pre></div></figure></p>
 
 <p>But Grails 3 has it&rsquo;s test phases split up, out of the box you will have <code>test</code> and <code>integrationTest</code>. Starting with the JaCoCo gradle plugin, you will get coverage for just your <code>test</code> phase.</p>
 
 <p>We can easily fix this by letting JaCoCo know about the phases we want reported on so we just adjust the config for the jacocoTestReport task.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">jacocoTestReport</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">executionData</span> <span class="n">integrationTest</span><span class="o">,</span> <span class="n">test</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">jacocoTestReport</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">executionData</span> <span class="n">integrationTest</span><span class="o">,</span> <span class="n">test</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="c1">//&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -227,90 +154,39 @@
 
 <p>Set up your <code>build.gradle</code> with the following:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="c1">//...</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
-</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;application&#39;</span>
-</span><span class='line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;com.github.johnrengelman.shadow&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//...</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-core:${project.vertxVersion}&quot;</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-apex:${project.vertxVersion}&quot;</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s2">&quot;io.vertx:vertx-auth-service:${project.vertxVersion}&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">def</span> <span class="n">mainVerticle</span> <span class="o">=</span> <span class="s2">&quot;groovy:ex.main.RestVerticle&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">mainClassName</span> <span class="o">=</span> <span class="s2">&quot;io.vertx.core.Starter&quot;</span>
-</span><span class='line'><span class="n">run</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;run&quot;</span><span class="o">,</span> <span class="n">mainVerticle</span><span class="o">]</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">jar</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">manifest</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">attributes</span> <span class="s1">&#39;Main-Verticle&#39;</span><span class="o">:</span> <span class="n">mainVerticle</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">shadowJar</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">classifier</span> <span class="o">=</span> <span class="s1">&#39;fat&#39;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">mergeServiceFiles</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">include</span> <span class="s1">&#39;META-INF/services/io.vertx.core.spi.VerticleFactory&#39;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;io.vertx:codegen&#39;</span><span class="o">))</span>
-</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;junit:junit&#39;</span><span class="o">))</span>
-</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;org.mvel:mvel2&#39;</span><span class="o">))</span>
-</span><span class='line'>      <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&#39;log4j:log4j&#39;</span><span class="o">))</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="c1">//&hellip;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&lsquo;java&rsquo;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&lsquo;application&rsquo;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&lsquo;com.github.johnrengelman.shadow&rsquo;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="c1">//&hellip;</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">dependencies</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">compile</span> <span class="s2">&ldquo;io.vertx:vertx-core:$&#x7b;project.vertxVersion&#x7d;&rdquo;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">compile</span> <span class="s2">&ldquo;io.vertx:vertx-apex:$&#x7b;project.vertxVersion&#x7d;&rdquo;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">compile</span> <span class="s2">&ldquo;io.vertx:vertx-auth-service:$&#x7b;project.vertxVersion&#x7d;&rdquo;</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">mainVerticle</span> <span class="o">=</span> <span class="s2">&ldquo;groovy:ex.main.RestVerticle&rdquo;</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">mainClassName</span> <span class="o">=</span> <span class="s2">&ldquo;io.vertx.core.Starter&rdquo;</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">run</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">args</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&ldquo;run&rdquo;</span><span class="o">,</span> <span class="n">mainVerticle</span><span class="o">]</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">jar</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">manifest</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">attributes</span> <span class="s1">&lsquo;Main-Verticle&rsquo;</span><span class="o">:</span> <span class="n">mainVerticle</span>
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="o">&#x7d;</span>
+</div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">shadowJar</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="n">classifier</span> <span class="o">=</span> <span class="s1">&lsquo;fat&rsquo;</span>
+</div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'> <span class="n">mergeServiceFiles</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">include</span> <span class="s1">&lsquo;META-INF/services/io.vertx.core.spi.VerticleFactory&rsquo;</span>
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="o">&#x7d;</span>
+</div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'> <span class="n">dependencies</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&lsquo;io.vertx:codegen&rsquo;</span><span class="o">))</span>
+</div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&lsquo;junit:junit&rsquo;</span><span class="o">))</span>
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&lsquo;org.mvel:mvel2&rsquo;</span><span class="o">))</span>
+</div></div><div data-line='39' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">exclude</span><span class="o">(</span><span class="n">dependency</span><span class="o">(</span><span class="s1">&lsquo;log4j:log4j&rsquo;</span><span class="o">))</span>
+</div></div><div data-line='40' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="o">&#x7d;</span>
+</div></div><div data-line='41' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>In this case we are deploying Vertx with verticles. So we set the main verticle which does our setup. I define that as variable since we will need to use it in two places once as an argument to the Vertx starter and again in the Jar manifest. You will note the main verticle includes the type in our case it is Groovy but if you are doing JavaScript you would change it there.</p>
 
@@ -318,10 +194,8 @@
 
 <p>But the main reason I wanted to use the application plugin was the ability to debug easily.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">$</span> <span class="n">gradle</span> <span class="n">run</span> <span class="o">--</span><span class="n">debug</span><span class="o">-</span><span class="n">jvm</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>$ gradle run &ndash;debug-jvm
+</div></div></pre></div></figure></p>
 
 <p>That command will allow us to attach a debugger to 5005 <em>default</em>. With these changes Vertx 3 development fits in along side my other Grails 3 and Java 8 projects easily.</p>
 ]]></content>
@@ -336,24 +210,15 @@
 
 <p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
 
-<figure class='code'><figcaption><span>application.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">grails</span><span class="p-Indicator">:</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">profile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">codegen</span><span class="p-Indicator">:</span>
-</span><span class='line'>        <span class="l-Scalar-Plain">defaultPackage</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">example</span>
-</span><span class='line'>    <span class="l-Scalar-Plain">spring</span><span class="p-Indicator">:</span>
-</span><span class='line'>        <span class="l-Scalar-Plain">bean</span><span class="p-Indicator">:</span>
-</span><span class='line'>            <span class="l-Scalar-Plain">packages</span><span class="p-Indicator">:</span>
-</span><span class='line'>                <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">example.config</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>application.yml</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="na">grails</span><span class="pi">:</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">profile</span><span class="pi">:</span> <span class="s">web</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">codegen</span><span class="pi">:</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">defaultPackage</span><span class="pi">:</span> <span class="s">example</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="na">spring</span><span class="pi">:</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">bean</span><span class="pi">:</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">packages</span><span class="pi">:</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="pi">-</span> <span class="s">example.config</span>
+</div></div></pre></div></figure></p>
 
 <p>I found that while the beans were all wired correctly and <code>@Autowired</code> all worked correctly, but any mappings with <code>@RequestMapping</code> where always returning a 404. Everything looked wired correctly but Grails wasn&rsquo;t letting any requests through.</p>
 
@@ -361,16 +226,11 @@
 
 <p>Using ComponentScan with Grails 3 is very easy:</p>
 
-<figure class='code'><figcaption><span>Application.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&quot;example.config&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Application.groovy</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s2">&ldquo;example.config&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">GrailsAutoConfiguration</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="c1">//&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>This will scan the package of <code>example.config</code> for any Spring components so your Spring Java configs can all live in this package and easily get picked up.</p>
 
@@ -387,9 +247,8 @@
 
 <p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>grails.plugin.springsecurity.useSwitchUserFilter = true</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>grails.plugin.springsecurity.useSwitchUserFilter = true
+</div></div></pre></div></figure></p>
 
 <p>Spring Security by default will add a new role of <a href="http://docs.spring.io/autorepo/docs/spring-security/3.2.1.RELEASE/apidocs/constant-values.html#org.springframework.security.web.authentication.switchuser.SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR">ROLE_PREVIOUS_ADMINISTRATOR</a> for the user while impersonating the other user. This will work in most cases but for us it was hard to reason about since we had an idea of admin which was separate from our support team who would mostly be using this tool.</p>
 
@@ -397,59 +256,27 @@
 
 <p>Example authority changer:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">RoleImpersonatedSwitchUserAuthorityChanger</span> <span class="kd">implements</span> <span class="n">SwitchUserAuthorityChanger</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nd">@Override</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">modifyGrantedAuthorities</span><span class="o">(</span><span class="n">UserDetails</span> <span class="n">targetUser</span><span class="o">,</span> <span class="n">Authentication</span> <span class="n">currentAuthentication</span><span class="o">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authoritiesToBeGranted</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">SwitchUserGrantedAuthority</span> <span class="n">roleImpersonatedSwitchAuthority</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwitchUserGrantedAuthority</span><span class="o">(</span><span class="s2">&quot;ROLE_IMPERSONATED_USER&quot;</span><span class="o">,</span> <span class="n">currentAuthentication</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">augmentedAuthoritiesToBeGranted</span> <span class="o">=</span> <span class="n">authoritiesToBeGranted</span> <span class="o">+</span> <span class="n">roleImpersonatedSwitchAuthority</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">return</span> <span class="n">augmentedAuthoritiesToBeGranted</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">RoleImpersonatedSwitchUserAuthorityChanger</span> <span class="kd">implements</span> <span class="n">SwitchUserAuthorityChanger</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="nd">@Override</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">modifyGrantedAuthorities</span><span class="o">(</span><span class="n">UserDetails</span> <span class="n">targetUser</span><span class="o">,</span> <span class="n">Authentication</span> <span class="n">currentAuthentication</span><span class="o">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authoritiesToBeGranted</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">SwitchUserGrantedAuthority</span> <span class="n">roleImpersonatedSwitchAuthority</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwitchUserGrantedAuthority</span><span class="o">(</span><span class="s2">&ldquo;ROLE_IMPERSONATED_USER&rdquo;</span><span class="o">,</span> <span class="n">currentAuthentication</span><span class="o">);</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">augmentedAuthoritiesToBeGranted</span> <span class="o">=</span> <span class="n">authoritiesToBeGranted</span> <span class="o">+</span> <span class="n">roleImpersonatedSwitchAuthority</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="k">return</span> <span class="n">augmentedAuthoritiesToBeGranted</span><span class="o">;</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="o">&#x7d;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>In Grails we set our authority changer during bootstrap.</p>
 
-<figure class='code'><figcaption><span>BootStrap.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">BootStrap</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserProcessingFilter</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">switchUserAuthorityChanger</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">rabbitTemplate</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">init</span> <span class="o">=</span> <span class="o">{</span> <span class="n">servletContext</span> <span class="o">-&gt;</span>
-</span><span class='line'>    <span class="n">switchUserProcessingFilter</span><span class="o">.</span><span class="na">setSwitchUserAuthorityChanger</span><span class="o">(</span><span class="n">switchUserAuthorityChanger</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//....</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>BootStrap.groovy</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">BootStrap</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="kt">def</span> <span class="n">switchUserProcessingFilter</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">switchUserAuthorityChanger</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="kt">def</span> <span class="n">rabbitTemplate</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="kt">def</span> <span class="n">init</span> <span class="o">=</span> <span class="o">&#x7b;</span> <span class="n">servletContext</span> <span class="o">-&gt;</span><br/>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">switchUserProcessingFilter</span><span class="o">.</span><span class="na">setSwitchUserAuthorityChanger</span><span class="o">(</span><span class="n">switchUserAuthorityChanger</span><span class="o">)</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="c1">//&hellip;.</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>The switch user filter is already exposed as a bean so we can just get that injected and we also exposed the authority changer as a bean so we could just inject it in bootstrap.</p>
 
@@ -464,66 +291,41 @@
     <id>http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots</id>
     <content type="html"><![CDATA[<p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
-</span><span class='line'><span class="nv">$ </span>du -h
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">du</span> <span class="nt">-h</span>
+</div></div></pre></div></figure></p>
 
 <p>If you see large or multiple directories under columnFamily/snapshots/ that may indicate there are stale snapshots that can be cleaned up.
 We will want to check when these snapshots where created so inside the snapshots directory of the column family run</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ls -lah
-</span><span class='line'>total 3.3M
-</span><span class='line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 .
-</span><span class='line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
-</span><span class='line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
-</span></code></pre></td></tr></table></div></figure>
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-lah</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>total 3.3M
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 7 cassandra cassandra 4.0K Mar 11 16:14 <span class="nb">.</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 3 cassandra cassandra 704K Mar 11 16:31 ..
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 508K Mar 01 14:24 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 11 16:14 ad70a8e0-c809-11e4-9b55-39152d07d3bf
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 532K Mar 11 16:03 b5cfd3a0-c807-11e4-bcd5-db76d671c3d5
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 504K Mar 10 22:50 cfe34050-c777-11e4-b5ae-5f969a9b23c8
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>drwxr-xr-x 2 cassandra cassandra 536K Mar 11 16:09 edc03dd0-c808-11e4-be46-35521ca10087
+</div></div></pre></div></figure></p>
 
-
-<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
-</span></code></pre></td></tr></table></div></figure>
-
+<p>Each of those are snapshots but you will notice 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8 is stale, we can now clean that up with the <a href="http://www.datastax.com/documentation/cassandra/2.1/cassandra/tools/toolsClearSnapShot.html">nodetool clearsnapshot</a> command.
+<figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>nodetool clearsnapshot keyspace -t 4f37dcd0-c7fa-11e4-b5ae-5f969a9b23c8
+</div></div></pre></div></figure></p>
 
 <p>That will take care of removing the stale snapshot you should see disk space recovered immediately.</p>
 
 <p>You can also look in the logs for failed repairs we see something like the following:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>2015-02-20 23:37:52,220 RepairSession.java <span class="o">(</span>line 288<span class="o">)</span> <span class="o">[</span>repair <span class="c">#72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error</span>
-</span><span class='line'>system.log.10-java.io.IOException: Failed during snapshot creation.
-</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot<span class="o">(</span>RepairSession.java:323<span class="o">)</span>
-</span><span class='line'>system.log.10- at org.apache.cassandra.repair.RepairJob<span class="nv">$2</span>.onFailure<span class="o">(</span>RepairJob.java:126<span class="o">)</span>
-</span><span class='line'>system.log.10- at com.google.common.util.concurrent.Futures<span class="nv">$4</span>.run<span class="o">(</span>Futures.java:1160<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker<span class="o">(</span>ThreadPoolExecutor.java:1145<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor<span class="nv">$Worker</span>.run<span class="o">(</span>ThreadPoolExecutor.java:615<span class="o">)</span>
-</span><span class='line'>system.log.10- at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>2015-02-20 23:37:52,220 RepairSession.java (line 288) [repair #72e69720-b959-11e4-9b55-39152d07d3bf] session completed with the following error
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10-java.io.IOException: Failed during snapshot creation.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at org.apache.cassandra.repair.RepairSession.failedSnapshot(RepairSession.java:323)
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at org.apache.cassandra.repair.RepairJob$2.onFailure(RepairJob.java:126)
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at com.google.common.util.concurrent.Futures$4.run(Futures.java:1160)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>system.log.10- at java.lang.Thread.run(Thread.java:745)
+</div></div></pre></div></figure></p>
 
 <p>In that case the bad snapshot would be <em>72e69720-b959-11e4-9b55-39152d07d3bf</em>.</p>
 ]]></content>
@@ -549,86 +351,37 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <h2>Updated Solution</h2>
 
-<figure class='code'><figcaption><span>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Shared</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n">_configuration</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Shared</span>
-</span><span class='line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(!</span><span class="n">_configuration</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="c1">// 1-time creation of the configuration</span>
-</span><span class='line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.driver_class&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.username&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.password&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.connection.url&#39;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
-</span><span class='line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&#39;hibernate.dialect&#39;</span><span class="o">,</span> <span class="s1">&#39;org.hibernate.dialect.H2Dialect&#39;</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">_configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">//After spec nuke and pave the test db</span>
-</span><span class='line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n">_configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">//Clear the sessions</span>
-</span><span class='line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;sessionFactory&#39;</span><span class="o">)</span>
-</span><span class='line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>NonTransactionalIntegrationSpec.groovy</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.SessionFactory</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.cfg.Configuration</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">org.hibernate.tool.hbm2ddl.SchemaExport</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">NonTransactionalIntegrationSpec</span> <span class="kd">extends</span> <span class="n">company</span><span class="o">.</span><span class="na">IntegrationSpec</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nd">@Shared</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Configuration</span> <span class="n"><em>configuration</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nd">@Shared</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">grailsApplication</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">static</span> <span class="n">transactional</span> <span class="o">=</span> <span class="kc">false</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="nf">setupSpec</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="k">if</span> <span class="o">(!</span><span class="n"></em>configuration</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="c1">// 1-time creation of the configuration</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">()</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.driver_class&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">driverClassName</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.username&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">username</span>
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.password&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">password</span>
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.connection.url&rsquo;</span><span class="o">,</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">url</span>
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span> <span class="s1">&lsquo;hibernate.dialect&rsquo;</span><span class="o">,</span> <span class="s1">&lsquo;org.hibernate.dialect.H2Dialect&rsquo;</span>
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n"><em>configuration</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultGrailsDomainConfiguration</span><span class="o">(</span><span class="nl">grailsApplication:</span> <span class="n">grailsApplication</span><span class="o">,</span> <span class="nl">properties:</span> <span class="n">properties</span><span class="o">)</span>
+</div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">&#x7d;</span>
+</div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="nf">cleanupSpec</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="c1">//After spec nuke and pave the test db</span>
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="k">new</span> <span class="nf">SchemaExport</span><span class="o">(</span><span class="n"></em>configuration</span><span class="o">).</span><span class="na">create</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="c1">//Clear the sessions</span>
+</div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="n">SessionFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="n">grailsApplication</span><span class="o">.</span><span class="na">getMainContext</span><span class="o">().</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&lsquo;sessionFactory&rsquo;</span><span class="o">)</span>
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="n">sf</span><span class="o">.</span><span class="na">getCurrentSession</span><span class="o">().</span><span class="na">clear</span><span class="o">()</span>
+</div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='39' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>You&rsquo;ll notice we extend a company.IntegrationSpec there isn&rsquo;t anything special in that just a base integration spec class that can hold our shared testing code such as bootstrapping methods and security methods. Since our data bootstrap logic is set up there we can share the same initial setup across both our normal integration test and our new non-transactional integration specs.</p>
 
@@ -636,16 +389,11 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>The main time we started to need this new testing method was when doing custom propagation of hibernate transactions.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">(){</span>
-</span><span class='line'>    <span class="c1">//Do some read only operation.</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRES_NEW</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="kt">def</span> <span class="nf">getSomething</span><span class="o">()&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="c1">//Do some read only operation.</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>Since this will require a new transaction we will not be able to see the inserts that have happened in the default transaction. We do many of our reads as read only and force a new transaction when we are more read heavy during an operation.</p>
 
@@ -666,10 +414,8 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>We can simply turn off the session tracking with the following code:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">grails</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">appinfo</span><span class="o">.</span><span class="na">useContextListener</span> <span class="o">=</span> <span class="kc">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">grails</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">appinfo</span><span class="o">.</span><span class="na">useContextListener</span> <span class="o">=</span> <span class="kc">false</span>
+</div></div></pre></div></figure></p>
 
 <p>But note this config change effect will effect how a war is made so you can&rsquo;t simply override this in production you will need a new war built.</p>
 
@@ -698,37 +444,21 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <h2>Happy Path</h2>
 
-<figure class='code'><figcaption><span>Consuming Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Consuming Value from Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Promise</span> <span class="n">promise</span> <span class="o">=</span> <span class="n">somethingThatReturnsPromise</span><span class="o">()</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">promise</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.</p>
 
-<figure class='code'><figcaption><span>Explicit Value from Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Explicit Value from Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span> <span class="n">ReceivedResponse</span> <span class="n">receivedResponse</span> <span class="o">-&gt;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">receivedResponse</span><span class="o">.</span><span class="na">statusCode</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>If some error occurs while trying to get the value for the <code>then</code> block the exception will be thrown. Which can be picked up by some error handler down the chain.</p>
 
@@ -736,22 +466,14 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with <code>onError</code> instead of <code>then</code>.</p>
 
-<figure class='code'><figcaption><span>Ratpack Promise with Failure Path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span> <span class="n">onError</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span> <span class="s2">&quot;Something when wrong: ${it.message}&quot;</span>
-</span><span class='line'><span class="o">}</span> <span class="n">then</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">render</span> <span class="s2">&quot;Got a ${it.statusCode} status with body of:\n\n${it.body.text}&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Ratpack Promise with Failure Path</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span> <span class="n">onError</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">println</span> <span class="s2">&ldquo;Something when wrong: $&#x7b;it.message&#x7d;&rdquo;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span> <span class="n">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">render</span> <span class="s2">&ldquo;Got a $&#x7b;it.statusCode&#x7d; status with body of:\n\n$&#x7b;it.body.text&#x7d;&rdquo;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p><code>onError</code> will pass in a throwable to the closure that you can log or do whatever work you would like in the case of a failure.</p>
 
@@ -759,18 +481,12 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>Ratpack promises won&rsquo;t actually try to generate the value until the <code>then</code> block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.</p>
 
-<figure class='code'><figcaption><span>Deterministic Promise</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}.</span><span class="na">then</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
-</span><span class='line'>  <span class="n">sleep</span> <span class="mi">5000</span>
-</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&quot;bang!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Deterministic Promise</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span> <span class="err">…</span> <span class="o">&#x7d;.</span><span class="na">then</span> <span class="o">&#x7b;</span> <span class="err">…</span> <span class="o">&#x7d;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">sleep</span> <span class="mi">5000</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s2">&ldquo;bang!&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>What will happen in Ratpack is we will always get the exception &ldquo;bang!&rdquo;, because the get request will not even get started until the <code>doWork</code> block of execution is finished. Once finished having a <code>then{}</code> will trigger a background thread to start generating the value.</p>
 
@@ -778,30 +494,16 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>You shouldn&rsquo;t try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don&rsquo;t do the following:</p>
 
-<figure class='code'><figcaption><span>Don&#8217;t do this</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>Don&rsquo;t do this</span></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">p</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">get</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">it</span><span class="o">.</span><span class="na">url</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s2">&ldquo;<a href="http://example.com">http://example.com</a>&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">onError</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">p</span><span class="o">.</span><span class="na">then</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="na">statusCode</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>Starting in Ratpack 0.9.9 the above code should actually throw an error.</p>
 ]]></content>
@@ -814,72 +516,46 @@ We will want to check when these snapshots where created so inside the snapshots
     <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
     <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;table&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;visits&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;MyID&quot;</span><span class="o">));</span>
-</span><span class='line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;table&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&ldquo;visits&rdquo;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()))</span> <span class="c1">//Add to a CQL3 List</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;id&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;MyID&rdquo;</span><span class="o">));</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">upsert</span><span class="o">);</span>
+</div></div></pre></div></figure></p>
 
 <p>Above you can see how we model our &ldquo;upsert&rdquo;. If a value isn&rsquo;t found for the given where clause it will insert it.</p>
 
 <p>You must use all parts of a Primary Key for an updates where cluase given a CQL Table with a compound key:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">create</span> <span class="n">table</span> <span class="nf">tablex</span><span class="o">(</span>
-</span><span class='line'>     <span class="n">pk1</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">pk2</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">colA</span> <span class="n">varchar</span><span class="o">,</span>
-</span><span class='line'>     <span class="n">PRIMARY</span> <span class="nf">KEY</span><span class="o">(</span><span class="n">pk1</span><span class="o">,</span><span class="n">pk2</span><span class="o">)</span>
-</span><span class='line'><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>create table tablex(
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>     pk1 varchar,
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>     pk2 varchar,
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>     colA varchar,
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>     PRIMARY KEY(pk1,pk2)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>);
+</div></div></pre></div></figure></p>
 
 <p>We can not do the following query:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;tablex&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&ldquo;colA&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>                <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk1&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;1&rdquo;</span><span class="o">));</span>
+</div></div></pre></div></figure></p>
 
 <p>You will get an <code>InvalidQueryException</code>:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">:</span> <span class="n">Missing</span> <span class="n">mandatory</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">part</span> <span class="n">pk2</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">exceptions</span><span class="o">.</span><span class="na">InvalidQueryException</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">InvalidQueryException</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">35</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">extractCauseFromExecutionException</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">256</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">com</span><span class="o">.</span><span class="na">datastax</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">DefaultResultSetFuture</span><span class="o">.</span><span class="na">getUninterruptibly</span><span class="o">(</span><span class="n">DefaultResultSetFuture</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">172</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>com.datastax.driver.core.exceptions.InvalidQueryException: Missing mandatory PRIMARY KEY part pk2
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.exceptions.InvalidQueryException.copy(InvalidQueryException.java:35)
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.DefaultResultSetFuture.extractCauseFromExecutionException(DefaultResultSetFuture.java:256)
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    com.datastax.driver.core.DefaultResultSetFuture.getUninterruptibly(DefaultResultSetFuture.java:172)
+</div></div></pre></div></figure></p>
 
 <p>But the following will upsert:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&quot;tablex&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;colA&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk1&quot;</span><span class="o">,</span> <span class="s">&quot;1&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&quot;pk2&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;tablex&rdquo;</span><span class="o">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&ldquo;colA&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk1&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;1&rdquo;</span><span class="o">))</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">QueryBuilder</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="s">&ldquo;pk2&rdquo;</span><span class="o">,</span> <span class="s">&ldquo;2&rdquo;</span><span class="o">));</span>
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -890,20 +566,16 @@ We will want to check when these snapshots where created so inside the snapshots
     <id>http://beckje01.com/blog/2014/07/25/failing-at-grab-fixes</id>
     <content type="html"><![CDATA[<p>If you are working on a Groovy script with @Grab, you will sometimes get download failures for dependencies. Such as the following:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>General error during conversion: Error grabbing Grapes -- [download failed: com.google.guava#guava;16.0!guava.jar(bundle), download failed: org.javassist#javassist;3.18.1-GA!javassist.jar(bundle)]</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>General error during conversion: Error grabbing Grapes &ndash; [download failed: com.google.guava#guava;16.0!guava.jar(bundle), download failed: org.javassist#javassist;3.18.1-GA!javassist.jar(bundle)]
+</div></div></pre></div></figure></p>
 
 <p>This issues may have nothing to do with the actual dependency but an issue in your local m2 cache. The quick answer is to just delete <code>~/.groovy/grapes</code> and <code>~/.m2/repository</code>. But doing this will force you to re-download dependencies.</p>
 
 <p>To only delete the cache for items giving you an issue you just need to delete the correct directories in both m2 and grapes cache. So for our Guava example you would do the following:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rm -r ~/.groovy/grapes/com.google.guava
-</span><span class='line'>rm -r ~/.m2/repository/com/google/guava
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>rm -r ~/.groovy/grapes/com.google.guava
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>rm -r ~/.m2/repository/com/google/guava
+</div></div></pre></div></figure></p>
 
 <p>After that you should be able to run the groovy script normally.</p>
 ]]></content>
@@ -920,46 +592,26 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <h3>BuildConfig.groovy Changes</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;com.newrelic.agent.java:newrelic-api:3.4.2&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">dependencies</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">compile</span> <span class="s1">&lsquo;com.newrelic.agent.java:newrelic-api:3.4.2&rsquo;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <h3>Service Changes</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.newrelic.api.agent.Trace</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">SubscriptionService</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nd">@Trace</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="nf">save</span><span class="o">(</span><span class="n">Subscription</span> <span class="n">subscription</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">//Work Here</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">com.newrelic.api.agent.Trace</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kd">class</span> <span class="nc">SubscriptionService</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>   <span class="nd">@Trace</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="nf">save</span><span class="o">(</span><span class="n">Subscription</span> <span class="n">subscription</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="c1">//Work Here</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>At this point your code is ready to give more detailed transactions, but the agent on the server must also be configured to accept custom tracing. The config option for this is not available from the web so you must update the <code>newrelic.yml</code> file. Set <code>enable_custom_tracing</code> to <code>true</code>.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'>  <span class="c1">#enable_custom_tracing is used to allow @Trace on methods</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">enable_custom_tracing</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="c1">#enable_custom_tracing is used to allow @Trace on methods</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>  <span class="na">enable_custom_tracing</span><span class="pi">:</span> <span class="no">true</span>
+</div></div></pre></div></figure></p>
 
 <p>Now you will get any custom tracing added to your application as well as custom tracing from libraries.</p>
 ]]></content>
@@ -972,53 +624,29 @@ We will want to check when these snapshots where created so inside the snapshots
     <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Warning No config found <span class="k">for </span>the application.
-</span><span class='line'>| Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails clean
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Application cleaned.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails test-app
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Environment <span class="nb">set </span>to test&hellip;..
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Warning No config found <span class="k">for </span>the application.
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Warning DataSource.groovy not found, assuming dataSource bean is configured by Spring
+</div></div></pre></div></figure></p>
 
 <p>Start using package in between and the problem will go away.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>grails clean
-</span><span class='line'>| Application cleaned.
-</span><span class='line'><span class="nv">$ </span>grails package
-</span><span class='line'>| Compiling 10 <span class="nb">source </span>files
-</span><span class='line'>| Compiling 12 <span class="nb">source </span>files.....
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>grails <span class="nb">test</span>-app
-</span><span class='line'>| Environment <span class="nb">set </span>to test.....
-</span><span class='line'>| Server running. Browse to http://localhost:8080/api
-</span><span class='line'>| Running 6 cucumber tests...
-</span><span class='line'>| Completed 6 cucumber tests, 0 failed in 0m 3s
-</span><span class='line'>| Server stopped
-</span><span class='line'>| Tests PASSED
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails clean
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Application cleaned.
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails package
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Compiling 10 <span class="nb">source </span>files
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Compiling 12 <span class="nb">source </span>files&hellip;..
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails test-app
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Environment <span class="nb">set </span>to test&hellip;..
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Server running. Browse to <a href="http://localhost:8080/api">http://localhost:8080/api</a>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Running 6 cucumber tests&hellip;
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Completed 6 cucumber tests, 0 failed <span class="k">in </span>0m 3s
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Server stopped
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>    | Tests PASSED
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -1029,16 +657,11 @@ We will want to check when these snapshots where created so inside the snapshots
     <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
     <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">compile</span> <span class="s1">&#39;org.springframework:spring-jms:3.2.4.RELEASE&#39;</span>
-</span><span class='line'>  <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">dependencies</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="n">compile</span> <span class="s1">&lsquo;org.springframework:spring-jms:3.2.4.RELEASE&rsquo;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="o">&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -1054,63 +677,34 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p><strong>My <em>resources.groovy</em></strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">beans</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>       <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;grailsApplication&#39;</span><span class="o">)</span>
-</span><span class='line'>       <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&#39;myService&#39;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
-</span><span class='line'>       <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
-</span><span class='line'>       <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
-</span><span class='line'>       <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
-</span><span class='line'>       <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
-</span><span class='line'>       <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
-</span><span class='line'>       <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
-</span><span class='line'>       <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
-</span><span class='line'>       <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
-</span><span class='line'>       <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
-</span><span class='line'>       <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
-</span><span class='line'>   <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kn">import</span> <span class="nn">com.example.saml.CustomUserDetailsService</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kn">import</span> <span class="nn">org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">beans</span> <span class="o">=</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">userDetailsService</span><span class="o">(</span><span class="n">CustomUserDetailsService</span><span class="o">)</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">grailsApplication</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&lsquo;grailsApplication&rsquo;</span><span class="o">)</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">myService</span> <span class="o">=</span> <span class="n">ref</span><span class="o">(</span><span class="s1">&lsquo;myService&rsquo;</span><span class="o">)</span>  <span class="c1">//Here we give the reference to the service we want available.</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">authorityClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">className</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>             <span class="n">authorityJoinClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authorityJoinClassName</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">authorityNameField</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">authority</span><span class="o">.</span><span class="na">nameField</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoCreateActive</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">active</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoAssignAuthorities</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">assignAuthorities</span> <span class="k">as</span> <span class="n">Boolean</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlAutoCreateKey</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">autoCreate</span><span class="o">.</span><span class="na">key</span> <span class="k">as</span> <span class="n">String</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserAttributeMappings</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userAttributeMappings</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserGroupAttribute</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupAttribute</span> <span class="k">as</span> <span class="n">String</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">samlUserGroupToRoleMapping</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">saml</span><span class="o">.</span><span class="na">userGroupToRoleMapping</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">userDomainClassName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">userDomainClassName</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">authoritiesPropertyName</span> <span class="o">=</span> <span class="n">SpringSecurityUtils</span><span class="o">.</span><span class="na">securityConfig</span><span class="o">.</span><span class="na">userLookup</span><span class="o">.</span><span class="na">authoritiesPropertyName</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="o">&#x7d;</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p><strong>Snip from <em>CustomUserDetailsService.groovy</em></strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">def</span> <span class="n">myService</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">extends</span> <span class="n">SpringSamlUserDetailsService</span> <span class="o">&#x7b;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="kt">def</span> <span class="n">myService</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&hellip;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="o">&#x7d;</span>
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -1127,140 +721,74 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>So to fully support the OpenSAML on tomcat with SSL offloading I configured the connector as seen below. Take note of the scheme and proxyPort being set.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&quot;8080&quot;</span> <span class="na">protocol=</span><span class="s">&quot;HTTP/1.1&quot;</span>
-</span><span class='line'>               <span class="na">enableLookups=</span><span class="s">&quot;false&quot;</span>
-</span><span class='line'>               <span class="na">maxThreads=</span><span class="s">&quot;250&quot;</span>
-</span><span class='line'>               <span class="na">connectionTimeout=</span><span class="s">&quot;20000&quot;</span>
-</span><span class='line'>               <span class="na">scheme=</span><span class="s">&quot;https&quot;</span>
-</span><span class='line'>               <span class="na">proxyPort=</span><span class="s">&quot;443&quot;</span><span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">&ldquo;8080&rdquo;</span> <span class="na">protocol=</span><span class="s">&ldquo;HTTP/1.1&rdquo;</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>                   <span class="na">enableLookups=</span><span class="s">&ldquo;false&rdquo;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>                   <span class="na">maxThreads=</span><span class="s">&ldquo;250&rdquo;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>                   <span class="na">connectionTimeout=</span><span class="s">&ldquo;20000&rdquo;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>                   <span class="na">scheme=</span><span class="s">&ldquo;https&rdquo;</span><br/>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>                   <span class="na">proxyPort=</span><span class="s">&ldquo;443&rdquo;</span><span class="nt">/&gt;</span>
+</div></div></pre></div></figure></p>
 
 <!-- more -->
 
 
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'>3377265 2013-02-01 11:31:30,997 ERROR [http-8080-9] decoding.BaseSAMLMessageDecoder.checkEndpointURI (BaseSAMLMessageDecoder.java:215) - SAML message intended destination endpoint &#39;https://example.com/app/saml/SSO/alias/https://example.com&#39; did not match the recipient endpoint &#39;https://example.com:80/app/saml/SSO/alias/https://example.com&#39;
-</span><span class='line'>Feb 1, 2013 11:31:30 AM org.apache.catalina.core.StandardWrapperValve invoke
-</span><span class='line'>SEVERE: Servlet.service() for servlet default threw exception
-</span><span class='line'>org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
-</span><span class='line'>        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:93)
-</span><span class='line'>        at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
-</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
-</span><span class='line'>        at org.springframework.security.saml.metadata.MetadataDisplayFilter.doFilter(MetadataDisplayFilter.java:83)
-</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
-</span><span class='line'>        at org.springframework.security.saml.SAMLEntryPoint.doFilter(SAMLEntryPoint.java:102)
-</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
-</span><span class='line'>        at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
-</span><span class='line'>        at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
-</span><span class='line'>        at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:168)
-</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
-</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-</span><span class='line'>        at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:69)
-</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-</span><span class='line'>        at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:65)
-</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-</span><span class='line'>        at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
-</span><span class='line'>        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
-</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
-</span><span class='line'>        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-</span><span class='line'>        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-</span><span class='line'>        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
-</span><span class='line'>        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
-</span><span class='line'>        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
-</span><span class='line'>        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
-</span><span class='line'>        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
-</span><span class='line'>        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
-</span><span class='line'>        at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:864)
-</span><span class='line'>        at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:579)
-</span><span class='line'>        at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1665)
-</span><span class='line'>        at java.lang.Thread.run(Thread.java:662)
-</span><span class='line'>Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
-</span><span class='line'>        at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
-</span><span class='line'>        at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
-</span><span class='line'>        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:105)
-</span><span class='line'>        at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:172)
-</span><span class='line'>        at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:77)
-</span><span class='line'>        ... 37 more
-</span><span class='line'>Servlet.service() for servlet default threw exception
-</span><span class='line'>org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
-</span><span class='line'>        at java.lang.Thread.run(Thread.java:662)
-</span><span class='line'>        Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
-</span><span class='line'>                at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
-</span><span class='line'>                at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
-</span><span class='line'>        ... 1 more
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    3377265 2013-02-01 11:31:30,997 ERROR [http-8080-9] decoding.BaseSAMLMessageDecoder.checkEndpointURI (BaseSAMLMessageDecoder.java:215) - SAML message intended destination endpoint &lsquo;<a href="https://example.com/app/saml/SSO/alias/https://example.com">https://example.com/app/saml/SSO/alias/https://example.com</a>&rsquo; did not match the recipient endpoint &lsquo;<a href="https://example.com:80/app/saml/SSO/alias/https://example.com">https://example.com:80/app/saml/SSO/alias/https://example.com</a>&rsquo;
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    Feb 1, 2013 11:31:30 AM org.apache.catalina.core.StandardWrapperValve invoke
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>    SEVERE: Servlet.service() for servlet default threw exception
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>    org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:93)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.metadata.MetadataDisplayFilter.doFilter(MetadataDisplayFilter.java:83)
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.SAMLEntryPoint.doFilter(SAMLEntryPoint.java:102)
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:381)
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:168)
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:69)
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:65)
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+</div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+</div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+</div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+</div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+</div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+</div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+</div></div><div data-line='39' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:864)
+</div></div><div data-line='40' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:579)
+</div></div><div data-line='41' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1665)
+</div></div><div data-line='42' class='code-highlight-row numbered'><div class='code-highlight-line'>            at java.lang.Thread.run(Thread.java:662)
+</div></div><div data-line='43' class='code-highlight-row numbered'><div class='code-highlight-line'>    Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+</div></div><div data-line='44' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+</div></div><div data-line='45' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+</div></div><div data-line='46' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:105)
+</div></div><div data-line='47' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.processor.SAMLProcessorImpl.retrieveMessage(SAMLProcessorImpl.java:172)
+</div></div><div data-line='48' class='code-highlight-row numbered'><div class='code-highlight-line'>            at org.springframework.security.saml.SAMLProcessingFilter.attemptAuthentication(SAMLProcessingFilter.java:77)
+</div></div><div data-line='49' class='code-highlight-row numbered'><div class='code-highlight-line'>            &hellip; 37 more
+</div></div><div data-line='50' class='code-highlight-row numbered'><div class='code-highlight-line'>    Servlet.service() for servlet default threw exception
+</div></div><div data-line='51' class='code-highlight-row numbered'><div class='code-highlight-line'>    org.opensaml.common.SAMLRuntimeException: Incoming SAML message is invalid
+</div></div><div data-line='52' class='code-highlight-row numbered'><div class='code-highlight-line'>            at java.lang.Thread.run(Thread.java:662)
+</div></div><div data-line='53' class='code-highlight-row numbered'><div class='code-highlight-line'>            Caused by: org.opensaml.xml.security.SecurityException: SAML message intended destination endpoint did not match recipient endpoint
+</div></div><div data-line='54' class='code-highlight-row numbered'><div class='code-highlight-line'>                    at org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder.checkEndpointURI(BaseSAMLMessageDecoder.java:217)
+</div></div><div data-line='55' class='code-highlight-row numbered'><div class='code-highlight-line'>                    at org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder.decode(BaseSAML2MessageDecoder.java:72)
+</div></div><div data-line='56' class='code-highlight-row numbered'><div class='code-highlight-line'>            &hellip; 1 more
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   
@@ -1272,10 +800,8 @@ We will want to check when these snapshots where created so inside the snapshots
     <id>http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
     <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="n">filterChain</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&#39;springSecurityFilterChain&#39;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">filterChain</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&lsquo;springSecurityFilterChain&rsquo;</span><span class="o">)</span>
+</div></div></pre></div></figure></p>
 
 <p>Also if you want to poke around the other beans available this is a great post to check out: <a href="http://www.redtoad.ca/ataylor/2012/05/spring-beans-from-the-grails-console/">Spring Beans from the Grails Console</a> .</p>
 ]]></content>
@@ -1290,49 +816,27 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>I was able to quickly fix the error by removing my data directory and starting fresh as this is just my development environment that works great for me. You can find your data directory in the cassandra.yaml file ($DSE_HOME/resources/cassandra/conf/cassandra.yaml), look for the <em>data_file_directories</em> entry. Mine was set to <em>/var/lib/cassandra/data</em> so I just ran the following and started cassandra fresh and everything is back to working order.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rm -r /var/lib/cassandra/data
-</span></code></pre></td></tr></table></div></figure>
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nb">rm</span> <span class="nt">-r</span> /var/lib/cassandra/data
+</div></div></pre></div></figure></p>
 
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>INFO <span class="o">[</span>JOB-TRACKER-INIT<span class="o">]</span> 2012-12-28 10:32:32,515 JobTracker.java <span class="o">(</span>line 2427<span class="o">)</span> problem cleaning system directory: cfs:/tmp/hadoop-jeffbeck/mapred/system
-</span><span class='line'>java.io.IOException: UnavailableException<span class="o">()</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1137<span class="o">)</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystem.listStatus<span class="o">(</span>CassandraFileSystem.java:192<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2392<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2195<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.&lt;init&gt;<span class="o">(</span>JobTracker.java:2189<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:303<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.JobTracker.startTracker<span class="o">(</span>JobTracker.java:294<span class="o">)</span>
-</span><span class='line'>  at org.apache.hadoop.mapred.HadoopTrackerPlugin<span class="nv">$1</span>.run<span class="o">(</span>HadoopTrackerPlugin.java:230<span class="o">)</span>
-</span><span class='line'>  at java.lang.Thread.run<span class="o">(</span>Thread.java:680<span class="o">)</span>
-</span><span class='line'>Caused by: UnavailableException<span class="o">()</span>
-</span><span class='line'>  at org.apache.cassandra.service.ReadCallback.assureSufficientLiveNodes<span class="o">(</span>ReadCallback.java:212<span class="o">)</span>
-</span><span class='line'>  at org.apache.cassandra.service.StorageProxy.scan<span class="o">(</span>StorageProxy.java:1083<span class="o">)</span>
-</span><span class='line'>  at org.apache.cassandra.thrift.CassandraServer.get_indexed_slices<span class="o">(</span>CassandraServer.java:746<span class="o">)</span>
-</span><span class='line'>  at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths<span class="o">(</span>CassandraFileSystemThriftStore.java:1120<span class="o">)</span>
-</span><span class='line'>  ... 8 more
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    INFO [JOB-TRACKER-INIT] 2012-12-28 10:32:32,515 JobTracker.java (line 2427) problem cleaning system directory: cfs:/tmp/hadoop-jeffbeck/mapred/system
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    java.io.IOException: UnavailableException()
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>        at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths(CassandraFileSystemThriftStore.java:1137)
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>        at com.datastax.bdp.hadoop.cfs.CassandraFileSystem.listStatus(CassandraFileSystem.java:192)
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>        at org.apache.hadoop.mapred.JobTracker.&lt;init>(JobTracker.java:2392)
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>        at org.apache.hadoop.mapred.JobTracker.&lt;init>(JobTracker.java:2195)
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>        at org.apache.hadoop.mapred.JobTracker.&lt;init>(JobTracker.java:2189)
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        at org.apache.hadoop.mapred.JobTracker.startTracker(JobTracker.java:303)
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        at org.apache.hadoop.mapred.JobTracker.startTracker(JobTracker.java:294)
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>       at org.apache.hadoop.mapred.HadoopTrackerPlugin$1.run(HadoopTrackerPlugin.java:230)
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>       at java.lang.Thread.run(Thread.java:680)
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>    Caused by: UnavailableException()
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>       at org.apache.cassandra.service.ReadCallback.assureSufficientLiveNodes(ReadCallback.java:212)
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>       at org.apache.cassandra.service.StorageProxy.scan(StorageProxy.java:1083)
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>       at org.apache.cassandra.thrift.CassandraServer.get_indexed_slices(CassandraServer.java:746)
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>       at com.datastax.bdp.hadoop.cfs.CassandraFileSystemThriftStore.listSubPaths(CassandraFileSystemThriftStore.java:1120)
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>       &hellip; 8 more
+</div></div></pre></div></figure></p>
 ]]></content>
   </entry>
   

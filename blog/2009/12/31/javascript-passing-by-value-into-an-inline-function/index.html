@@ -17,7 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function">
+  <link rel="canonical" href="http://beckje01.com/blog/2009/12/31/javascript-passing-by-value-into-an-inline-function/">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="Jeff Beck" type="application/atom+xml">
 
@@ -26,11 +26,9 @@
 
   <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/assets/css/screen.css" />
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-41150211-4']);
@@ -42,10 +40,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
 </head>
-
   <body   >
     <div id="wrap">
       <header role="banner">
@@ -62,11 +57,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li >
                     <a href="/">Blog</a>
                 </li>
                 <li >
-                    <a href="/about.html">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li >
                     <a href="/blog/archives">Archives</a>
@@ -96,7 +91,7 @@
             </ul>
             
                 <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
-                    <input type="hidden" name="q" value="site:beckje01.com">
+                    <input type="hidden" name="q" value="site:http://beckje01.com">
                     <div class="form-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                     </div>
@@ -105,32 +100,16 @@
         </div>
     </div>
 </nav>
-
-
       </header>
       <div id="main" class="container">
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
     <article class="hentry" role="article">
-      
-  <header class="page-header">
+      <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
+        <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31, 2009</time>
         
       </p>
     
@@ -145,135 +124,64 @@
 
 <div class="entry-content clearfix"><p>I have a web page that needs to go through a bootstrap step in order to make all the correct Ajax calls. So I was simply looping through the results and making the Ajax call like the following. You will note that I needed to pass a name to the processing of the data returned but my first attempt was not working.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">campURL</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(&#x7b;</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">type</span><span class="p">:</span><span class="s2">&ldquo;post&rdquo;</span><span class="p">,</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">url</span><span class="p">:</span> <span class="nx">campURL</span><span class="o">+</span><span class="s2">&ldquo;/fetchcampusdata.jsp?campusid=&rdquo;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">datatype</span><span class="p">:</span><span class="s2">&ldquo;JSON&rdquo;</span><span class="p">,</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="na">cache</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7b;</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>           <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7d;,</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="p">&#x7b;</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>           <span class="nx">alert</span><span class="p">(</span><span class="s2">&ldquo;error in processing campus data: &rdquo;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7d;</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="p">&#x7d;);</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div></pre></div></figure></p>
 
 <p>That code was not working correctly as all the names were coming up as the last one in the loop. And thinking more about it that makes perfect sense. The problem is when the success function fires it looks back to the Activation Record which contains campus_name which has been modified by the loop. So what I need to do to fix it was simply move the Ajax call to a function so an AR would be created for each call allowing me to use the campus_name variable correctly.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">callFetch</span><span class="p">(</span><span class="nx">campURL</span><span class="p">[],</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">callFetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="o">+</span><span class="s2">&quot;/fetchcampusdata.jsp?campusid=&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">datatype</span><span class="o">:</span><span class="s2">&quot;JSON&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">cache</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>      <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error in processing campus data: &quot;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nx">campus_name</span> <span class="o">=</span> <span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="kd">var</span> <span class="nx">campURL</span><span class="o">=</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">;</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nx">callFetch</span><span class="p">(</span><span class="nx">campURL</span><span class="p">[],</span><span class="nx">myJSONObject</span><span class="p">.</span><span class="nx">campus</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">);</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kd">function</span> <span class="nx">callFetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="nx">id</span><span class="p">,</span><span class="nx">campus_name</span><span class="p">)</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7b;</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(&#x7b;</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">type</span><span class="p">:</span><span class="s2">&ldquo;post&rdquo;</span><span class="p">,</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="na">url</span><span class="p">:</span> <span class="nx">url</span><span class="o">+</span><span class="s2">&ldquo;/fetchcampusdata.jsp?campusid=&rdquo;</span><span class="o">+</span><span class="nx">id</span><span class="p">,</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">datatype</span><span class="p">:</span><span class="s2">&ldquo;JSON&rdquo;</span><span class="p">,</span>
+</div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">cache</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data2</span><span class="p">)</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7b;</span>
+</div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'>           <span class="nx">processCampusData</span><span class="p">(</span><span class="nx">data2</span><span class="p">,</span> <span class="nx">campus_name</span><span class="p">);</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7d;,</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="nx">error</span><span class="p">)</span>
+</div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="p">&#x7b;</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'>           <span class="nx">alert</span><span class="p">(</span><span class="s2">&ldquo;error in processing campus data: &rdquo;</span><span class="o">+</span><span class="nx">error</span><span class="p">)</span> <span class="p">;</span>
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'>       <span class="p">&#x7d;</span>
+</div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'>      <span class="p">&#x7d;);</span>
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="p">&#x7d;</span>
+</div></div></pre></div></figure></p>
 </div>
-
-
       <footer>
         <p class="meta text-muted">
-          
-  
-
-<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31<span>st</span>, 2009</time>
-          
-
-<span class="glyphicon glyphicon-tags"></span>&nbsp;
+          <span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Jeff</span></span>
+          <span class="glyphicon glyphicon-calendar"></span> <time datetime="2009-12-31T05:49:05-06:00" pubdate class="published updated" >Dec 31, 2009</time>
+          <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web-development/'>Web Development</a>
+    JavaScriptWeb Development
   
 </span>
-
-
         </p>
         
           <div class="sharing">
@@ -283,7 +191,6 @@
   
   
 </div>
-
         
         
           <ul class="meta text-muted pager">
@@ -300,8 +207,7 @@
     
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
       </section>
     
   </div>
@@ -337,7 +243,7 @@
   </div>
 </section>
 
-<section class="googleplus googleplus-hidden panel panel-default">
+<section class='googleplus googleplus-hidden panel panel-default'>
   <div class="panel-body">
     <h1>
       <a href="https://plus.google.com/109464939117502989633?rel=author">
@@ -349,13 +255,6 @@
 </section>
 
 
-<script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
-<section class="panel panel-default clearfix">
-<div class="panel-heading">
-  <h3 class="panel-title">My Upcoming Talks</h3>
-</div>
-<div class="lanyrd-target-splat" style="padding: .5em 1em;"><a href="http://lanyrd.com/profile/beckje01/" class="lanyrd-splat lanyrd-type-speaking lanyrd-template-detailed" rel="me">See my conferences on Lanyrd</a></div>
-</section>
 
 <section class="panel panel-default clearfix">
 <div class="panel-heading">
@@ -426,19 +325,15 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2016 - Jeff Beck<br>
+  Copyright &copy; 2019 - Jeff Beck<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
   </small>
 </p>
-
-</div>
-</footer>
+</div></footer>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/javascripts/modernizr-2.0.js"></script>
-
-
 <script type="text/javascript">
       var disqus_shortname = 'beckje01blog';
       
@@ -456,12 +351,7 @@
 </script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
@@ -470,10 +360,5 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
-
-
-
-
   </body>
 </html>
