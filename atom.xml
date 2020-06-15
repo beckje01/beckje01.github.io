@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Jeff Beck]]></title>
-  <link href="http://beckje01.com/atom.xml" rel="self"/>
-  <link href="http://beckje01.com/"/>
-  <updated>2019-01-09T15:28:20-06:00</updated>
-  <id>http://beckje01.com/</id>
+  <link href="https://beckje01.com/atom.xml" rel="self"/>
+  <link href="https://beckje01.com/"/>
+  <updated>2020-06-15T00:15:42-05:00</updated>
+  <id>https://beckje01.com/</id>
   <author>
     <name><![CDATA[Jeff Beck]]></name>
     <email><![CDATA[beckje01@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 3.1.9 Functional Test Port]]></title>
-    <link href="http://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests/"/>
+    <link href="https://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests/"/>
     <updated>2016-07-28T14:31:24-05:00</updated>
-    <id>http://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests</id>
+    <id>https://beckje01.com/blog/2016/07/28/grails-3-dot-1-9-functional-tests</id>
     <content type="html"><![CDATA[<p>With Grails 3.1.9 and above we now get a default port for Functional tests that is randomly assigned. This is a great feature that was added in with this <a href="https://github.com/grails/grails-core/commit/0532f0cef10990c651c01300007458cba9efff86">commit</a>.</p>
 
 <p>While this is a nice addition our tests which were not using Geb were left broken this is due to the fact we now need to know what port was selected for a given run of the tests. So our old test:</p>
@@ -29,7 +29,7 @@
 </div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
 </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
 </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
-</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#112;&#104;&#105;&#x6c;&#x40;&#x61;&#111;&#108;&#46;&#x63;&#111;&#x6d;">&#112;&#104;&#105;&#x6c;&#64;&#x61;&#111;&#108;&#46;&#x63;&#111;&#x6d;</a>&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#112;&#104;&#x69;&#x6c;&#64;&#97;&#111;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x70;&#x68;&#x69;&#x6c;&#x40;&#97;&#111;&#x6c;&#46;&#99;&#111;&#109;</a>&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">fullName:</span> <span class="s1">&lsquo;Phil&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">password:</span> <span class="s1">&lsquo;password&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">username:</span> <span class="s1">&lsquo;phil&rsquo;</span>
@@ -51,7 +51,7 @@
 </div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&gt;</span> <span class="n">resp</span>
 </div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">()</span>
 </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="kt">def</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="o">[</span>
-</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x70;&#104;&#105;&#108;&#64;&#97;&#111;&#108;&#46;&#99;&#x6f;&#x6d;">&#112;&#x68;&#105;&#x6c;&#x40;&#x61;&#x6f;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>&rsquo;</span><span class="o">,</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">email:</span> <span class="s1">&lsquo;<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#58;&#x70;&#104;&#x69;&#x6c;&#x40;&#97;&#x6f;&#108;&#x2e;&#99;&#111;&#109;">&#112;&#x68;&#x69;&#x6c;&#64;&#97;&#x6f;&#108;&#46;&#x63;&#111;&#109;</a>&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">fullName:</span> <span class="s1">&lsquo;Phil&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">password:</span> <span class="s1">&lsquo;password&rsquo;</span><span class="o">,</span>
 </div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="nl">username:</span> <span class="s1">&lsquo;phil&rsquo;</span>
@@ -70,9 +70,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 3 Metrics and Path Variables]]></title>
-    <link href="http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/"/>
+    <link href="https://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens/"/>
     <updated>2016-06-19T16:10:00-05:00</updated>
-    <id>http://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens</id>
+    <id>https://beckje01.com/blog/2016/06/19/grails-3-metrics-and-pathtokens</id>
     <content type="html"><![CDATA[<p>Grails 3 is built on top of SpringBoot on of the key components of SpringBoot is <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator">Actuator</a>. Actuator sets up Metrics and healthchecks all the things modern services are expected to just have. Grails 3 ships with the <code>/metrics</code> endpoint turned on meaning every request gets tracked by default the endpoint will be available to all logged in users assuming you are using some security.</p>
 
 <p>Most of the time this wouldn&rsquo;t be an issue and would be very nice to have those metrics the problem comes to the fact that currently all requests with Path Variables are treated as different endpoints. So requests to <code>/items/$id</code> of <code>/items/123</code> and <code>/items/333</code> will end up listed as two different metrics with the value of the path variable for everyone to see. This exposes more data than intended and doesn&rsquo;t provide really useful metrics. Its due to an issue in Actuator <a href="https://github.com/spring-projects/spring-boot/issues/5875">GH Issue 5875</a>. So until this is fixed I recommend turning off metrics collection all together for Grails 3.</p>
@@ -96,9 +96,9 @@
   
   <entry>
     <title type="html"><![CDATA[RxJava and Ratpack Testing Gotcha]]></title>
-    <link href="http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/"/>
+    <link href="https://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha/"/>
     <updated>2015-11-28T09:48:00-06:00</updated>
-    <id>http://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha</id>
+    <id>https://beckje01.com/blog/2015/11/28/rxjava-and-ratpack-testing-gotcha</id>
     <content type="html"><![CDATA[<p>Ratpack tends to stay out of the way when building out functionality so there are times you may make classes that use RxJava and Guice without anything from Ratpack. But there is one caveat during testing, if you are using RxJava in a unit test without any Ratpack integration that will work just fine. As soon as there is another test in the same execution that uses Ratpacks integration (<code>ratpack.dependency("rx")</code>) with RxJava such as a functional test you will start seeing the following error in the standard out:</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>java.lang.IllegalStateException: Cannot install RxJava integration because another execution hook (class rx.plugins.RxJavaObservableExecutionHookDefault) is already installed
@@ -123,9 +123,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 3 and JaCoCo]]></title>
-    <link href="http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco/"/>
+    <link href="https://beckje01.com/blog/2015/07/12/grails-3-and-jacoco/"/>
     <updated>2015-07-12T21:29:00-05:00</updated>
-    <id>http://beckje01.com/blog/2015/07/12/grails-3-and-jacoco</id>
+    <id>https://beckje01.com/blog/2015/07/12/grails-3-and-jacoco</id>
     <content type="html"><![CDATA[<p>Now that we have Gradle as our build system we have a whole range of plugins we can use directly in Gradle. For code coverage I am using the JaCoCo plugin. To use it with Grails we just apply the plugin to the build. By default you will get a HTML report, in the <code>build/report/jacoco</code> directory.</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">&ldquo;jacoco&rdquo;</span>
@@ -145,9 +145,9 @@
   
   <entry>
     <title type="html"><![CDATA[Vertx3 and Gradle Application Plugin]]></title>
-    <link href="http://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin/"/>
+    <link href="https://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin/"/>
     <updated>2015-05-17T16:45:08-05:00</updated>
-    <id>http://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin</id>
+    <id>https://beckje01.com/blog/2015/05/17/vertx3-and-gradle-application-plugin</id>
     <content type="html"><![CDATA[<p>Vertx 3 is a great step forward you can now work with Vertx without having to install a command line tool to run it. Now you can use standard Maven or Gradle to run your application.</p>
 
 <p>With Gradle the samples given all are based on the use of the great <a href="https://github.com/johnrengelman/shadow">Shadow Plugin</a>. While this is good for deployments and most local development I missed a few of the features of the application plugin.</p>
@@ -203,9 +203,9 @@
   
   <entry>
     <title type="html"><![CDATA[Grails 3 and Spring Java Config]]></title>
-    <link href="http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/"/>
+    <link href="https://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config/"/>
     <updated>2015-04-24T21:52:53-05:00</updated>
-    <id>http://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config</id>
+    <id>https://beckje01.com/blog/2015/04/24/grails-3-and-spring-java-config</id>
     <content type="html"><![CDATA[<p>The Spring Java config is a great way to work with Spring configuration. It feels similar to Google Guice, which I personally enjoy. Mr. Haki did a great write up on using it with <a href="http://mrhaki.blogspot.com/2014/08/grails-goodness-use-spring-java.html">Grails 2.4</a>.</p>
 
 <p>While working with Grails 3 there are a few areas that don&rsquo;t have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.</p>
@@ -240,9 +240,9 @@
   
   <entry>
     <title type="html"><![CDATA[SpringSecurity Impersonate Users Custom Roles]]></title>
-    <link href="http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
+    <link href="https://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles/"/>
     <updated>2015-04-18T20:54:00-05:00</updated>
-    <id>http://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
+    <id>https://beckje01.com/blog/2015/04/18/springsecurity-impersonate-users-custom-roles</id>
     <content type="html"><![CDATA[<p>The Grails SpringSecurity plugin has the ability to allow user impersonation which is a really great tool for support. But many times it makes sense to allow your support user to see different things than a user. We use a special role to achieve this behavior we can also have different roles for tiers of support.</p>
 
 <p>By default even impersonation or user switching is turned off in the plugin by default. You can easily turn it on with a config flag:</p>
@@ -286,9 +286,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cassandra Stale Snapshots]]></title>
-    <link href="http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/"/>
+    <link href="https://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots/"/>
     <updated>2015-03-12T09:47:19-05:00</updated>
-    <id>http://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots</id>
+    <id>https://beckje01.com/blog/2015/03/12/cassandra-stale-snapshots</id>
     <content type="html"><![CDATA[<p>While working with Cassandra we found that sometimes snapshots get left around after repairs fail or have issues. These can cause 100&rsquo;s of Gigs of space to just be wasted. This can add up quickly and cause issues. On a node with low disk space we can check for stale snapshots the following way.</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="nv">$ </span><span class="nb">cd</span> /cassandaData/cassandra/data/keyspace/
@@ -333,9 +333,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Grails Integration Testing of Complex Transactions]]></title>
-    <link href="http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
+    <link href="https://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions/"/>
     <updated>2015-02-14T15:41:00-06:00</updated>
-    <id>http://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
+    <id>https://beckje01.com/blog/2015/02/14/grails-integration-testing-of-complex-transactions</id>
     <content type="html"><![CDATA[<p>Integration testing complex transactions in grails can be tricky due to the default behavior of wrapping integration tests in transactions and rolling them back when complete.</p>
 
 <p>The simple solution is to simply turn off transactions for integration tests, that solution will work but tends to lead to data pollution in downstream tests. Burt Beckwith has a solution in his post <a href="http://burtbeckwith.com/blog/?p=82">An Alternative Approach for Grails Integration Tests</a>. Using this solution we can rebuild the database for each test.</p>
@@ -403,9 +403,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Memcached Tomcat Sessions and Grails App Info Plugin]]></title>
-    <link href="http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
+    <link href="https://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin/"/>
     <updated>2015-01-14T20:46:00-06:00</updated>
-    <id>http://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
+    <id>https://beckje01.com/blog/2015/01/14/memcached-tomcat-sessions-and-grails-app-info-plugin</id>
     <content type="html"><![CDATA[<p>The <a href="http://grails.org/plugin/app-info">App Info Plugin</a> for Grails is a great tool. We use it in most of our Grails deployments. One of the great features offered is the ability to view all current sessions and their details. Another tool we are using is <a href="https://code.google.com/p/memcached-session-manager/">Memcached Session Manager</a> which allows shared sessions between our Tomcat servers, great for rolling deploys and high availability.</p>
 
 <p>We found an issue while running both of these in production. Over time the number of sessions reported by App Info would grow extremely large. It turns out that having the App Info plugin track sessions for you when the sessions are shared via memcached can lead to the plugin holding onto references to sessions that have been destroyed on other severs.</p>
@@ -421,15 +421,15 @@ We will want to check when these snapshots where created so inside the snapshots
 
 <p>Below is our memory graph before and after the change:</p>
 
-<p><img src="http://beckje01.com/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
+<p><img src="https://beckje01.com/images/memchange.png" alt="Graph showing memory usage before and after the config change." /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Ratpack Promise]]></title>
-    <link href="http://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
+    <link href="https://beckje01.com/blog/2014/09/10/ratpack-promise/"/>
     <updated>2014-09-10T15:33:46-05:00</updated>
-    <id>http://beckje01.com/blog/2014/09/10/ratpack-promise</id>
+    <id>https://beckje01.com/blog/2014/09/10/ratpack-promise</id>
     <content type="html"><![CDATA[<p>Ratpack has a core class that is the center of the great asynchronous support, <a href="http://www.ratpack.io/manual/current/api/index.html?ratpack/exec/Promise.html">Promise</a>.</p>
 
 <p>Ratpack Promises are very easy to work with, there are just a few key points:</p>
@@ -511,9 +511,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Cassandra Upsert Everything]]></title>
-    <link href="http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
+    <link href="https://beckje01.com/blog/2014/08/13/cassandra-upsert-everything/"/>
     <updated>2014-08-13T18:16:00-05:00</updated>
-    <id>http://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
+    <id>https://beckje01.com/blog/2014/08/13/cassandra-upsert-everything</id>
     <content type="html"><![CDATA[<p>Cassandra inserts and updates should always be modeled as upserts when possible. Using the query builder in the Java native driver there isn&rsquo;t a direct upsert called out, but we can do updates instead of inserts for all cases. The update acts as an upsert and it reduces the number of queries you will need to build.</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Statement</span> <span class="n">upsert</span> <span class="o">=</span> <span class="n">QueryBuilder</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&ldquo;table&rdquo;</span><span class="o">)</span>
@@ -561,9 +561,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Failing @Grab Fixes]]></title>
-    <link href="http://beckje01.com/blog/2014/07/25/failing-at-grab-fixes/"/>
+    <link href="https://beckje01.com/blog/2014/07/25/failing-at-grab-fixes/"/>
     <updated>2014-07-25T06:54:30-05:00</updated>
-    <id>http://beckje01.com/blog/2014/07/25/failing-at-grab-fixes</id>
+    <id>https://beckje01.com/blog/2014/07/25/failing-at-grab-fixes</id>
     <content type="html"><![CDATA[<p>If you are working on a Groovy script with @Grab, you will sometimes get download failures for dependencies. Such as the following:</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>General error during conversion: Error grabbing Grapes &ndash; [download failed: com.google.guava#guava;16.0!guava.jar(bundle), download failed: org.javassist#javassist;3.18.1-GA!javassist.jar(bundle)]
@@ -583,9 +583,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Grails New Relic Detailed Tracing]]></title>
-    <link href="http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
+    <link href="https://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing/"/>
     <updated>2014-07-03T09:36:21-05:00</updated>
-    <id>http://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
+    <id>https://beckje01.com/blog/2014/07/03/grails-new-relic-detailed-tracing</id>
     <content type="html"><![CDATA[<p>New Relic with Grails by default will trace most web transactions through the controller but will not trace down into services. While most true work of a request belongs in services or libraries the default tracing leaves something to be desired.</p>
 
 <p>This is easily fixed by adding New Relic annotations to services and libraries.</p>
@@ -619,9 +619,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3.1 Warnings after clean.]]></title>
-    <link href="http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
+    <link href="https://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean/"/>
     <updated>2013-10-23T04:02:02-05:00</updated>
-    <id>http://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
+    <id>https://beckje01.com/blog/2013/10/23/grails-2-3-1-warnings-after-clean</id>
     <content type="html"><![CDATA[<p>If you are running grails 2.3.1 and see the following sequence pop up before you get some odd test failures.</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="nv">$ </span>grails clean
@@ -652,9 +652,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Grails 2.3 RC1 and JMS Plugin]]></title>
-    <link href="http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
+    <link href="https://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin/"/>
     <updated>2013-08-19T18:10:12-05:00</updated>
-    <id>http://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
+    <id>https://beckje01.com/blog/2013/08/19/grails-2-3-rc1-and-jms-plugin</id>
     <content type="html"><![CDATA[<p>Using the JMS 1.2 plugin with Grails 2.3.0.RC1 was producing a number of odd results. Mostly with missing JMS files it turns out that the new spring version didn’t have the needed spring jms included. Just add the following to BuildConfig.groovy</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">dependencies</span> <span class="o">&#x7b;</span>
@@ -668,9 +668,9 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails Custom UserDetailsService using a Grails Service
 ]]></title>
-    <link href="http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
+    <link href="https://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service/"/>
     <updated>2013-02-04T08:27:27-06:00</updated>
-    <id>http://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
+    <id>https://beckje01.com/blog/2013/02/04/grails-custom-userdetailsservice-using-a-grails-service</id>
     <content type="html"><![CDATA[<p>Using the Grails Spring Security Core Plugin I found the need to customize the UserDetailsService and use a Grails service. (Part of the roles logic depended on an external API that we already had a service for.) This was easy to accomplish by subclassing the UserDetailsService class I wanted as a base in my case it was actually the SpringSamlUserDetailsService class because I was using the SAML plugin but normally you would subclass GormUserDetailsService. A great starting example is given in the documentation <a href="http://grails-plugins.github.com/grails-spring-security-core/docs/manual/guide/11%20Custom%20UserDetailsService.html">here</a>.</p>
 
 <p>The difference in my case was the need to use the Grails service, I went with providing the service in the resources.groovy file. Below is the example file of what I used.</p>
@@ -710,9 +710,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[SAML Matching Endpoints with Tomcat]]></title>
-    <link href="http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
+    <link href="https://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat/"/>
     <updated>2013-02-03T11:09:23-06:00</updated>
-    <id>http://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
+    <id>https://beckje01.com/blog/2013/02/03/saml-matching-endpoints-with-tomcat</id>
     <content type="html"><![CDATA[<p>Getting, SAML message intended destination endpoint did not match recipient endpoint, errors mean the server itself dosen’t match the urls being given in the SAML messages.</p>
 
 <p>We are using the Grails Spring Security SAML Plugin on a Tomcat server. In my case this was happening because we were doing SSL offloading on the load balancer. So if you look at the logs there should be an error log with the intended destination and the recipient endpoint.</p>
@@ -795,9 +795,9 @@ We will want to check when these snapshots where created so inside the snapshots
   <entry>
     <title type="html"><![CDATA[Grails Display the Current Spring Security Filter Chain
 ]]></title>
-    <link href="http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
+    <link href="https://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain/"/>
     <updated>2013-01-15T04:52:37-06:00</updated>
-    <id>http://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
+    <id>https://beckje01.com/blog/2013/01/15/grails-display-the-current-spring-security-filter-chain</id>
     <content type="html"><![CDATA[<p>While working with Grails and the Spring Security plugin, the current spring security filter chain is available in the <em>springSecurityFilterChain</em> bean. It is very easy with that to show what the current chain looks like so you can work through filter chain issues. I used the following code in the <a href="http://grails.org/plugin/console">Grails Console</a> plugin to get the bean:</p>
 
 <p><figure class='code-highlight-figure'><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kt">def</span> <span class="n">filterChain</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s1">&lsquo;springSecurityFilterChain&rsquo;</span><span class="o">)</span>
@@ -809,9 +809,9 @@ We will want to check when these snapshots where created so inside the snapshots
   
   <entry>
     <title type="html"><![CDATA[Cassandra Not Available After Starting]]></title>
-    <link href="http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
+    <link href="https://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting/"/>
     <updated>2012-12-28T04:25:45-06:00</updated>
-    <id>http://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
+    <id>https://beckje01.com/blog/2012/12/28/cassandra-not-available-after-starting</id>
     <content type="html"><![CDATA[<p>I’ve been working with the DataStax Enterprise 2.01 install for a bit now and it was working great until one day I was no longer able to get any queries to work using the cqlsh I was just getting the error that one or more nodes was unavailable. I tried restarting and still nothing would work I got a few errors in the logs (shown below).</p>
 
 <p>I was able to quickly fix the error by removing my data directory and starting fresh as this is just my development environment that works great for me. You can find your data directory in the cassandra.yaml file ($DSE_HOME/resources/cassandra/conf/cassandra.yaml), look for the <em>data_file_directories</em> entry. Mine was set to <em>/var/lib/cassandra/data</em> so I just ran the following and started cassandra fresh and everything is back to working order.</p>

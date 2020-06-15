@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://beckje01.com/sitemap.xml 
+Sitemap: https://beckje01.com/sitemap.xml 
