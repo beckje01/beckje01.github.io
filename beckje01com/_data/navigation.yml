@@ -1,0 +1,5 @@
+main:
+  - title: "About"
+    url: "https://jeffbeck.io"
+  - title: "Tech Blog"
+    url: "/"

@@ -1,0 +1,18 @@
+Jeff Beck:
+  avatar      : "/assets/jeff_head.jpg"
+  links:
+    - label: "beckje01"
+      icon: "fa-brands fa-x-twitter"
+      url: "https://twitter.com/beckje01"
+    - label: "beckje01"
+      icon: "fa-brands fa-github"
+      url: "https://github.com/beckje01/"
+    - label: "Jeff Beck"
+      icon: "fa-brands fa-linkedin-in"
+      url: "https://www.linkedin.com/in/jefferybeck/"
+    - label: "Technical Blog"
+      icon: "fa-solid fa-up-right-from-square"
+      url: "https://beckje01.com"
+    - label: "stackoverflow"
+      icon: "fa-brands fa-stack-overflow"
+      url: "https://stackoverflow.com/users/218098/jeff-beck"
