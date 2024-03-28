@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: https://beckje01.com/sitemap.xml 
