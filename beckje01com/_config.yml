@@ -28,12 +28,17 @@ twitter_username: beckje01
 github_username:  beckje01
 linkedin_username: jefferybeck
 
-# Build settings
+
+excerpt_separator: <!--more-->
+
+
 # theme: minima
 theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-archives
+  - jekyll-paginate
 
 footer:
   links:
@@ -56,11 +61,49 @@ defaults:
       type: posts
     values:
       layout: single
+      author: Jeff Beck
       author_profile: true
-      read_time: true
+      read_time: false
       comments: true
-      share: true
-      related: true
+      share: false
+      show_date: true
+      classes: wide
+      permalink: /blog/:year/:month/:day/:title/
+  - scope:
+      path: ""
+      type: tag
+    values:
+      author_profile: true
+  - scope:
+      path: ""
+      type: category
+    values:
+      comments: false      
+
+category_archive:
+  type: jekyll-archives
+  path: /categories/
+tag_archive:
+  type: jekyll-archives
+  path: /tags/
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
+
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "beckje01blog"
+
+paginate: 5    
 
 # Exclude from processing.
 # The following items will not be processed, by default.
