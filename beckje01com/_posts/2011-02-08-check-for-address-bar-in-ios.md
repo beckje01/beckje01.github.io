@@ -22,7 +22,7 @@ There are two properties we want to look at *“standalone” in window.navigato
 
 The following checks will after the page is loaded output to the console the mode its in. From there you can easily replace the console.log with what ever functions you would like.
 
-{ gist 926010 }
+<script src="https://gist.github.com/beckje01/926010.js"></script>
 
 There is a great write up by Ben Nadel you can find over at his blog. [Post][1]
 

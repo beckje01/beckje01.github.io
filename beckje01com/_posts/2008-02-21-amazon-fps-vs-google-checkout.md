@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: Amazon FPS vs Google Checkout
 excerpt:
-layout: post
 categories:
   - Web Development
 tags:

@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: Read only tables with IE6/IE7
 excerpt:
-layout: post
 categories:
   - JavaScript
 tags:

@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: Python CGI + FTP = Headache
 excerpt:
-layout: post
 categories:
   - Python
   - Software Engineering

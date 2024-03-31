@@ -25,4 +25,4 @@ But note this config change effect will effect how a war is made so you can't si
 
 Below is our memory graph before and after the change:
 
-![Graph showing memory usage before and after the config change.](/images/memchange.png)
+![Graph showing memory usage before and after the config change.](/assets/posts/memchange.png)

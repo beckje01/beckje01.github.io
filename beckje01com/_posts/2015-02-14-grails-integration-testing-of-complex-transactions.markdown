@@ -20,7 +20,8 @@ In general most of the time you can use the default transactional testing behavi
 
 ## Updated Solution
 
-```groovy NonTransactionalIntegrationSpec.groovy
+### NonTransactionalIntegrationSpec.groovy
+```groovy 
 import org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration

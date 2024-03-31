@@ -25,7 +25,7 @@ To make this work I made a quick JavaScript utility that I can use to output the
 
 Its rather simple just using the UTC versions of getting the date and time elements I construct a string that will be ISO-8601 formatted. I have tested this in IE 7, 8, and 9 Chrome and FireFox. If there are any issues feel free to comment and I will do what I can to help.
 
-{ gist 961617 }
+<script src="https://gist.github.com/beckje01/961617.js"></script>
 
  [1]: http://joda-time.sourceforge.net/
  [2]: http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()

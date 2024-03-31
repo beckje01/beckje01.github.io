@@ -1,8 +1,6 @@
 ---
-author: Jeff
 title: Go Daddy Subdomain Redirects
 excerpt:
-layout: post
 categories:
   - Web Development
 tags:
@@ -24,13 +22,6 @@ The process is simple once you find the correct section. Simply click add then f
 
 
 
-[![Add to Del.icio.us][5]][5] [![Add to Facebook][6]][6] [![Add to LinkedIn][7]][7] [![Add to reddit][8]][8] [![Add to Twitter][9]][9]
-
  [1]: http://www.thingelstad.com/friendly-social-urls-using-redirects/
  [2]: http://twitter.jeffbeck.info
  [3]: http://jeffbeck.info/blog/wp-content/uploads/2009/04/subdomain-1024x440.jpg "subdomain"
- []: http://del.icio.us/post?url=&title= "Add to Del.icio.us"
- []: http://www.facebook.com/sharer.php?u= "Add to Facebook"
- []: http://www.linkedin.com/shareArticle?mini=true&url=&title= "Add to LinkedIn"
- []: http://reddit.com/submit?url=&title= "Add to reddit"
- []: http://twitter.com/home/?status=Check+out++@+ "Add to Twitter"

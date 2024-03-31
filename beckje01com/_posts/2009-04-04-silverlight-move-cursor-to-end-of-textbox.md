@@ -1,10 +1,7 @@
 ---
-author: Jeff
 title: >
   Silverlight Move Cursor to End of
   TextBox
-excerpt:
-layout: post
 categories:
   - 'C#'
   - Silverlight

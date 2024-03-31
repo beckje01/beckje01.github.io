@@ -17,7 +17,8 @@ Ratpack Promises are very easy to work with, there are just a few key points:
 
 ## Happy Path
 
-``` groovy Consuming Value from Promise
+### Consuming Value from Promise
+``` groovy 
 Promise promise = somethingThatReturnsPromise()
 
 promise.then {
@@ -27,7 +28,8 @@ promise.then {
 
 What we are doing here is giving a closure to the promise that once the value is ready the closure will be called with the value passed in as a parameter. We can also be very explicit in what we are getting back from the promise.
 
-``` groovy Explicit Value from Promise
+### Explicit Value from Promise
+``` groovy 
 def p = httpClient.get {
   it.url.set(new URI("http://example.com"))
 }
@@ -42,7 +44,8 @@ If some error occurs while trying to get the value for the `then` block the exce
 
 So for this works great when dealing with the happy path and wanting exceptions. But we also may want to deal with failures to fulfill the promise. So to do this we start with `onError` instead of `then`.
 
-``` groovy Ratpack Promise with Failure Path
+### Ratpack Promise with Failure Path
+``` groovy 
 httpClient.get {
     it.url.set(new URI("http://example.com"))
 } onError {
@@ -57,7 +60,8 @@ httpClient.get {
 
 Ratpack promises won't actually try to generate the value until the `then` block is called at the end of the current execution. This is done to allow for deterministic asynchronous operations.
 
-``` groovy Deterministic Promise
+### Deterministic Promise
+``` groovy 
 def doWork() {
   httpClient.get { … }.then { … }
   sleep 5000
@@ -71,7 +75,8 @@ What will happen in Ratpack is we will always get the exception "bang!", because
 
 You shouldn't try to attach more than once to a Promise, as what ends up happening is two different promise instances will execute in the background and what we want is only to deal with that value once. So don't do the following:
 
-``` groovy Don't do this
+### Don't do this
+``` groovy 
 
 def p = httpClient.get {
   it.url.set(new URI("http://example.com"))

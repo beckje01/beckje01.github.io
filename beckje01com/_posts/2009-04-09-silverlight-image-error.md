@@ -1,8 +1,6 @@
 ---
-author: Jeff
 title: Silverlight Image Error
 excerpt:
-layout: post
 categories:
   - Silverlight
 tags: [ ]

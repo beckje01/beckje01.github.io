@@ -11,7 +11,8 @@ The Spring Java config is a great way to work with Spring configuration. It feel
 
 While working with Grails 3 there are a few areas that don't have plugins yet but do have Spring modules we can leverage. So I started out with the same path given for Grails 2.X.
 
-```yaml application.yml
+### application.yml
+```yaml 
 grails:
     profile: web
     codegen:
@@ -28,7 +29,8 @@ So I switched over to using `@ComponentScan` then the requests were properly map
 
 Using ComponentScan with Grails 3 is very easy:
 
-```groovy Application.groovy
+### Application.groovy
+```groovy 
 @ComponentScan("example.config")
 class Application extends GrailsAutoConfiguration {
   //...

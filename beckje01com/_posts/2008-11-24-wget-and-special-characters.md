@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: wget and special characters
 excerpt:
-layout: post
 categories:
   - Software Engineering
 tags:

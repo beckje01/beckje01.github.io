@@ -1,8 +1,6 @@
 ---
-author: Jeff
 title: Connector/J 5.1.6 vs Connector/J 5.1.7
 excerpt:
-layout: post
 categories:
   - Java
   - Web Development

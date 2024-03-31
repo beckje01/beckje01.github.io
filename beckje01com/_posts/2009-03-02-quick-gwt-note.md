@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: Quick GWT Note
 excerpt:
-layout: post
 categories:
   - Java
   - Web Development

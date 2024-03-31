@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: java.lang.IncompatibleClassChangeError
 excerpt:
-layout: post
 categories:
   - Java
   - Software Engineering

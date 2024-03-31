@@ -2,7 +2,6 @@
 author: Jeff Beck
 title: Broken Dynamic Tables
 excerpt:
-layout: post
 categories:
   - JavaScript
   - Software Engineering

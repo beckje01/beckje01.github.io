@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: How to guarantee project delays
 excerpt:
-layout: post
 categories:
   - Project Managment
   - Software Engineering

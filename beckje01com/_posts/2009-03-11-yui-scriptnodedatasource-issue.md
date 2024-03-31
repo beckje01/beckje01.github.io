@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: YUI ScriptNodeDataSource Issue
 excerpt:
-layout: post
 categories:
   - JavaScript
   - Web Development

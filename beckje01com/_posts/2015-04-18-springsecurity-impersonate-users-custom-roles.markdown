@@ -38,7 +38,8 @@ class RoleImpersonatedSwitchUserAuthorityChanger implements SwitchUserAuthorityC
 
 In Grails we set our authority changer during bootstrap.
 
-```groovy BootStrap.groovy
+### BootStrap.groovy
+```groovy 
 
 class BootStrap {
 

@@ -1,8 +1,6 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: JavaScript / Flash Chart Alternative
-excerpt:
-layout: post
 categories:
   - JavaScript
   - Web Development

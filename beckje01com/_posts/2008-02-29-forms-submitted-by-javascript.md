@@ -1,8 +1,7 @@
 ---
-author: Jeff
+author: Jeff Beck
 title: 'Forms Submitted by JavaScript '
 excerpt:
-layout: post
 categories:
   - JavaScript
   - Web Development
