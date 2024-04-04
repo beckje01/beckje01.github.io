@@ -1,7 +1,7 @@
 ---
 author: Jeff Beck
 title: Displaying WebRTC Nest Cameras in an Android App
-date: 2024-03-19T19:39:56+00:00
+date: 2024-04-03T19:39:56+00:00
 comments: true
 categories:
 - Android
@@ -13,6 +13,8 @@ tags:
 ---
 
 Wanting to display some Nest Cameras in an Android App I needed to deal with the fact that there were two main flavors of cameras. In particular the version I need to support first was the Wired Camera that exposed WebRTC based video streams. So in order to accomplish showing WebRTC in an Android app I took the approach of embedding a webview and depending on the native JavaScript support for WebRTC.
+
+<!--more-->
 
 ## Parts
 
@@ -128,8 +130,87 @@ You'll note that we are selecting the `video` tag by id and updating the `srcObj
 
 ### Embed into Android
 
+Do actually show the HTML inside our android app we are going to make use of [Loading in-ap Content](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content#java).  The general idea is to setup a `WebViewAssetLoader` that will know how to for certian paths load files local to the app. We also need a WebView.
 
+First we setup the `WebViewClientCompat` subclass just like the tutorial linked.
 
+``` java
+private static class LocalContentWebViewClient extends WebViewClientCompat {
+
+    private final WebViewAssetLoader mAssetLoader;
+
+    LocalContentWebViewClient(WebViewAssetLoader assetLoader) {
+        mAssetLoader = assetLoader;
+    }
+
+    @Override
+    @RequiresApi(21)
+    public WebResourceResponse shouldInterceptRequest(WebView view,
+                                     WebResourceRequest request) {
+        return mAssetLoader.shouldInterceptRequest(request.getUrl());
+    }
+
+    @Override
+    @SuppressWarnings("deprecation") // To support API < 21.
+    public WebResourceResponse shouldInterceptRequest(WebView view,
+                                     String url) {
+        return mAssetLoader.shouldInterceptRequest(Uri.parse(url));
+    }
+}
+```
+
+Next we need to actually have a WebView I used the following inside a fragment xml
+
+``` xml
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+```
+
+For this app, I wanted to setup loading the HTML and JS we have from earlier after the view is created.
+
+``` java
+@Override
+public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+    //Configure the Asset Loader to for our known paths use local assets and resources.
+    WebViewAssetLoader webViewAssetLoader = new WebViewAssetLoader.Builder()
+            .setDomain("beckje01.io") //Set a domain we are going to assume is in all the HTML / JS
+            .addPathHandler("/assets/", //Load assets for this path.
+                            new WebViewAssetLoader.AssetsPathHandler(this.getContext()))  
+            .addPathHandler("/res/", //Load resources for this path.
+                            new WebViewAssetLoader.ResourcesPathHandler(this.getContext()))  
+            .build();
+
+    //Find WebView from the fragment.
+    WebView wb = view.findViewById(R.id.web_view);
+
+    if (wb != null) {
+        //Set WebViewClient to the Class we created before.
+        wb.setWebViewClient(new LocalContentWebViewClient(webViewAssetLoader));
+
+        //We need JavaScript enabled for our WebRTC video to actually work.
+        wb.getSettings().setJavaScriptEnabled(true);
+
+        //Load the apps local asset index.thml
+        wb.loadUrl("https://beckje01.io/assets/index.html");
+
+    } else {
+        //TODO Handle Missing WebView
+    }
+    super.onViewCreated(view, savedInstanceState);
+}
+```
+With all that wired together you should now at this point have a WebRTC based camera stream working inside a WebView in your Android app.
 
 ## Notes
 
