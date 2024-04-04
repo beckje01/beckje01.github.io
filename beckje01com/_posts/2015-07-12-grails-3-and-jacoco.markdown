@@ -13,6 +13,7 @@ Now that we have Gradle as our build system we have a whole range of plugins we 
 ```groovy
 apply plugin: "jacoco"
 ```
+<!--more-->
 
 But Grails 3 has it's test phases split up, out of the box you will have `test` and `integrationTest`. Starting with the JaCoCo gradle plugin, you will get coverage for just your `test` phase.
 
