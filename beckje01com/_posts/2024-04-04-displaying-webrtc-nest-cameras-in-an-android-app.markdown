@@ -12,7 +12,7 @@ tags:
 - Android
 ---
 
-Wanting to display some Nest Cameras in an Android App I needed to deal with the fact that there were two main flavors of cameras. In particular the version I need to support first was the Wired Camera that exposed WebRTC based video streams. So in order to accomplish showing WebRTC in an Android app I took the approach of embedding a webview and depending on the native JavaScript support for WebRTC.
+Wanting to display some Nest Cameras in an Android App, I needed to deal with the fact that there were two primary flavors of cameras. In particular, the version I needed to support first was the Wired Camera that exposed WebRTC-based video streams. So, in order to accomplish showing WebRTC in an Android app, I took the approach of embedding a WebView and depending on the native JavaScript support for WebRTC.
 
 <!--more-->
 
@@ -25,9 +25,9 @@ Wanting to display some Nest Cameras in an Android App I needed to deal with the
 
 ### API Access
 
-In order to use the Device APIs Google offers for the Nest devices you need to sign up and go through the basic setup steps. You will have to pay a fee of $5 as part of this setup. But after that it is generally standard OAuth 2 flows you use to get your token. 
+To use the Device APIs Google offers for the Nest devices, you need to sign up and go through the basic setup steps. You will have to pay a fee of $5 as part of this setup. But after that, you use standard OAuth 2 flows to get your token. 
 
-The developer docs for this are great and I can't add much other then to point you to following them:
+The developer docs for this are great, and I can’t add much other than to point you to the following them:
 
 [Nest Device Access Docs](https://developers.google.com/nest/device-access/registration)
 
@@ -50,12 +50,12 @@ We don't need much for the HTML page:
 </html>
 ```
 
-The `video` tag has a few extra elements added: `playsinline`, `autoplay`, `muted`. These three are all needed in order to allow the JavaScript to automatically start the feed when the page is loaded. Without those three attributes you will ilkey need a user action of pressing play or some click to start the stream.  
+The `video` tag has a few extra attributes added: `playsinline`, `autoplay`, `muted`. These three attributes are needed in order to allow the JavaScript to start the feed when the page is loaded automatically. Without those three attributes, you will likely need a user action of pressing play or some click to start the stream.  
 
 
 ### JavaScript
 
-The JavaScript doing all the real work is taken from [James Dilworth's](https://jamesdilworth.com/) post [Stream from the New Nest Camera (Battery) to the Web](https://jamesdilworth.com/all/stream-from-new-nest-camera-to-the-web/). There were some minor bits removed and streamlined but mainly this is the same as the post so refer to the main source for any information.
+The JavaScript doing all the real work is taken from [James Dilworth's](https://jamesdilworth.com/) post [Stream from the New Nest Camera (Battery) to the Web](https://jamesdilworth.com/all/stream-from-new-nest-camera-to-the-web/). Some minor bits were removed and streamlined, but this is the same as the post, so refer to the primary source for any information.
 
 ```js
 const configuration = { };
@@ -130,9 +130,10 @@ You'll note that we are selecting the `video` tag by id and updating the `srcObj
 
 ### Embed into Android
 
-Do actually show the HTML inside our android app we are going to make use of [Loading in-ap Content](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content#java).  The general idea is to setup a `WebViewAssetLoader` that will know how to for certian paths load files local to the app. We also need a WebView.
+To actually show the HTML inside our Android app, we are going to make use of [Loading in-app Content](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content#java).  The general idea is to set up a `WebViewAssetLoader` that will know how to for certain paths load files local to the app. We also need a WebView.
 
-First we setup the `WebViewClientCompat` subclass just like the tutorial linked.
+
+First, we set up the `WebViewClientCompat` subclass just like the tutorial linked.
 
 ``` java
 private static class LocalContentWebViewClient extends WebViewClientCompat {
@@ -159,7 +160,7 @@ private static class LocalContentWebViewClient extends WebViewClientCompat {
 }
 ```
 
-Next we need to actually have a WebView I used the following inside a fragment xml
+Next, we need a WebView. I used the following inside a fragment XML.
 
 ``` xml
 <LinearLayout
@@ -210,7 +211,7 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
     super.onViewCreated(view, savedInstanceState);
 }
 ```
-With all that wired together you should now at this point have a WebRTC based camera stream working inside a WebView in your Android app.
+With all that wired together, you should now have a WebRTC-based camera stream working inside a WebView in your Android app.
 
 ## Notes
 
