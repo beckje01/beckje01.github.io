@@ -25,6 +25,8 @@
       {% endif %}
     </h2>
     {% include page__meta.html type=include.type %}
-    {% if post.excerpt %}<div class="archive__item-excerpt" itemprop="description">{{ post.excerpt  }}</div>{% endif %}
+    {% if post.excerpt %}<div class="archive__item-excerpt" itemprop="description">{{ post.excerpt  }}</div>
+    <div class="btn btn--primary" style="font-weight: normal;">More →</div>
+    {% endif %}
   </article>
 </div>

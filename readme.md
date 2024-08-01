@@ -7,5 +7,5 @@ In the `beckje01com` dir
 
 ```
 bundle install
-bundle exec jeykll serve --force-polling
+bundle exec jekyll serve --force-polling
 ```

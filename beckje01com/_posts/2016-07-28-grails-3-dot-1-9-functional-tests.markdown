@@ -12,6 +12,8 @@ With Grails 3.1.9 and above we now get a default port for Functional tests that 
 
 While this is a nice addition our tests which were not using Geb were left broken this is due to the fact we now need to know what port was selected for a given run of the tests. So our old test:
 
+<!--more-->
+
 ```groovy
 @Integration
 class UserEndpointSpec extends Specification {  

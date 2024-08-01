@@ -19,6 +19,8 @@ java.lang.IllegalStateException: Cannot install RxJava integration because anoth
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-all-2.4.4.jar:2.4.4]
 ```
 
+<!--more-->
+
 Many of your functional tests will start failing with very unpredictable results. What is happening is any use of RxJava that runs before the Ratpacks integration will set up an execution hook meaning the strong guarantees about execution Ratpack provides will not be available leading to unpredictable behavior. This is an easy fix for the test, we just need Ratpack to setup the hook in these other tests we can simply add the following to a Spock spec:
 
 ```groovy
