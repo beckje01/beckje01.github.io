@@ -1,7 +1,7 @@
 ---
 author: Jeff Beck
 title: Displaying WebRTC Nest Cameras in an Android App
-date: 2024-04-03T19:39:56+00:00
+date: 2024-07-31T19:39:56+00:00
 comments: true
 categories:
 - Android
