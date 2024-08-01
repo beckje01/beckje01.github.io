@@ -97,6 +97,9 @@ jekyll-archives:
     category: /categories/:name/
     tag: /tags/:name/
 
+analytics:
+  provider: "custom"
+
 
 comments:
   provider: "disqus"
