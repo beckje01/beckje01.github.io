@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://beckje01.com/sitemap.xml
